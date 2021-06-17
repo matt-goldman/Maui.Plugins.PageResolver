@@ -116,5 +116,5 @@ This is just something I put together for myself, but thought it might be useful
 # TODO
 - [ ] Use refelction / code generation to automatically register pages and view models
 - [ ] (Pending C# 10) Add a global using for this package
-- [ ] Set upGitHub Action to publish package
+- [ ] Set up GitHub Action to publish package
 - [ ] (Possibly) change namespace used
