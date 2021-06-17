@@ -114,7 +114,7 @@ await Navigation.PushModalAsync<MyPage>();
 This is just something I put together for myself, but thought it might be useful to others. If you use it and it's helpful, great. If not, please remember it's an early attempt at doing something useful for a preview version of MAUI. If you have comments or suggestions, feedback is welcome.
 
 # TODO
-[] Use refelction / code generation to automatically register pages and view models
-[] (Pending C# 10) Add a global using for this package
-[] Set upGitHub Action to publish package
-[] (Possibly) change namespace used
+- [ ] Use refelction / code generation to automatically register pages and view models
+- [ ] (Pending C# 10) Add a global using for this package
+- [ ] Set upGitHub Action to publish package
+- [ ] (Possibly) change namespace used
