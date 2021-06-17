@@ -17,7 +17,7 @@ dotnet add package Goldie.MauiPlugins.PageResolver
 ```
 
 ## Step 2: Register dependencies
-Currently, your services, view models, and pages all need to be registered in the service collection. Update the Configure method in your Startup.cs as follows
+Your services, view models, and pages all need to be registered in the service collection. Update the Configure method in your Startup.cs as follows
 
 ```cs
 using Microsoft.Maui;
@@ -114,7 +114,7 @@ await Navigation.PushModalAsync<MyPage>();
 This is just something I put together for myself (with some input from [William Liebenberg](https://github.com/william-liebenberg)), but thought it might be useful to others. If you use it and it's helpful, great. If not, please remember it's an early attempt at doing something useful for a preview version of MAUI. If you have comments or suggestions, feedback is welcome.
 
 # TODO
-- [ ] Use refelction / code generation to automatically register pages and view models
+- [ ] Use reflection / code generation to automatically register pages and view models
 - [ ] (Pending C# 10) Add a global using for this package
 - [ ] Set up GitHub Action to publish package
-- [ ] (Possibly) change namespace used
+- [ ] (Possibly) change namespace
