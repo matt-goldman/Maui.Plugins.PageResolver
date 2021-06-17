@@ -10,7 +10,11 @@ await Navigation.PushAsync<MyPage>();
 # Getting Started
 
 ## Step 1: Install Nuget package
-Install the Nuget package here...
+Install the Nuget package
+
+```cs
+dotnet add package Goldie.MauiPlugins.PageResolver
+```
 
 ## Step 2: Register dependencies
 Currently, your services, viewmodels, and pages all need to be registered in the service collection. Update the Configure method in your Startup.cs as follows
@@ -104,3 +108,13 @@ Modal pages are also supported:
 ```cs
 await Navigation.PushModalAsync<MyPage>();
 ```
+
+# Notes
+
+This is just something I put together for myself, but thought it might be useful to others. If you use it and it's helpful, great. If not, please remember it's an early attempt at doing something useful for a preview version of MAUI. If you have comments or suggestions, feedback is welcome.
+
+# TODO
+[] Use refelction / code generation to automatically register pages and view models
+[] (Pending C# 10) Add a global using for this package
+[] Set upGitHub Action to publish package
+[] (Possibly) change namespace used
