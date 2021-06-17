@@ -1,5 +1,5 @@
-# Maui PageResolver
-A simple and lightweight page resolver for use in dotnet MAUI projects.
+# MAUI PageResolver
+A simple and lightweight page resolver for use in .NET MAUI projects.
 
 While we're waiting for the full MVVM frameworks we know and love to be updated for MAUI, or if you just want a simple page resolver with DI without using a full MVVM framework (or if you want to use MVU), this package will let you navigate to fully resolved pages, with view models and dependencies, by calling:
 
@@ -111,7 +111,7 @@ await Navigation.PushModalAsync<MyPage>();
 
 # Notes
 
-This is just something I put together for myself, but thought it might be useful to others. If you use it and it's helpful, great. If not, please remember it's an early attempt at doing something useful for a preview version of MAUI. If you have comments or suggestions, feedback is welcome.
+This is just something I put together for myself (with some input from [William Liebenberg](https://github.com/william-liebenberg)), but thought it might be useful to others. If you use it and it's helpful, great. If not, please remember it's an early attempt at doing something useful for a preview version of MAUI. If you have comments or suggestions, feedback is welcome.
 
 # TODO
 - [ ] Use refelction / code generation to automatically register pages and view models
