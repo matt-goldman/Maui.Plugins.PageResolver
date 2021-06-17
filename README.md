@@ -17,7 +17,7 @@ dotnet add package Goldie.MauiPlugins.PageResolver
 ```
 
 ## Step 2: Register dependencies
-Currently, your services, viewmodels, and pages all need to be registered in the service collection. Update the Configure method in your Startup.cs as follows
+Currently, your services, view models, and pages all need to be registered in the service collection. Update the Configure method in your Startup.cs as follows
 
 ```cs
 using Microsoft.Maui;
@@ -25,7 +25,7 @@ using Microsoft.Maui.Hosting;
 using Microsoft.Maui.Controls.Compatibility;
 // Add reference to PageResolver
 using Maui.Plugins.PageResolver;
-// Add any required references to your services, viewmodels, etc.
+// Add any required references to your services, view models, etc.
 using MyApp.Services;
 using MyApp.ViewModels;
 using MyApp.Views;
