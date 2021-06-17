@@ -1,4 +1,4 @@
-# Maui.Plugins.PageResolver
+# Maui PageResolver
 A simple and lightweight page resolver for use in dotnet MAUI projects.
 
 While we're waiting for the full MVVM frameworks we know and love to be updated for MAUI, or if you just want a simple page resolver with DI without using a full MVVM framework (or if you want to use MVU), this package will let you navigate to fully resolved pages, with view models and dependencies, by calling:
