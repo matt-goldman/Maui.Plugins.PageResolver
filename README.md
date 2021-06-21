@@ -1,3 +1,5 @@
+[![NuGet Status](https://img.shields.io/nuget/v/dotnet-repl.svg?style=flat)](https://www.nuget.org/packages/Goldie.MauiPlugins.PageResolver/) 
+
 # MAUI PageResolver
 A simple and lightweight page resolver for use in .NET MAUI projects.
 
