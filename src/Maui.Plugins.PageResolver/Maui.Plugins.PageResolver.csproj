@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+    <UseMaui>true</UseMaui>
     <Authors>Matt Goldman</Authors>
     <Company>SSW</Company>
     <RepositoryUrl>https://github.com/matt-goldman/Maui.Plugins.PageResolver</RepositoryUrl>
@@ -14,10 +15,6 @@
     <PackageIconUrl />
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Maui" Version="6.0.100-preview.4.*" />
-  </ItemGroup>
 
   <ItemGroup>
     <None Include="..\..\..\matt-goldman.github.io\docs\images\gfg.png">
