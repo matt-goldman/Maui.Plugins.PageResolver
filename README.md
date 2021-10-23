@@ -34,35 +34,37 @@ using MyApp.Views;
 
 namespace MyApp
 {
-    public class Startup : IStartup
-    {
-        public void Configure(IAppHostBuilder appBuilder)
-        {
-            appBuilder
-                .UseFormsCompatibility()
-                .UseMauiApp<App>()
-                // Add ConfigureServices
-                .ConfigureServices(services =>
-                {
-                    // register your services
-                    services.AddSingleton<IMyService, MyService>();
+    public static class MauiProgram
+	{
+		public static MauiApp CreateMauiApp()
+		{
+			var builder = MauiApp.CreateBuilder();
+			builder
+				.UseMauiApp<App>()				
+				.ConfigureFonts(fonts =>
+				{
+					fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+				});
 
-                    // register your view models
-                    services.AddTransient<MyViewModel>();
+            // register your services
+            builder.Services.AddSingleton<IMyService, MyService>();
 
-                    // register your views
-                    services.AddTransient<MyPage>();
+            // register your view models
+            builder.Services.AddTransient<MyViewModel>();
 
-                    // register the page resolver
-                    services.UsePageResolver();
-                })
-                .ConfigureFonts(fonts =>
-                {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                });
+            // register your views
+            builder.Services.AddTransient<MyPage>();
+
+            // register the page resolver
+            builder.Services.UsePageResolver();
+
+            return builder.Build();
         }
     }
 }
+
+
+
 ```
 
 ## Step 3: Inject your dependencies
