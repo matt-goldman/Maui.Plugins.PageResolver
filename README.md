@@ -38,13 +38,13 @@ namespace MyApp
     {
         public static MauiApp CreateMauiApp()
         {
-			var builder = MauiApp.CreateBuilder();
-			builder
-				.UseMauiApp<App>()				
-				.ConfigureFonts(fonts =>
-				{
-					fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-				});
+            var builder = MauiApp.CreateBuilder();
+            builder
+            .UseMauiApp<App>()				
+            .ConfigureFonts(fonts =>
+            {
+                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+            });
 
             // register your services
             builder.Services.AddSingleton<IMyService, MyService>();
