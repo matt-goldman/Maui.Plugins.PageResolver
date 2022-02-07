@@ -14,7 +14,7 @@ namespace Maui.Plugins.PageResolver
             var sp = sc.BuildServiceProvider();
             Resolver.RegisterServiceProvider(sp);
         }
-#
+
         /// <summary>
         /// Registers the services in the service collection with the page resolver
         /// </summary>
