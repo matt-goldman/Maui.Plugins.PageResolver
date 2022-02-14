@@ -44,7 +44,10 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 6.x.x
-        include-prerelease: true    
+        include-prerelease: true
+
+    - name: Install workloads
+      run: dotnet workload install maui maui-windows
 
     - name: Build
       run: dotnet build $env:SOLUTION --configuration $env:BUILD_CONFIG -p:Version=$env:BUILD_VERSION --no-restore
