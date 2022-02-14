@@ -16,7 +16,7 @@ jobs:
 
     env:
       BUILD_CONFIG: 'Release'
-      SOLUTION: 'Maui.Plugins.PageResolver.sln'
+      SOLUTION: './src/Maui.Plugins.PageResolver.sln'
 
     runs-on: ubuntu-latest
 
