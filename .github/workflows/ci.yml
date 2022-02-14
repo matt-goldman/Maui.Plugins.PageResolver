@@ -35,7 +35,7 @@ jobs:
       uses: NuGet/setup-nuget@v1.0.5
 
     - name: Install workloads
-      run: dotnet workload install maui
+      run: dotnet workload install maui maui-windows
 
     - name: Restore dependencies
       run: dotnet restore $env:SOLUTION
