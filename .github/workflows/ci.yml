@@ -35,10 +35,10 @@ jobs:
       uses: NuGet/setup-nuget@v1.0.5
 
     - name: list directory contents
-      run: dir
+      run: dir .\src
 
     - name: Restore dependencies
-      run: dotnet restore $SOLUTION
+      run: dotnet restore .\src\Maui.Plugins.PageResolver.sln
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
