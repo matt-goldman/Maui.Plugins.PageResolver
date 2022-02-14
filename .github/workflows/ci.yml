@@ -37,6 +37,9 @@ jobs:
     - name: list directory contents
       run: dir .\src
 
+    - name: Install workloads
+      run: dotnet workload install maui
+
     - name: Restore dependencies
       run: dotnet restore .\src\Maui.Plugins.PageResolver.sln
 
@@ -44,10 +47,7 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 6.x.x
-        include-prerelease: true
-
-    - name: Install workloads
-      run: dotnet workload install maui
+        include-prerelease: true    
 
     - name: Build
       run: dotnet build $SOLUTION --configuration $BUILD_CONFIG -p:Version=$BUILD_VERSION --no-restore
