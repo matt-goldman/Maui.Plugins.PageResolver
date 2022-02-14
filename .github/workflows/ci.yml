@@ -34,14 +34,11 @@ jobs:
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v1.0.5
 
-    - name: list directory contents
-      run: dir .\src
-
     - name: Install workloads
       run: dotnet workload install maui
 
     - name: Restore dependencies
-      run: dotnet restore .\src\Maui.Plugins.PageResolver.sln
+      run: dotnet restore $env:SOLUTION
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
@@ -50,7 +47,7 @@ jobs:
         include-prerelease: true    
 
     - name: Build
-      run: dotnet build $SOLUTION --configuration $BUILD_CONFIG -p:Version=$BUILD_VERSION --no-restore
+      run: dotnet build $env:SOLUTION --configuration $env:BUILD_CONFIG -p:Version=$env:BUILD_VERSION --no-restore
 
     - name: Run tests
       run: dotnet test /p:Configuration=$env:BUILD_CONFIG --no-restore --no-build --verbosity normal
