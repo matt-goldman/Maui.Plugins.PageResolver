@@ -62,10 +62,26 @@ namespace MyApp
         }
     }
 }
-
-
-
 ```
+
+You can also register the PageResolver using the fluent API:
+
+```csharp
+MauiAppBuilder? builder = MauiApp.CreateBuilder();
+builder
+    .UseMauiApp<App>()
+    .UseMauiCommunityToolkit()
+    .UsePageResolver()
+    .ConfigureFonts(fonts =>
+    {
+        fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+        fonts.AddFont("la-solid-900.ttf", "LASolid");
+    });
+
+return builder.Build();
+```
+
+(Thanks to @IeuanWalker). Just like the first approach, you need to make sure to register your dependencies before registering the PageResolver.
 
 ## Step 3: Inject your dependencies
 
@@ -113,12 +129,21 @@ Modal pages are also supported:
 await Navigation.PushModalAsync<MyPage>();
 ```
 
+It might be helpful to add a global using for the PageResolver so that you don't have to reference it in every file. If you have an `_Imports.cs` file in your project (or other file somewhere that you register all your global usings), add the reference in there:
+
+```csharp
+global using Maui.Plugins.PageResolver;
+```
+
+If you don't have a file for registering all your global usings, you can add this anywhere in your project. But a single global usings file is a good idea.
+
 # Notes
 
 This is just something I put together for myself (with some input from [William Liebenberg](https://github.com/william-liebenberg)), but thought it might be useful to others. If you use it and it's helpful, great. If not, please remember it's an early attempt at doing something useful for a preview version of MAUI. If you have comments or suggestions, feedback is welcome.
 
 # TODO
 - [ ] Use reflection / code generation to automatically register pages and view models
-- [ ] (Pending C# 10) Add a global using for this package
-- [ ] Set up GitHub Action to publish package
+- [x] (Pending C# 10) Add a global using for this package
+  - [x] Added to readme
+- [x] Set up GitHub Action to publish package
 - [ ] (Possibly) change namespace
