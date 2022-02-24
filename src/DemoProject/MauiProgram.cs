@@ -15,7 +15,7 @@ namespace DemoProject
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 });
 
-            UseAutoReg(builder.Services);
+            UseAutoreg(builder.Services);
 
             //builder.Services.AddTransient<MainPage>();
 
@@ -26,6 +26,6 @@ namespace DemoProject
             return builder.Build();
         }
 
-        static partial void UseAutoReg(IServiceCollection services);
+        static partial void UseAutoreg(IServiceCollection services);
     }
 }
