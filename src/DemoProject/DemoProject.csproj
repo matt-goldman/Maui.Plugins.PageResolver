@@ -53,8 +53,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Goldie.MauiPlugins.PageResolver" Version="1.0.2" />
-	  <PackageReference Include="Goldie.MauiPlugins.PageResolver.Autoreg" Version="1.0.0" />
+	  <ProjectReference Include="..\Maui.Plugins.PageResolver.Autoreg\Maui.Plugins.PageResolver.Autoreg.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
+	  <ProjectReference Include="..\Maui.Plugins.PageResolver\Maui.Plugins.PageResolver.csproj" />
 	</ItemGroup>
 
 	<PropertyGroup Condition="$(TargetFramework.Contains('-windows'))">
