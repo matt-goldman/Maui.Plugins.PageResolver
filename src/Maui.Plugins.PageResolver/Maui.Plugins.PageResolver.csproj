@@ -4,9 +4,9 @@
     <TargetFramework>net6.0</TargetFramework>
     <UseMaui>true</UseMaui>
     <Authors>Matt Goldman</Authors>
-    <Company>SSW</Company>
+    <Company></Company>
     <RepositoryUrl>https://github.com/matt-goldman/Maui.Plugins.PageResolver</RepositoryUrl>
-    <Copyright>Matt Goldman 2021</Copyright>
+    <Copyright>Matt Goldman 2022</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Goldie.MauiPlugins.PageResolver</PackageId>
     <PackageLicenseExpression></PackageLicenseExpression>
