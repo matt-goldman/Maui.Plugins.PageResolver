@@ -5,9 +5,9 @@ VisualStudioVersion = 17.2.32210.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maui.Plugins.PageResolver", "Maui.Plugins.PageResolver\Maui.Plugins.PageResolver.csproj", "{34BC27F4-EAED-450D-956D-7943B8BD8148}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoProject", "DemoProject\DemoProject.csproj", "{7532E715-FA16-4EFC-BB5E-488F80258174}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoProject", "DemoProject\DemoProject.csproj", "{7532E715-FA16-4EFC-BB5E-488F80258174}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maui.Plugins.PageResolver.SourceGen", "Maui.Plugins.PageResolver.SourceGen\Maui.Plugins.PageResolver.SourceGen.csproj", "{162F43DB-8889-4BAD-A850-16D1695F31DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maui.Plugins.PageResolver.Autoreg", "Maui.Plugins.PageResolver.Autoreg\Maui.Plugins.PageResolver.Autoreg.csproj", "{162F43DB-8889-4BAD-A850-16D1695F31DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
