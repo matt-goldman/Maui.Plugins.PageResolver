@@ -11,7 +11,7 @@ await Navigation.PushAsync<MyPage>();
 
 # Getting Started
 
-Check out the for full instructions on [using PageResolver](https://github.com/matt-goldman/Maui.Plugins.PageResolver/wiki/Using-the-PageResolver) and [using auto-dependency registration](https://github.com/matt-goldman/Maui.Plugins.PageResolver/wiki/Using-Auto-registration-(experimental)).
+Check out the for full instructions in the wiki on [using PageResolver](https://github.com/matt-goldman/Maui.Plugins.PageResolver/wiki/Using-the-PageResolver) and [using auto-dependency registration](https://github.com/matt-goldman/Maui.Plugins.PageResolver/wiki/Using-Auto-registration-(experimental)).
 
 # Notes
 
