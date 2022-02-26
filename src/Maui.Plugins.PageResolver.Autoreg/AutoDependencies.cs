@@ -169,7 +169,7 @@ public static partial class {mauiProgram.Name}
                 var typeName = mauiProgram.Name;
 
                 context.AddSource($"{typeName}.g.cs", sourceBuilder.ToString());
-                System.IO.File.WriteAllText($@"E:\{typeName}.g.cs", sourceBuilder.ToString());
+                Log.WriteLine($"Generated: {typeName}.g.cs, {sourceBuilder}");
             }
             catch (Exception ex)
             {
@@ -219,7 +219,7 @@ public static partial class {mauiProgram.Name}
 
         public static void FlushLog()
         {
-            System.IO.File.WriteAllText(@"E:\autogen.log", _builder.ToString());
+            System.Diagnostics.Debug.Write(_builder.ToString());
         }
     }
 }
