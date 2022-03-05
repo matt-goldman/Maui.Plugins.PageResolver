@@ -11,7 +11,7 @@ namespace Maui.Plugins.PageResolver
         /// REgisters the service provider and creates a dependency scope
         /// </summary>
         /// <param name="sp"></param>
-        public static void RegisterServiceProvider(IServiceProvider sp)
+        internal static void RegisterServiceProvider(IServiceProvider sp)
         {
             scope = sp.CreateScope();
         }
@@ -21,11 +21,16 @@ namespace Maui.Plugins.PageResolver
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static T Resolve<T>() where T : class
+        internal static T Resolve<T>() where T : class
         {
             var result = scope.ServiceProvider.GetRequiredService<T>();
 
             return result;
+        }
+
+        internal static IServiceProvider GetServiceProvider()
+        {
+            return scope.ServiceProvider;
         }
     }
 }

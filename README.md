@@ -23,4 +23,5 @@ Please note .NET MAUI has not been released yet, so some bumps should be expecte
 - [x] (Pending C# 10) Add a global using for this package
   - [x] Added to readme
 - [x] Set up GitHub Action to publish package
+- [x] Enable page parameters to be passed
 - [ ] (Possibly) change namespace

@@ -6,6 +6,7 @@ namespace DemoProject
     {
         public MainPage(MainViewModel viewModel)
         {
+            viewModel.Navigation = Navigation;
             BindingContext = viewModel;
             InitializeComponent();
         }
