@@ -23,11 +23,19 @@
                 HorizontalOptions="Center" />
 
             <Button 
-                Text="Click me"
+                Text="Click to show name on this page"
                 FontAttributes="Bold"
                 Grid.Row="3"
                 SemanticProperties.Hint="Counts the number of times you click"
                 Command="{Binding GetNameCommand}"
+                HorizontalOptions="Center" />
+
+            <Button 
+                Text="Click to go to name page"
+                FontAttributes="Bold"
+                Grid.Row="3"
+                SemanticProperties.Hint="Counts the number of times you click"
+                Command="{Binding GoToNameCommand}"
                 HorizontalOptions="Center" />
 
             <Image Grid.Row="4"
