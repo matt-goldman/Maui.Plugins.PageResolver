@@ -1,5 +1,11 @@
 [![NuGet Status](https://img.shields.io/nuget/v/Goldie.MauiPlugins.PageResolver.svg?style=flat)](https://www.nuget.org/packages/Goldie.MauiPlugins.PageResolver/) 
 
+## Watch the video:
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=qx8A4zIe9dU" target="_blank">
+ <img src="http://img.youtube.com/vi/qx8A4zIe9dU/hqdefault.jpg" alt="Watch the video" />
+</a>
+
 # MAUI PageResolver
 A simple and lightweight page resolver for use in .NET MAUI projects.
 
