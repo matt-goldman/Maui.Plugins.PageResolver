@@ -8,7 +8,7 @@ namespace Maui.Plugins.PageResolver
         private static IServiceScope scope;
 
         /// <summary>
-        /// REgisters the service provider and creates a dependency scope
+        /// Registers the service provider and creates a dependency scope
         /// </summary>
         /// <param name="sp"></param>
         internal static void RegisterServiceProvider(IServiceProvider sp)
