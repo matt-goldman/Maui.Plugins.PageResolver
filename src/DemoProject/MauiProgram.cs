@@ -17,15 +17,15 @@ namespace DemoProject
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 });
 
-            //UseAutoreg(builder.Services);
+            UseAutoreg(builder.Services);
 
-            builder.Services.UsePageResolver();
-            builder.Services.AddTransient<MainPage>();
-            builder.Services.AddTransient<ParamPage>();
-            builder.Services.AddTransient<BaseViewModel>();
-            builder.Services.AddTransient<ParamViewModel>();
-            builder.Services.AddTransient<MainViewModel>();
-            builder.Services.AddSingleton<INameService, NameService>();
+            //builder.Services.UsePageResolver();
+            //builder.Services.AddTransient<MainPage>();
+            //builder.Services.AddTransient<ParamPage>();
+            //builder.Services.AddTransient<BaseViewModel>();
+            //builder.Services.AddTransient<ParamViewModel>();
+            //builder.Services.AddTransient<MainViewModel>();
+            //builder.Services.AddSingleton<INameService, NameService>();
 
             return builder.Build();
         }
