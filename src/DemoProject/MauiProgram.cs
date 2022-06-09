@@ -1,5 +1,6 @@
 ﻿using DemoProject.Services;
 using DemoProject.ViewModels;
+using Maui.Plugins.PageResolver;
 
 namespace DemoProject
 {
@@ -10,18 +11,21 @@ namespace DemoProject
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                //.UsePageResolver()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 });
 
-            UseAutoreg(builder.Services);
+            //UseAutoreg(builder.Services);
 
-            //builder.Services.AddTransient<MainPage>();
-
-            //builder.Services.AddTransient<MainViewModel>();
-
-            //builder.Services.AddSingleton<INameService, NameService>();
+            builder.Services.UsePageResolver();
+            builder.Services.AddTransient<MainPage>();
+            builder.Services.AddTransient<ParamPage>();
+            builder.Services.AddTransient<BaseViewModel>();
+            builder.Services.AddTransient<ParamViewModel>();
+            builder.Services.AddTransient<MainViewModel>();
+            builder.Services.AddSingleton<INameService, NameService>();
 
             return builder.Build();
         }
