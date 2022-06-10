@@ -11,7 +11,7 @@ public static class StartupExtensions
     /// <param name="sc"></param>
     public static void UsePageResolver(this IServiceCollection sc)
     {
-        sc.AddSingleton<IMauiInitializeService, Resolver.Initializer>();
+        sc.AddSingleton<IMauiInitializeService, Initializer>();
     }
 
     /// <summary>
@@ -20,7 +20,7 @@ public static class StartupExtensions
     /// <param name="builder"></param>
     public static MauiAppBuilder UsePageResolver(this MauiAppBuilder builder)
     {
-        builder.Services.AddSingleton<IMauiInitializeService, Resolver.Initializer>();
+        builder.Services.AddSingleton<IMauiInitializeService, Initializer>();
 
         return builder;
     }

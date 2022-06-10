@@ -1,27 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
-using Microsoft.Maui.Hosting;
 
 namespace Maui.Plugins.PageResolver
 {
     public static class Resolver
     {
-        internal class Initializer : IMauiInitializeService
-        {
-#region Implementation of IMauiInitializeService
-
-            /// <inheritdoc />
-            public void Initialize( IServiceProvider services )
-            {
-                if ( Resolver.scope == null )
-                {
-                    Resolver.RegisterServiceProvider( services );
-                }
-            }
-
-#endregion
-        }
-
         private static IServiceScope scope;
 
         /// <summary>
@@ -30,7 +13,7 @@ namespace Maui.Plugins.PageResolver
         /// <param name="sp"></param>
         internal static void RegisterServiceProvider(IServiceProvider sp)
         {
-            scope = sp.CreateScope();
+            scope ??= sp.CreateScope();
         }
 
         /// <summary>
