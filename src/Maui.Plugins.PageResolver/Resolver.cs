@@ -13,7 +13,7 @@ namespace Maui.Plugins.PageResolver
         /// <param name="sp"></param>
         internal static void RegisterServiceProvider(IServiceProvider sp)
         {
-            scope = sp.CreateScope();
+            scope ??= sp.CreateScope();
         }
 
         /// <summary>
