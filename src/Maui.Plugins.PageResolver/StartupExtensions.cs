@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Maui.Hosting;
 
 namespace Maui.Plugins.PageResolver;
@@ -11,7 +12,7 @@ public static class StartupExtensions
     /// <param name="sc"></param>
     public static void UsePageResolver(this IServiceCollection sc)
     {
-        sc.AddSingleton<IMauiInitializeService, Initializer>();
+        sc.TryAddEnumerable( ServiceDescriptor.Transient<IMauiInitializeService, Initializer>() );
     }
 
     /// <summary>
@@ -20,7 +21,8 @@ public static class StartupExtensions
     /// <param name="builder"></param>
     public static MauiAppBuilder UsePageResolver(this MauiAppBuilder builder)
     {
-        builder.Services.AddSingleton<IMauiInitializeService, Initializer>();
+        builder.Services.TryAddEnumerable(
+            ServiceDescriptor.Transient<IMauiInitializeService, Initializer>() );
 
         return builder;
     }
