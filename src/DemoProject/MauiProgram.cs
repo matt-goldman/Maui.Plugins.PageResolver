@@ -1,8 +1,4 @@
-﻿using DemoProject.Services;
-using DemoProject.ViewModels;
-using Maui.Plugins.PageResolver;
-
-namespace DemoProject
+﻿namespace DemoProject
 {
     public static partial class MauiProgram
     {
