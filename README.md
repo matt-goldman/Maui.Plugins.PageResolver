@@ -1,4 +1,4 @@
-[![NuGet Status](https://img.shields.io/nuget/v/Goldie.MauiPlugins.PageResolver.svg?style=flat)](https://www.nuget.org/packages/Goldie.MauiPlugins.PageResolver/) 
+[![NuGet Status](https://img.shields.io/nuget/v/Goldie.MauiPlugins.PageResolver.svg?style=flat)](https://www.nuget.org/packages/Goldie.MauiPlugins.PageResolver/) [![Nuget](https://img.shields.io/nuget/dt/Goldie.MauiPlugins.PageResolver)](https://www.nuget.org/packages/Goldie.MauiPlugins.PageResolver)
 
 ## Watch the video:
 
@@ -19,10 +19,6 @@ await Navigation.PushAsync<MyPage>();
 
 Check out the for full instructions in the wiki on [using PageResolver](https://github.com/matt-goldman/Maui.Plugins.PageResolver/wiki/1-Using-the-PageResolver) and [using auto-dependency registration](https://github.com/matt-goldman/Maui.Plugins.PageResolver/wiki/2-Using-Auto-registration-(experimental)).
 
-# Notes
-
-Thanks to [William Liebenberg](https://github.com/william-liebenberg) for his input getting this off the ground.    
-Please note .NET MAUI has not been released yet, so some bumps should be expected. If you find any problems with PageResolver, feedback, issues or pull requests would be most welcome.
 
 # TODO
 - [x] Use reflection / code generation to automatically register pages and view models
