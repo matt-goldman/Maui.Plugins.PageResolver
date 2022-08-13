@@ -7,12 +7,12 @@ namespace Maui.Plugins.PageResolver
     public static class NavigationExtensions
     {
         /// <summary>
-        /// Resolves a page of type T (must inhetit from ContentPage) and pushes a new instance onto the navigation stack
+        /// Resolves a page of type T (must inherit from Page) and pushes a new instance onto the navigation stack
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="navigation"></param>
         /// <returns></returns>
-        public static async Task PushAsync<T>(this INavigation navigation) where T : ContentPage
+        public static async Task PushAsync<T>(this INavigation navigation) where T : Page
         {
             var resolvedPage = Resolver.Resolve<T>();
 
@@ -20,13 +20,13 @@ namespace Maui.Plugins.PageResolver
         }
 
         /// <summary>
-        /// Resolves a page of type T (must inhetit from ContentPage) and pushes a new instance onto the navigation stack
+        /// Resolves a page of type T (must inherit from Page) and pushes a new instance onto the navigation stack
         /// </summary>
         /// <typeparam name="T">The type of the page to be resolved</typeparam>
         /// <param name="navigation"></param>
         /// <param name="parameters">The constructor parameters expected by the page to be resolved</param>
         /// <returns></returns>
-        public static async Task PushAsync<T>(this INavigation navigation, params object[] parameters) where T : ContentPage
+        public static async Task PushAsync<T>(this INavigation navigation, params object[] parameters) where T : Page
         {
             var resolvedPage = ActivatorUtilities.CreateInstance<T>(Resolver.GetServiceProvider(), parameters);
 
@@ -34,12 +34,12 @@ namespace Maui.Plugins.PageResolver
         }
 
         /// <summary>
-        /// Resolves a page of type T (must inhetit from ContentPage) and pushes a new modal instance onto the navigation stack
+        /// Resolves a page of type T (must inherit from Page) and pushes a new modal instance onto the navigation stack
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="navigation"></param>
         /// <returns></returns>
-        public static async Task PushModalAsync<T>(this INavigation navigation) where T : ContentPage
+        public static async Task PushModalAsync<T>(this INavigation navigation) where T : Page
         {
             var resolvedPage = Resolver.Resolve<T>();
 
@@ -47,13 +47,13 @@ namespace Maui.Plugins.PageResolver
         }
 
         /// <summary>
-        /// Resolves a page of type T (must inhetit from ContentPage) and pushes a new modal instance onto the navigation stack
+        /// Resolves a page of type T (must inherit from Page) and pushes a new modal instance onto the navigation stack
         /// </summary>
         /// <typeparam name="T">The type of the page to be resolved</typeparam>
         /// <param name="navigation"></param>
         /// <param name="parameters">The constructor parameters expected by the page to be resolved</param>
         /// <returns></returns>
-        public static async Task PushModalAsync<T>(this INavigation navigation, params object[] parameters) where T : ContentPage
+        public static async Task PushModalAsync<T>(this INavigation navigation, params object[] parameters) where T : Page
         {
             var resolvedPage = ActivatorUtilities.CreateInstance<T>(Resolver.GetServiceProvider(), parameters);
 
