@@ -1,4 +1,6 @@
-﻿namespace DemoProject
+﻿using Microsoft.Extensions.Logging;
+
+namespace DemoProject
 {
     public static partial class MauiProgram
     {
@@ -7,21 +9,16 @@
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
-                //.UsePageResolver()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+#if DEBUG
+		builder.Logging.AddDebug();
+#endif
             UseAutoreg(builder.Services);
-
-            //builder.Services.UsePageResolver();
-            //builder.Services.AddTransient<MainPage>();
-            //builder.Services.AddTransient<ParamPage>();
-            //builder.Services.AddTransient<BaseViewModel>();
-            //builder.Services.AddTransient<ParamViewModel>();
-            //builder.Services.AddTransient<MainViewModel>();
-            //builder.Services.AddSingleton<INameService, NameService>();
 
             return builder.Build();
         }
