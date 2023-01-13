@@ -1,15 +1,11 @@
-﻿using DemoProject.ViewModels;
+﻿namespace DemoProject;
 
-namespace DemoProject
+public partial class MainPage : ContentPage
 {
-    public partial class MainPage : ContentPage
+    public MainPage(MainViewModel viewModel)
     {
-        public MainPage(MainViewModel viewModel)
-        {
-            viewModel.Navigation = Navigation;
-            BindingContext = viewModel;
-            InitializeComponent();
-        }
-
+        viewModel.Navigation = Navigation;
+        BindingContext = viewModel;
+        InitializeComponent();
     }
 }
