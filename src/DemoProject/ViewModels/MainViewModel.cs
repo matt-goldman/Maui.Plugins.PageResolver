@@ -1,6 +1,4 @@
-﻿using DemoProject.Services;
-using Maui.Plugins.PageResolver;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace DemoProject.ViewModels;
 

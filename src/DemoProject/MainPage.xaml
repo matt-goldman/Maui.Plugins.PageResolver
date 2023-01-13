@@ -1,13 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DemoProject.MainPage"
-             BackgroundColor="{DynamicResource SecondaryColor}">
+             x:Class="DemoProject.MainPage">
 
     <ScrollView>
         <VerticalStackLayout
-              Padding="{OnPlatform iOS='30,60,30,30', Default='30'}">
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
 
-            <Label 
+           <Label 
                 Text="Hello:"
                 Grid.Row="0"
                 SemanticProperties.HeadingLevel="Level1"
@@ -47,4 +49,5 @@
 
         </VerticalStackLayout>
     </ScrollView>
+
 </ContentPage>

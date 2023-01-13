@@ -1,5 +1,3 @@
-using DemoProject.ViewModels;
-
 namespace DemoProject;
 
 public partial class ParamPage : ContentPage
