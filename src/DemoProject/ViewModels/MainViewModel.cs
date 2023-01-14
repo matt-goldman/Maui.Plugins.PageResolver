@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using DemoProject.Pages;
+using System.Windows.Input;
 
 namespace DemoProject.ViewModels;
 
