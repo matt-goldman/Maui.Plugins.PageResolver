@@ -14,11 +14,11 @@
                 Route="MainPage" />
         </Tab>
 
-        <Tab Title="Markup">
+        <!--<Tab Title="Markup">
             <ShellContent
                 ContentTemplate="{DataTemplate pages:MarkupPage}"
                 Route="MarkupPage" />
-        </Tab>
+        </Tab>-->
     </TabBar>
 
 </Shell>

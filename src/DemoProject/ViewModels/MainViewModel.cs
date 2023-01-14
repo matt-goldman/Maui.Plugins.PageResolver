@@ -11,6 +11,8 @@ public class MainViewModel : BaseViewModel
 
     public ICommand GoToNameCommand => new Command(async () => await GoToName());
 
+    public ICommand GoToMarkupCommand => new Command(async () => await GoToMarkup());
+
     public string Name { get; set; }
 
     public MainViewModel(INameService nameService)
@@ -30,5 +32,10 @@ public class MainViewModel : BaseViewModel
         Name = _nameService.GetName();
 
         await Navigation.PushAsync<ParamPage>(Name);
+    }
+
+    async Task GoToMarkup()
+    {
+        await Navigation.PushAsync(new MarkupPage());
     }
 }
