@@ -6,8 +6,6 @@ namespace Maui.Plugins.PageResolver;
 
 public class ResolveViewModel<T> : IMarkupExtension<T>
 {
-    public string MyProperty { get; set; }
-
     public T ProvideValue(IServiceProvider serviceProvider)
     {
         var sp = Resolver.GetServiceProvider();
