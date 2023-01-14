@@ -57,4 +57,10 @@
 	  <ProjectReference Include="..\Maui.Plugins.PageResolver\Maui.Plugins.PageResolver.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <MauiXaml Update="Pages\MarkupPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>
