@@ -3,7 +3,7 @@ using System;
 
 namespace Maui.Plugins.PageResolver;
 
-public static class Resolver
+public static partial class Resolver
 {
     private static IServiceScope scope;
 
