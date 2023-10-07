@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	  <Authors>Matt Goldman</Authors>
+	  <Company />
+	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	  <PackageId>Goldie.MauiPlugins.PageResolver</PackageId>
+	  <Description>Source generators used by PageResolver</Description>
+	  <Copyright>Matt Goldman 2023</Copyright>
+	  <RepositoryUrl>https://github.com/matt-goldman/Maui.Plugins.PageResolver</RepositoryUrl>
+	  <PackageIcon>gfg.png</PackageIcon>
+	  <PackageLicenseFile>LICENSE</PackageLicenseFile>
+	  <Version>2.0.0</Version>
+  </PropertyGroup>
+	
+	<ItemGroup>
+		<None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0-beta1.23420.2">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.8.0-2.final" />
+	</ItemGroup>
+</Project>

@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maui.Plugins.PageResolver",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maui.Plugins.PageResolver.Autoreg", "Maui.Plugins.PageResolver.Autoreg\Maui.Plugins.PageResolver.Autoreg.csproj", "{162F43DB-8889-4BAD-A850-16D1695F31DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoProject", "DemoProject\DemoProject.csproj", "{79F5FD46-BB6F-4D66-B502-5E79B5CFB299}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoProject", "DemoProject\DemoProject.csproj", "{79F5FD46-BB6F-4D66-B502-5E79B5CFB299}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maui.Plugins.PageResolver.SourceGenerators", "Maui.Plugins.PageResolver.SourceGenerators\Maui.Plugins.PageResolver.SourceGenerators.csproj", "{22AFD22E-D7F4-4EB5-A6D4-09F0365D319E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{79F5FD46-BB6F-4D66-B502-5E79B5CFB299}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79F5FD46-BB6F-4D66-B502-5E79B5CFB299}.Release|Any CPU.Build.0 = Release|Any CPU
 		{79F5FD46-BB6F-4D66-B502-5E79B5CFB299}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{22AFD22E-D7F4-4EB5-A6D4-09F0365D319E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22AFD22E-D7F4-4EB5-A6D4-09F0365D319E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22AFD22E-D7F4-4EB5-A6D4-09F0365D319E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22AFD22E-D7F4-4EB5-A6D4-09F0365D319E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

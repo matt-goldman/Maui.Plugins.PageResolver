@@ -9,7 +9,9 @@ public class MainViewModel : BaseViewModel
 
     public ICommand GetNameCommand => new Command(() => GetName());
 
-    public ICommand GoToNameCommand => new Command(async () => await GoToName());
+    public ICommand GoToPageParamCommand => new Command(async () => await GoToPageParamPage());
+
+    public ICommand GoToVmParamCommand => new Command(async () => await GoToVmParamPage());
 
     public ICommand GoToMarkupCommand => new Command(async () => await GoToMarkup());
 
@@ -27,11 +29,18 @@ public class MainViewModel : BaseViewModel
         OnPropertChanged(nameof(Name));
     }
 
-    async Task GoToName()
+    async Task GoToPageParamPage()
     {
         Name = _nameService.GetName();
 
         await Navigation.PushAsync<PageParamPage>(Name);
+    }
+
+    async Task GoToVmParamPage()
+    {
+        Name = _nameService.GetName();
+
+        await Navigation.PushAsync<VmParamPage>(Name);
     }
 
     async Task GoToMarkup()

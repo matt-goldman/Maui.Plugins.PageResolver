@@ -71,8 +71,10 @@ public static class NavigationExtensions
     {
         var serviceProvider = Resolver.GetServiceProvider();
 
-        // Try to get the ViewModel type.
-        var viewModelType = Type.GetType($"{typeof(T).FullName}ViewModel");
+        var pageType = typeof(T);
+        var viewModelTypeName = $"{pageType.FullName}ViewModel, {pageType.Assembly.FullName}";
+        var viewModelType = Type.GetType(viewModelTypeName);
+
         if (viewModelType == null)
         {
             return CreatePageWithoutViewModel<T>(serviceProvider, parameters);
@@ -83,21 +85,29 @@ public static class NavigationExtensions
 
     private static Page CreatePageWithoutViewModel<T>(IServiceProvider serviceProvider, params object[] parameters) where T : Page
     {
-        return ActivatorUtilities.CreateInstance<T>(serviceProvider, typeof(T), parameters);
+        var resolvedPage = ActivatorUtilities.CreateInstance<T>(serviceProvider, typeof(T), parameters);
+        return resolvedPage;
     }
 
     private static Page CreatePageWithViewModel<T>(IServiceProvider serviceProvider, Type viewModelType, params object[] parameters) where T : Page
     {
         var viewModel = ActivatorUtilities.CreateInstance(serviceProvider, viewModelType, parameters);
 
-        using (var scope = serviceProvider.CreateScope())
+        try
         {
-            var scopedServiceProvider = scope.ServiceProvider;
-            var serviceCollection = new ServiceCollection();
-            serviceCollection.AddSingleton(viewModelType, viewModel);
-            var scopedProvider = serviceCollection.BuildServiceProvider();
+            using (var scope = serviceProvider.CreateScope())
+            {
+                var scopedServiceProvider = scope.ServiceProvider;
+                var serviceCollection = new ServiceCollection();
+                serviceCollection.AddSingleton(viewModelType, viewModel);
+                var scopedProvider = serviceCollection.BuildServiceProvider();
 
-            return ActivatorUtilities.CreateInstance<T>(scopedProvider, typeof(T));
+                return ActivatorUtilities.CreateInstance<T>(scopedProvider, typeof(T));
+            }
+        }
+        catch (MissingMemberException)
+        {
+            return ActivatorUtilities.CreateInstance<T>(Resolver.GetServiceProvider(), parameters);
         }
     }
     
