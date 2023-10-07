@@ -1,11 +1,21 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 
 namespace Maui.Plugins.PageResolver;
 
 public static partial class Resolver
 {
     private static IServiceScope scope;
+
+    private static readonly Dictionary<Type, Type> ViewModelLookup = new();
+
+    static partial void InitialiseViewModelLookup();
+
+    static Resolver()
+    {
+        InitialiseViewModelLookup();
+    }
 
     /// <summary>
     /// Registers the service provider and creates a dependency scope
