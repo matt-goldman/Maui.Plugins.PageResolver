@@ -1,8 +1,8 @@
 namespace DemoProject;
 
-public partial class ParamPage : ContentPage
+public partial class PageParamPage : ContentPage
 {
-	public ParamPage(ParamViewModel viewModel, string name)
+	public PageParamPage(PageParamViewModel viewModel, string name)
 	{
 		InitializeComponent();
 		viewModel.NameParam = name;

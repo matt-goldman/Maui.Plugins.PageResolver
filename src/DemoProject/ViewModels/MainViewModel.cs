@@ -31,7 +31,7 @@ public class MainViewModel : BaseViewModel
     {
         Name = _nameService.GetName();
 
-        await Navigation.PushAsync<ParamPage>(Name);
+        await Navigation.PushAsync<PageParamPage>(Name);
     }
 
     async Task GoToMarkup()

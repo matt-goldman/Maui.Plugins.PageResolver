@@ -1,10 +1,11 @@
 ﻿namespace DemoProject.ViewModels;
 
-public class ParamViewModel
+public class VmParamViewModel
 {
     public string NameParam { get; set; }
 
-    public ParamViewModel()
+    public VmParamViewModel(string name)
     {
+        NameParam = name;
     }
 }
