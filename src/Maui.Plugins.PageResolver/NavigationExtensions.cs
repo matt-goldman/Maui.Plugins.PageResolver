@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Maui.Controls;
 using System;
 using System.Threading.Tasks;
@@ -72,8 +73,7 @@ public static class NavigationExtensions
         var serviceProvider = Resolver.GetServiceProvider();
 
         var pageType = typeof(T);
-        var viewModelTypeName = $"{pageType.FullName}ViewModel, {pageType.Assembly.FullName}";
-        var viewModelType = Type.GetType(viewModelTypeName);
+        var viewModelType = Resolver.GetViewModelType(pageType);
 
         if (viewModelType == null)
         {
@@ -95,15 +95,8 @@ public static class NavigationExtensions
 
         try
         {
-            using (var scope = serviceProvider.CreateScope())
-            {
-                var scopedServiceProvider = scope.ServiceProvider;
-                var serviceCollection = new ServiceCollection();
-                serviceCollection.AddSingleton(viewModelType, viewModel);
-                var scopedProvider = serviceCollection.BuildServiceProvider();
+            return ActivatorUtilities.CreateInstance<T>(serviceProvider, viewModel);
 
-                return ActivatorUtilities.CreateInstance<T>(scopedProvider, typeof(T));
-            }
         }
         catch (MissingMemberException)
         {

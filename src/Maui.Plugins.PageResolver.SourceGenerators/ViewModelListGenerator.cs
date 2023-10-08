@@ -79,9 +79,10 @@ namespace Maui.Plugins.PageResolver;
 
 public static partial class Resolver
 {{
+
+    static partial void InitialiseViewModelLookup()
+    {{
 ");
-                sourceBuilder.AppendLine("partial static void InitialiseViewModelLookup()");
-                sourceBuilder.AppendLine("{");
 
                 foreach (var page in pages)
                 {
@@ -89,18 +90,16 @@ public static partial class Resolver
                         vm.Name == $"{page.Name}ViewModel" || vm.Name == page.Name.Substring(0, page.Name.Length - 4) + "ViewModel").ToList();
 
                     if (matches.Count == 1)
-                        sourceBuilder.AppendLine($"ViewModelLookup.Add(typeof({page.Name}), typeof({matches[0].Name}));");
+                        sourceBuilder.AppendLine($"         ViewModelLookup.Add(typeof({page.Name}), typeof({matches[0].Name}));");
                     else if (matches.Count > 1)
                         Log.WriteLine($"Multiple ViewModel matches found for {page.Name}, skipping.");
                 }
 
-                sourceBuilder.AppendLine("}");
-                
                 // close the partial method and class
-                sourceBuilder.Append(@"
+                sourceBuilder.Append(@"    }
 }");
 
-                context.AddSource("Resolver.g.cs", sourceBuilder.ToString());
+                context.AddSource("Resolver.g.txt", sourceBuilder.ToString());
                 Log.WriteLine($"Generated: Resolver.g.cs, {sourceBuilder}");
             }
             catch (Exception ex)
@@ -127,31 +126,6 @@ public static partial class Resolver
 
                 else if (namespaceOrTypeSymbol is ITypeSymbol type) yield return type;
             }
-        }
-    }
-
-    public static class Log
-    {
-        private static StringBuilder _builder;
-
-        public static void Init(StringBuilder builder)
-        {
-            _builder = builder;
-        }
-
-        public static void Write(string entry)
-        {
-            _builder.Append($"{DateTime.Now.ToString()} - INFO - {entry}");
-        }
-
-        public static void WriteLine(string entry)
-        {
-            _builder.AppendLine($"{DateTime.Now.ToString()} - INFO - {entry}");
-        }
-
-        public static void FlushLog()
-        {
-            System.Diagnostics.Debug.Write(_builder.ToString());
         }
     }
 }

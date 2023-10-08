@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace Maui.Plugins.PageResolver;
 
@@ -8,13 +10,30 @@ public static partial class Resolver
 {
     private static IServiceScope scope;
 
-    private static readonly Dictionary<Type, Type> ViewModelLookup = new();
+    internal static readonly Dictionary<Type, Type> ViewModelLookup = new();
 
-    static partial void InitialiseViewModelLookup();
-
-    static Resolver()
+    internal static void InitialiseViewModelLookup(Assembly assembly)
     {
-        InitialiseViewModelLookup();
+        var pages = assembly.DefinedTypes.Where(t => t.IsClass && t.Name.EndsWith("Page"));
+
+        var viewModels = assembly.DefinedTypes.Where(t => t.IsClass && t.Name.EndsWith("ViewModel"));
+
+        foreach (var page in pages)
+        {
+            var matches = viewModels.Where(vm =>
+                           vm.Name == $"{page.Name}ViewModel" || vm.Name == page.Name.Substring(0, page.Name.Length - 4) + "ViewModel").ToList();
+
+            if (matches.Count == 1)
+                ViewModelLookup.Add(page, matches[0]);
+        }
+    }
+
+    internal static Type GetViewModelType(Type pageType)
+    {
+        if (ViewModelLookup.ContainsKey(pageType))
+            return ViewModelLookup[pageType];
+
+        return null;
     }
 
     /// <summary>

@@ -159,7 +159,7 @@ public static partial class {mauiProgram.Name}
                     }
                 }
 
-                sourceBuilder.AppendLine($"         services.UsePageResolver();");
+                sourceBuilder.AppendLine($"         services.UsePageResolver(true);");
 
                 // close the partial method and class
                 sourceBuilder.Append(@"    }
