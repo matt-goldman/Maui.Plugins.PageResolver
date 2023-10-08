@@ -56,6 +56,14 @@
                 Command="{Binding GoToMarkupCommand}"
                 HorizontalOptions="Center" />
 
+            <Button 
+                Text="Click to go to scope check page"
+                FontAttributes="Bold"
+                Grid.Row="3"
+                SemanticProperties.Hint="Counts the number of times you click"
+                Command="{Binding GoToScopeCheckCommand}"
+                HorizontalOptions="Center" />
+
             <Image Grid.Row="4"
                 Source="dotnet_bot.png"
                 SemanticProperties.Description="Cute dot net bot waving hi to you!"

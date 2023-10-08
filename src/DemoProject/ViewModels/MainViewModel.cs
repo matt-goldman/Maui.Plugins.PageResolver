@@ -15,6 +15,8 @@ public class MainViewModel : BaseViewModel
 
     public ICommand GoToMarkupCommand => new Command(async () => await GoToMarkup());
 
+    public ICommand GoToScopeCheckCommand => new Command(async () => await GoToScopeCheck());
+
     public string Name { get; set; }
 
     public MainViewModel(INameService nameService)
@@ -46,5 +48,10 @@ public class MainViewModel : BaseViewModel
     async Task GoToMarkup()
     {
         await Navigation.PushAsync(new MarkupPage());
+    }
+
+    async Task GoToScopeCheck()
+    {
+        await Navigation.PushAsync<ScopeCheckPage>();
     }
 }

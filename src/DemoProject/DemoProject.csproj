@@ -53,12 +53,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\Maui.Plugins.PageResolver.Attributes\Maui.Plugins.PageResolver.Attributes.csproj" />
 	  <ProjectReference Include="..\Maui.Plugins.PageResolver.SourceGenerators\Maui.Plugins.PageResolver.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	  <ProjectReference Include="..\Maui.Plugins.PageResolver\Maui.Plugins.PageResolver.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <MauiXaml Update="Pages\MarkupPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\ScopeCheckPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\VmParamPage.xaml">
