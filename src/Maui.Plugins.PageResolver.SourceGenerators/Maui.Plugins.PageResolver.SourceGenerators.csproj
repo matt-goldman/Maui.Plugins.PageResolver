@@ -15,6 +15,10 @@
 	  <Version>2.0.0</Version>
 	  <EnforceExtendedAnalyzerRules>false</EnforceExtendedAnalyzerRules>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="bin\Debug\netstandard2.0\\Maui.Plugins.PageResolver.SourceGenerators.dll" />
+  </ItemGroup>
 	
 	<ItemGroup>
 		<None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />

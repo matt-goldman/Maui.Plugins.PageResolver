@@ -2,7 +2,7 @@
 
 namespace DemoProject
 {
-    public static partial class MauiProgram
+    public static class MauiProgram
     {
         public static MauiApp CreateMauiApp()
         {
@@ -13,16 +13,14 @@ namespace DemoProject
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
+                })
+                .UseAutodependencies();
 
 #if DEBUG
-		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
-            UseAutoreg(builder.Services);
 
             return builder.Build();
         }
-
-        static partial void UseAutoreg(IServiceCollection services);
     }
 }

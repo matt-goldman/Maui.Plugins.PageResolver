@@ -63,9 +63,9 @@ namespace Maui.Plugins.PageResolver.SourceGenerators
 
 namespace {mauiProgram.ContainingNamespace.ToDisplayString()};
 
-public static partial class {mauiProgram.Name}
+public static class PageResolverExtensions
 {{
-    static partial void UseAutoreg(IServiceCollection services)
+    public static MauiAppBuilder UseAutodependencies(this MauiAppBuilder builder)
     {{
 ");
 
@@ -74,7 +74,7 @@ public static partial class {mauiProgram.Name}
                 {
                     string lifetime = _dependencies["ExplicitSingletons"].Contains(page) ? "Singleton" : "Transient";
 
-                    sourceBuilder.AppendLine($"         services.Add{lifetime}<{page.Name}>();");
+                    sourceBuilder.AppendLine($"         builder.Services.Add{lifetime}<{page.Name}>();");
                 }
 
                 // add ViewModel registrations
@@ -82,7 +82,7 @@ public static partial class {mauiProgram.Name}
                 {
                     string lifetime = _dependencies["ExplicitSingletons"].Contains(vm) ? "Singleton" : "Transient";
 
-                    sourceBuilder.AppendLine($"         services.Add{lifetime}<{vm.Name}>();");
+                    sourceBuilder.AppendLine($"         builder.Services.Add{lifetime}<{vm.Name}>();");
                 }
 
                 // add Service registrations
@@ -96,15 +96,17 @@ public static partial class {mauiProgram.Name}
 
                     if (abstraction is null)
                     {
-                        sourceBuilder.AppendLine($"         services.Add{lifetime}<{service.Name}>();");
+                        sourceBuilder.AppendLine($"         builder.Services.Add{lifetime}<{service.Name}>();");
                     }
                     else
                     {
-                        sourceBuilder.AppendLine($"         services.Add{lifetime}<{ifName}, {service.Name}>();");
+                        sourceBuilder.AppendLine($"         builder.Services.Add{lifetime}<{ifName}, {service.Name}>();");
                     }
                 }
 
-                sourceBuilder.AppendLine($"         services.UsePageResolver(true);");
+                sourceBuilder.AppendLine($"         builder.Services.UsePageResolver(true);");
+
+                sourceBuilder.AppendLine($"         return builder;");
 
                 // close the partial method and class
                 sourceBuilder.Append(@"    }
@@ -113,8 +115,8 @@ public static partial class {mauiProgram.Name}
                 // generate the source file
                 var typeName = mauiProgram.Name;
 
-                context.AddSource($"{typeName}.g.cs", sourceBuilder.ToString());
-                Log.WriteLine($"Generated: {typeName}.g.cs, {sourceBuilder}");
+                context.AddSource("PageResolverExtensions.g.cs", sourceBuilder.ToString());
+                Log.WriteLine($"Generated: PageResolverExtensions.g.cs, {sourceBuilder}");
             }
             catch (Exception ex)
             {
