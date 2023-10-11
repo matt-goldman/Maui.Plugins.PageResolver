@@ -28,6 +28,16 @@ public static partial class Resolver
         }
     }
 
+    internal static void InitialiseViewModelLookup(Dictionary<Type, Type> ViewModelMappings)
+    {
+        ViewModelLookup.Clear();
+
+        foreach (var mapping in ViewModelMappings)
+        {
+            ViewModelLookup.Add(mapping.Key, mapping.Value);
+        }
+    }
+
     internal static Type GetViewModelType(Type pageType)
     {
         if (ViewModelLookup.ContainsKey(pageType))

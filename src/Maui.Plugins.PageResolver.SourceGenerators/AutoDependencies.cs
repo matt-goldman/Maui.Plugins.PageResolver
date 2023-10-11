@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Maui.Plugins.PageResolver.SourceGenerators
@@ -219,6 +220,22 @@ public static class PageResolverExtensions
 
                 Log.WriteLine($"Found {i.Name} in {iNamespace}");
             }
+        }
+
+        private Dictionary<Type, Type> GetPageToViewModelMappings()
+        {
+            var VMLookup = new Dictionary<Type, Type>();
+
+            foreach (var page in _dependencies["Pages"])
+            {
+                var matches = _dependencies["ViewModels"].Where(vm =>
+                               vm.Name == $"{page.Name}ViewModel" || vm.Name == page.Name.Substring(0, page.Name.Length - 4) + "ViewModel").ToList();
+
+                if (matches.Count == 1)
+                    VMLookup.Add(page.GetType(), matches[0].GetType());
+            }
+
+            return VMLookup;
         }
 
         private static IEnumerable<ITypeSymbol> GetAllTypes(INamespaceSymbol root)

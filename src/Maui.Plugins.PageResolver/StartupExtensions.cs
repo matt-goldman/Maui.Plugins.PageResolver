@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Maui.Hosting;
+using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace Maui.Plugins.PageResolver;
@@ -38,5 +40,17 @@ public static class StartupExtensions
         }
 
         return builder;
+    }
+
+    /// <summary>
+    /// Registers the services in the service collection and the page-to-ViewModel mappings with the page resolver. This overload is intended for use with the Source Generator.
+    /// </summary>
+    /// <param name="sc"></param>
+    /// <param name="ViewModelMappings">A dictionary that provides Page to ViewModel mappings..</param>
+    public static void UsePageResolver(this IServiceCollection sc, Dictionary<Type, Type> ViewModelMappings)
+    {
+        sc.TryAddEnumerable(ServiceDescriptor.Transient<IMauiInitializeService, Initializer>());
+
+        Resolver.InitialiseViewModelLookup(ViewModelMappings);
     }
 }
