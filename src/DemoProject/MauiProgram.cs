@@ -13,8 +13,8 @@ namespace DemoProject
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                })
-                .UseAutodependencies();
+                });
+                //.UseAutodependencies();
 
 #if DEBUG
             builder.Logging.AddDebug();

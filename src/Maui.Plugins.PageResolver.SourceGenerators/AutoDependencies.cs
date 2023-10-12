@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
 
 namespace Maui.Plugins.PageResolver.SourceGenerators
@@ -66,6 +65,8 @@ namespace {mauiProgram.ContainingNamespace.ToDisplayString()};
 
 public static class PageResolverExtensions
 {{
+    private static Dictionary<Type, Type>() ViewModelMappings = new();
+
     public static MauiAppBuilder UseAutodependencies(this MauiAppBuilder builder)
     {{
 ");
@@ -105,7 +106,14 @@ public static class PageResolverExtensions
                     }
                 }
 
-                sourceBuilder.AppendLine($"         builder.Services.UsePageResolver(true);");
+                var mappings = GetPageToViewModelMappings();
+
+                foreach (var mapping in mappings)
+                {
+                    sourceBuilder.AppendLine($"         ViewModelMappings.Add(typeof({mapping.Key.Name}), typeof({mapping.Value.Name}));");
+                }
+
+                sourceBuilder.AppendLine($"         builder.Services.UsePageResolver(ViewModelMappings);");
 
                 sourceBuilder.AppendLine($"         return builder;");
 
