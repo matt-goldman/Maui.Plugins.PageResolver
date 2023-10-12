@@ -65,10 +65,10 @@ namespace {mauiProgram.ContainingNamespace.ToDisplayString()};
 
 public static class PageResolverExtensions
 {{
-    private static Dictionary<Type, Type>() ViewModelMappings = new();
 
     public static MauiAppBuilder UseAutodependencies(this MauiAppBuilder builder)
     {{
+        //var ViewModelMappings = new Dictionary<Type, Type>();
 ");
 
                 // add page registrations
@@ -106,14 +106,14 @@ public static class PageResolverExtensions
                     }
                 }
 
-                var mappings = GetPageToViewModelMappings();
+                //var mappings = GetPageToViewModelMappings();
 
-                foreach (var mapping in mappings)
-                {
-                    sourceBuilder.AppendLine($"         ViewModelMappings.Add(typeof({mapping.Key.Name}), typeof({mapping.Value.Name}));");
-                }
+                //foreach (var mapping in mappings)
+                //{
+                //    sourceBuilder.AppendLine($"         ViewModelMappings.Add(typeof({mapping.Key.Name}), typeof({mapping.Value.Name}));");
+                //}
 
-                sourceBuilder.AppendLine($"         builder.Services.UsePageResolver(ViewModelMappings);");
+                sourceBuilder.AppendLine($"         builder.Services.UsePageResolver();//ViewModelMappings);");
 
                 sourceBuilder.AppendLine($"         return builder;");
 
