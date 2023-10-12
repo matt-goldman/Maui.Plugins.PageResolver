@@ -1,6 +1,7 @@
 ﻿using Microsoft.CodeAnalysis;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
@@ -68,7 +69,9 @@ public static class PageResolverExtensions
 
     public static MauiAppBuilder UseAutodependencies(this MauiAppBuilder builder)
     {{
-        //var ViewModelMappings = new Dictionary<Type, Type>();
+         var ViewModelMappings = new Dictionary<Type, Type>();
+
+         // pages
 ");
 
                 // add page registrations
@@ -79,6 +82,11 @@ public static class PageResolverExtensions
                     sourceBuilder.AppendLine($"         builder.Services.Add{lifetime}<{page.Name}>();");
                 }
 
+                sourceBuilder.Append(@"
+
+         // ViewModels
+");
+
                 // add ViewModel registrations
                 foreach (var vm in _dependencies["ViewModels"])
                 {
@@ -86,6 +94,11 @@ public static class PageResolverExtensions
 
                     sourceBuilder.AppendLine($"         builder.Services.Add{lifetime}<{vm.Name}>();");
                 }
+
+                sourceBuilder.Append(@"
+
+         // Services
+");
 
                 // add Service registrations
                 foreach (var service in _dependencies["Services"])
@@ -106,14 +119,24 @@ public static class PageResolverExtensions
                     }
                 }
 
-                //var mappings = GetPageToViewModelMappings();
+                sourceBuilder.Append(@"
 
-                //foreach (var mapping in mappings)
-                //{
-                //    sourceBuilder.AppendLine($"         ViewModelMappings.Add(typeof({mapping.Key.Name}), typeof({mapping.Value.Name}));");
-                //}
+         // ViewModel to Page mappings
+");
 
-                sourceBuilder.AppendLine($"         builder.Services.UsePageResolver();//ViewModelMappings);");
+                var mappings = GetPageToViewModelMappings();
+
+                foreach (var mapping in mappings)
+                {
+                    sourceBuilder.AppendLine($"         ViewModelMappings.Add(typeof({mapping.Key.Name}), typeof({mapping.Value.Name}));");
+                }
+
+                sourceBuilder.Append(@"
+
+         // Initialisation
+");
+
+                sourceBuilder.AppendLine($"         builder.Services.UsePageResolver(ViewModelMappings);");
 
                 sourceBuilder.AppendLine($"         return builder;");
 
@@ -129,11 +152,13 @@ public static class PageResolverExtensions
             }
             catch (Exception ex)
             {
+                Log.WriteLine("[AutoDependencies Source Generator] Exception thrown: ");
                 Log.WriteLine($"{ex}");
                 Log.WriteLine($"{ex.StackTrace}");
             }
             finally
             {
+                Log.WriteLine("[AutoDependencies Source Generator] Finished.]");
                 Log.FlushLog();
             }
         }
@@ -230,9 +255,9 @@ public static class PageResolverExtensions
             }
         }
 
-        private Dictionary<Type, Type> GetPageToViewModelMappings()
+        private Dictionary<ITypeSymbol, ITypeSymbol> GetPageToViewModelMappings()
         {
-            var VMLookup = new Dictionary<Type, Type>();
+            var VMLookup = new Dictionary<ITypeSymbol, ITypeSymbol>(SymbolEqualityComparer.Default);
 
             foreach (var page in _dependencies["Pages"])
             {
@@ -240,7 +265,14 @@ public static class PageResolverExtensions
                                vm.Name == $"{page.Name}ViewModel" || vm.Name == page.Name.Substring(0, page.Name.Length - 4) + "ViewModel").ToList();
 
                 if (matches.Count == 1)
-                    VMLookup.Add(page.GetType(), matches[0].GetType());
+                {
+                    var pageType = page.Name;
+                    var vmType = matches[0].Name;
+
+                    Log.WriteLine($"[AutoDependencies Source Generator] adding mapping for {pageType} to {vmType}");
+
+                    VMLookup.Add(page, matches[0]);
+                }
             }
 
             return VMLookup;
