@@ -50,14 +50,19 @@
 
 	<ItemGroup>
 		<!--<PackageReference Include="Goldie.MauiPlugins.PageResolver" Version="2.0.0" />-->
+		<PackageReference Include="Goldie.MauiPlugins.PageResolver" Version="2.0.0-preview1" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0-rc.1.23419.4" />
 	</ItemGroup>
 
-	<ItemGroup>
+	<!-- <ItemGroup>
 	  <ProjectReference Include="..\Maui.Plugins.PageResolver.Attributes\Maui.Plugins.PageResolver.Attributes.csproj" />
 	  <ProjectReference Include="..\Maui.Plugins.PageResolver.SourceGenerators\Maui.Plugins.PageResolver.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	  <ProjectReference Include="..\Maui.Plugins.PageResolver\Maui.Plugins.PageResolver.csproj" />
-	</ItemGroup>
+	</ItemGroup> -->
+
+	<PropertyGroup>
+		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+	</PropertyGroup>
 
 	<ItemGroup>
 	  <MauiXaml Update="Pages\MarkupPage.xaml">

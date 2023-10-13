@@ -5,13 +5,11 @@ VisualStudioVersion = 17.2.32210.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maui.Plugins.PageResolver", "Maui.Plugins.PageResolver\Maui.Plugins.PageResolver.csproj", "{34BC27F4-EAED-450D-956D-7943B8BD8148}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maui.Plugins.PageResolver.Autoreg", "Maui.Plugins.PageResolver.Autoreg\Maui.Plugins.PageResolver.Autoreg.csproj", "{162F43DB-8889-4BAD-A850-16D1695F31DA}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoProject", "DemoProject\DemoProject.csproj", "{79F5FD46-BB6F-4D66-B502-5E79B5CFB299}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maui.Plugins.PageResolver.SourceGenerators", "Maui.Plugins.PageResolver.SourceGenerators\Maui.Plugins.PageResolver.SourceGenerators.csproj", "{22AFD22E-D7F4-4EB5-A6D4-09F0365D319E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maui.Plugins.PageResolver.SourceGenerators", "Maui.Plugins.PageResolver.SourceGenerators\Maui.Plugins.PageResolver.SourceGenerators.csproj", "{22AFD22E-D7F4-4EB5-A6D4-09F0365D319E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maui.Plugins.PageResolver.Attributes", "Maui.Plugins.PageResolver.Attributes\Maui.Plugins.PageResolver.Attributes.csproj", "{52D883B1-203F-429A-A117-344B4085FA14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maui.Plugins.PageResolver.Attributes", "Maui.Plugins.PageResolver.Attributes\Maui.Plugins.PageResolver.Attributes.csproj", "{52D883B1-203F-429A-A117-344B4085FA14}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +21,6 @@ Global
 		{34BC27F4-EAED-450D-956D-7943B8BD8148}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34BC27F4-EAED-450D-956D-7943B8BD8148}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34BC27F4-EAED-450D-956D-7943B8BD8148}.Release|Any CPU.Build.0 = Release|Any CPU
-		{162F43DB-8889-4BAD-A850-16D1695F31DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{162F43DB-8889-4BAD-A850-16D1695F31DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{162F43DB-8889-4BAD-A850-16D1695F31DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{162F43DB-8889-4BAD-A850-16D1695F31DA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{79F5FD46-BB6F-4D66-B502-5E79B5CFB299}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{79F5FD46-BB6F-4D66-B502-5E79B5CFB299}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79F5FD46-BB6F-4D66-B502-5E79B5CFB299}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
