@@ -63,6 +63,7 @@ public static class PageResolverExtensions
 
 
          // Services
+         builder.Services.AddSingleton<IDefaultScopedService, DefaultScopedService>();
          builder.Services.AddTransient<ICustomScopedService, CustomScopedService>();
 
 
