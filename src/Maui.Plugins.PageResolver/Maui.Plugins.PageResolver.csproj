@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <UseMaui>true</UseMaui>
     <Authors>Matt Goldman</Authors>
     <Company></Company>
@@ -14,7 +14,7 @@
     <PackageIcon>gfg.png</PackageIcon>
     <PackageIconUrl />
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Version>1.1.1</Version>
+    <Version>2.0.0-preview1</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,6 +26,11 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\Maui.Plugins.PageResolver.Attributes\bin\$(Configuration)\net8.0\Maui.Plugins.PageResolver.Attributes.dll" Pack="true" PackagePath="lib/net8.0" Visible="false"/>
+    <None Include="..\Maui.Plugins.PageResolver.SourceGenerators\bin\$(Configuration)\netstandard2.0\Maui.Plugins.PageResolver.SourceGenerators.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
   </ItemGroup>
 
 </Project>

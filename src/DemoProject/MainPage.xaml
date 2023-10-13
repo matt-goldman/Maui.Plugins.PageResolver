@@ -33,11 +33,19 @@
                 HorizontalOptions="Center" />
 
             <Button 
-                Text="Click to go to name page"
+                Text="Click to go to page param page"
                 FontAttributes="Bold"
                 Grid.Row="3"
                 SemanticProperties.Hint="Counts the number of times you click"
-                Command="{Binding GoToNameCommand}"
+                Command="{Binding GoToPageParamCommand}"
+                HorizontalOptions="Center" />
+
+            <Button 
+                Text="Click to go to VM param page"
+                FontAttributes="Bold"
+                Grid.Row="3"
+                SemanticProperties.Hint="Counts the number of times you click"
+                Command="{Binding GoToVmParamCommand}"
                 HorizontalOptions="Center" />
 
             <Button 
@@ -46,6 +54,14 @@
                 Grid.Row="3"
                 SemanticProperties.Hint="Counts the number of times you click"
                 Command="{Binding GoToMarkupCommand}"
+                HorizontalOptions="Center" />
+
+            <Button 
+                Text="Click to go to scope check page"
+                FontAttributes="Bold"
+                Grid.Row="3"
+                SemanticProperties.Hint="Counts the number of times you click"
+                Command="{Binding GoToScopeCheckCommand}"
                 HorizontalOptions="Center" />
 
             <Image Grid.Row="4"
