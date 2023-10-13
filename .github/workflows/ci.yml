@@ -1,13 +1,7 @@
 name: CI
 
 on:
-  create:
-    branches: 
-      - release/**
   push:
-    branches:
-    - main
-  pull_request:
     branches:
     - main
     
@@ -40,7 +34,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 7.x.x
+        dotnet-version: 8.x.x
         include-prerelease: false
 
     - name: Install workloads

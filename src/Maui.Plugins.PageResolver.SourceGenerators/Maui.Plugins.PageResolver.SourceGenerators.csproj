@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	  <Authors>Matt Goldman</Authors>
 	  <Company />
 	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
