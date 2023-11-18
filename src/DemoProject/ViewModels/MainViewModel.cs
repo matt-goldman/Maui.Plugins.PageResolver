@@ -40,9 +40,7 @@ public class MainViewModel : BaseViewModel
 
     async Task GoToVmParamPage()
     {
-        Name = _nameService.GetName();
-
-        await Navigation.PushAsync<VmParamPage>(Name);
+        await Navigation.PushAsync<VmParamPage>("Name passed as parameter");
     }
 
     async Task GoToMarkup()

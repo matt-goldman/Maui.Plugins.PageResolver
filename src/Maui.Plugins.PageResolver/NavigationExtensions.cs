@@ -111,17 +111,22 @@ public static class NavigationExtensions
 
     private static bool ParametersMatchConstructors(Type type, params object[] parameters)
     {
+        var sp = Resolver.GetServiceProvider();
+
         var constructors = type.GetConstructors();
         foreach (var constructor in constructors)
         {
             var ctorParams = constructor.GetParameters();
-            if (ctorParams.Length == parameters.Length)
+
+            var nonInjectableParams = ctorParams.Where(p => !IsRegisteredDependency(sp, p.ParameterType)).ToArray();
+
+            if (nonInjectableParams.Length == parameters.Length)
             {
-                for (int i = 0; i < ctorParams.Length; i++)
+                for (int i = 0; i < nonInjectableParams.Length; i++)
                 {
-                    if (!ctorParams[i].ParameterType.IsAssignableFrom(parameters[i].GetType()))
+                    if (!nonInjectableParams[i].ParameterType.IsAssignableFrom(parameters[i].GetType()))
                         break;
-                    if (i == ctorParams.Length - 1)
+                    if (i == nonInjectableParams.Length - 1)
                         return true; // all parameters match
                 }
             }
@@ -131,17 +136,22 @@ public static class NavigationExtensions
 
     private static bool ParametersMatchConstructorsExcludingType(Type type, Type excludeType, params object[] parameters)
     {
+        var sp = Resolver.GetServiceProvider();
+
         var constructors = type.GetConstructors();
         foreach (var constructor in constructors)
         {
             var ctorParams = constructor.GetParameters().Where(p => p.ParameterType != excludeType).ToArray();
-            if (ctorParams.Length == parameters.Length)
+
+            var nonInjectableParams = ctorParams.Where(p => !IsRegisteredDependency(sp, p.ParameterType)).ToArray();
+
+            if (nonInjectableParams.Length == parameters.Length)
             {
-                for (int i = 0; i < ctorParams.Length; i++)
+                for (int i = 0; i < nonInjectableParams.Length; i++)
                 {
-                    if (!ctorParams[i].ParameterType.IsAssignableFrom(parameters[i].GetType()))
+                    if (!nonInjectableParams[i].ParameterType.IsAssignableFrom(parameters[i].GetType()))
                         break;
-                    if (i == ctorParams.Length - 1)
+                    if (i == nonInjectableParams.Length - 1)
                         return true; // all parameters match
                 }
             }
@@ -159,6 +169,12 @@ public static class NavigationExtensions
         {
             return ActivatorUtilities.CreateInstance<T>(Resolver.GetServiceProvider());
         }
+    }
+
+    private static bool IsRegisteredDependency(IServiceProvider serviceProvider, Type type)
+    {
+        var serviceDescriptors = serviceProvider.GetServices(type);
+        return serviceDescriptors.Any();
     }
 
     #endregion
