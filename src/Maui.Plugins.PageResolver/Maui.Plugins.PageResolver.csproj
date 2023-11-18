@@ -6,15 +6,15 @@
     <Authors>Matt Goldman</Authors>
     <Company></Company>
     <RepositoryUrl>https://github.com/matt-goldman/Maui.Plugins.PageResolver</RepositoryUrl>
-    <Copyright>Matt Goldman 2022</Copyright>
+    <Copyright>Matt Goldman 2023</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Goldie.MauiPlugins.PageResolver</PackageId>
     <PackageLicenseExpression></PackageLicenseExpression>
-    <Description>A simple lightweight page resolver for dotnet MAUI projects. Uses the built in DI container to resolve dependencies and push a resolve page onto the navigation stack.</Description>
+    <Description>A simple lightweight page resolver for dotnet MAUI projects. Uses the built in DI container to resolve dependencies and push a resolved page onto the navigation stack.</Description>
     <PackageIcon>gfg.png</PackageIcon>
     <PackageIconUrl />
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Version>2.0.0-preview1</Version>
+    <Version>2.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
