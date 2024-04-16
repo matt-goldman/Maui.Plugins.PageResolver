@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Maui.Controls;
 using System;
 using System.Linq;
@@ -36,12 +35,12 @@ public static class NavigationExtensions
 
         await navigation.PushModalAsync(resolvedPage);
     }
-    
+
     #endregion
 
 
     #region parameterized navigation
-    
+
     /// <summary>
     /// Resolves a page of type T (must inherit from Page) and pushes a new instance onto the navigation stack
     /// </summary>
@@ -53,7 +52,7 @@ public static class NavigationExtensions
     {
         var page = ResolvePage<T>(parameters);
         await navigation.PushAsync(page);
-    }  
+    }
 
     /// <summary>
     /// Resolves a page of type T (must inherit from Page) and pushes a new modal instance onto the navigation stack
@@ -173,8 +172,20 @@ public static class NavigationExtensions
 
     private static bool IsRegisteredDependency(IServiceProvider serviceProvider, Type type)
     {
-        var serviceDescriptors = serviceProvider.GetServices(type);
-        return serviceDescriptors.Any();
+        if (type.IsPrimitive || type == typeof(string) || type.IsValueType)
+        {
+            return false;
+        }
+
+        try
+        {
+            var services = serviceProvider.GetServices(type);
+            return services.Any();
+        }
+        catch (Exception)
+        {
+            return false;
+        }
     }
 
     #endregion
