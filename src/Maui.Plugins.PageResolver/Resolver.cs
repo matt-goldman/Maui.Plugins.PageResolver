@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace Maui.Plugins.PageResolver;
 
-public static partial class Resolver
+internal static partial class Resolver
 {
     private static IServiceScope scope;
 
@@ -70,5 +70,13 @@ public static partial class Resolver
     internal static IServiceProvider GetServiceProvider()
     {
         return scope.ServiceProvider;
+    }
+
+    internal static void AddMappingRange(Dictionary<Type, Type> mappings)
+    {
+        foreach (var mapping in mappings)
+        {
+            ViewModelLookup[mapping.Key] = mapping.Value;
+        }
     }
 }
