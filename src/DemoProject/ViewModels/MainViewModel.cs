@@ -17,6 +17,8 @@ public class MainViewModel : BaseViewModel
 
     public ICommand GoToScopeCheckCommand => new Command(async () => await GoToScopeCheck());
 
+    public ICommand GoToIgnoredPageCommand => new Command(async () => await GoToBrokenPage());
+
     public string Name { get; set; }
 
     public MainViewModel(INameService nameService)
@@ -51,5 +53,10 @@ public class MainViewModel : BaseViewModel
     async Task GoToScopeCheck()
     {
         await Navigation.PushAsync<ScopeCheckPage>();
+    }
+
+    async Task GoToBrokenPage()
+    {
+        await Navigation.PushAsync<BrokenPage>();
     }
 }

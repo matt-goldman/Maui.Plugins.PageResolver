@@ -187,6 +187,11 @@ public static class PageResolverExtensions
                 "using Maui.Plugins.PageResolver;"
             };
 
+            var ignoredTypes = new HashSet<ITypeSymbol>(types.Where(type =>
+                type.GetAttributes().Any(ad =>
+                ad.AttributeClass.ToDisplayString() == "Maui.Plugins.PageResolver.Attributes.IgnoreAttribute")
+                || type.IsAbstract), comparer);
+
             var singletons = types.Where(type =>
                     type.GetAttributes().Any(ad =>
                     ad.AttributeClass.ToDisplayString() == "Maui.Plugins.PageResolver.Attributes.SingletonAttribute"));
@@ -197,13 +202,13 @@ public static class PageResolverExtensions
                 ad.AttributeClass.ToDisplayString() == "Maui.Plugins.PageResolver.Attributes.TransientAttribute"));
             _dependencies["ExplicitTransients"] = new HashSet<ITypeSymbol>(transients, comparer);
 
-            var pages = types.Where(t => t.TypeKind == TypeKind.Class && t.Name.EndsWith("Page"));
+            var pages = types.Where(t => t.TypeKind == TypeKind.Class && t.Name.EndsWith("Page") && !ignoredTypes.Contains(t, comparer));
             _dependencies["Pages"] = new HashSet<ITypeSymbol>(pages, comparer);
 
-            var viewModels = types.Where(t => t.TypeKind == TypeKind.Class && t.Name.EndsWith("ViewModel"));
+            var viewModels = types.Where(t => t.TypeKind == TypeKind.Class && t.Name.EndsWith("ViewModel") && !ignoredTypes.Contains(t, comparer));
             _dependencies["ViewModels"] = new HashSet<ITypeSymbol>(viewModels, comparer);
 
-            var services = types.Where(t => t.TypeKind == TypeKind.Class && t.Name.EndsWith("Service"));
+            var services = types.Where(t => t.TypeKind == TypeKind.Class && t.Name.EndsWith("Service") && !ignoredTypes.Contains(t, comparer));
             _dependencies["Services"] = new HashSet<ITypeSymbol>(services, comparer);
 
             var abstractions = types.Where(t => t.TypeKind == TypeKind.Interface && t.Name.EndsWith("Service"));

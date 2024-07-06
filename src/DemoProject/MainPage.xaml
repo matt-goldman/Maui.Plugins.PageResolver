@@ -64,6 +64,14 @@
                 Command="{Binding GoToScopeCheckCommand}"
                 HorizontalOptions="Center" />
 
+            <Button 
+                Text="Click to go to ignored dependency page (expect crash)"
+                FontAttributes="Bold"
+                Grid.Row="3"
+                SemanticProperties.Hint="Crashes the app!"
+                Command="{Binding GoToIgnoredPageCommand}"
+                HorizontalOptions="Center" />
+
             <Image Grid.Row="4"
                 Source="dotnet_bot.png"
                 SemanticProperties.Description="Cute dot net bot waving hi to you!"
