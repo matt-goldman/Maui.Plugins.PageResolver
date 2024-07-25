@@ -74,4 +74,16 @@ public static class StartupExtensions
     {
         Resolver.AddMappingRange(ViewModelMappings);
     }
+
+    /// <summary>
+    /// Adds a single page to ViewModel mapping to the existing mappings (replaces item with existing key)
+    /// </summary>
+    /// <typeparam name="T1"></typeparam>
+    /// <typeparam name="T2"></typeparam>
+    public static void UpsertViewModelMapping<T1, T2>()
+    {
+        Resolver.ViewModelLookup[typeof(T1)] = typeof(T2);
+    }
+
+
 }
