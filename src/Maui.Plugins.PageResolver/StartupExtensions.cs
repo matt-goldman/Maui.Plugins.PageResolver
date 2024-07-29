@@ -12,11 +12,11 @@ public static class StartupExtensions
     /// <summary>
     /// Registers the services in the service collection with the page resolver
     /// </summary>
-    /// <param name="sc"></param>
+    /// <param name="services"></param>
     /// <param name="UseParamaterisedViewModels">If true, the ViewModelResolver will be initialised with the calling assembly (required for passing ViewModel parameters in navigation). Disabled by default as it uses reflection and will have startup time impact.</param>
-    public static void UsePageResolver(this IServiceCollection sc, bool? UseParamaterisedViewModels = false)
+    public static void UsePageResolver(this IServiceCollection services, bool? UseParamaterisedViewModels = false)
     {
-        sc.TryAddEnumerable( ServiceDescriptor.Transient<IMauiInitializeService, Initializer>() );
+        services.TryAddEnumerable( ServiceDescriptor.Transient<IMauiInitializeService, Initializer>() );
 
         if (UseParamaterisedViewModels ?? false)
         {
@@ -45,12 +45,45 @@ public static class StartupExtensions
     /// <summary>
     /// Registers the services in the service collection and the page-to-ViewModel mappings with the page resolver. This overload is intended for use with the Source Generator.
     /// </summary>
-    /// <param name="sc"></param>
+    /// <param name="services"></param>
     /// <param name="ViewModelMappings">A dictionary that provides Page to ViewModel mappings..</param>
-    public static void UsePageResolver(this IServiceCollection sc, Dictionary<Type, Type> ViewModelMappings)
+    public static void UsePageResolver(this IServiceCollection services, Dictionary<Type, Type> ViewModelMappings)
     {
-        sc.TryAddEnumerable(ServiceDescriptor.Transient<IMauiInitializeService, Initializer>());
+        services.TryAddEnumerable(ServiceDescriptor.Transient<IMauiInitializeService, Initializer>());
 
         Resolver.InitialiseViewModelLookup(ViewModelMappings);
     }
+
+    /// <summary>
+    /// Clears the current page to ViewModel mappings and replaces with the specified mappings
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="ViewModelMappings"></param>
+    /// <returns></returns>
+    public static IServiceCollection AddViewModelMappings(this IServiceCollection services, Dictionary<Type, Type> ViewModelMappings)
+    {
+        Resolver.InitialiseViewModelLookup(ViewModelMappings);
+        return services;
+    }
+
+    /// <summary>
+    /// Adds the specified page to ViewModel mappings to the existing mappings (replaces items with existing key)
+    /// </summary>
+    /// <param name="ViewModelMappings"></param>
+    public static void AddViewModelMappings(Dictionary<Type, Type> ViewModelMappings)
+    {
+        Resolver.AddMappingRange(ViewModelMappings);
+    }
+
+    /// <summary>
+    /// Adds a single page to ViewModel mapping to the existing mappings (replaces item with existing key)
+    /// </summary>
+    /// <typeparam name="T1"></typeparam>
+    /// <typeparam name="T2"></typeparam>
+    public static void UpsertViewModelMapping<T1, T2>()
+    {
+        Resolver.ViewModelLookup[typeof(T1)] = typeof(T2);
+    }
+
+
 }
