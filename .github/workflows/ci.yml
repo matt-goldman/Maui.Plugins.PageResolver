@@ -1,9 +1,13 @@
 name: CI
 
 on:
-  push:
-    branches:
-    - release
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to build'
+        required: true
+        default: '0.0.0'
+
     
 jobs:
   build:
@@ -16,14 +20,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    
-    - name: Get Build Version
-      run: |
-        Import-Module .\build\GetBuildVersion.psm1
-        Write-Host $Env:GITHUB_REF
-        $version = GetBuildVersion -VersionString $Env:GITHUB_REF
-        echo "BUILD_VERSION=$version" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append
-      shell: pwsh
+  
 
     # - name: Install workloads
     #   run: dotnet workload install maui maui-windows
@@ -41,7 +38,7 @@ jobs:
       run: dotnet workload install maui
 
     - name: Build
-      run: dotnet build $env:SOLUTION --configuration $env:BUILD_CONFIG -p:Version=$env:BUILD_VERSION #--no-restore
+      run: dotnet build $env:SOLUTION --configuration $env:BUILD_CONFIG -p:Version=${{ github.event.inputs.version }}
 
     # - name: Run tests
     #   run: dotnet test /p:Configuration=$env:BUILD_CONFIG --no-restore --no-build --verbosity normal
