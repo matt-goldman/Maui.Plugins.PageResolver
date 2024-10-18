@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maui.Plugins.PageResolver.S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maui.Plugins.PageResolver.Attributes", "Maui.Plugins.PageResolver.Attributes\Maui.Plugins.PageResolver.Attributes.csproj", "{52D883B1-203F-429A-A117-344B4085FA14}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maui.Plugins.MopupsExtensions", "Maui.Plugins.MopupsExtensions\Maui.Plugins.MopupsExtensions.csproj", "{BFB3DF3F-C81E-4F52-8FEB-3FE529295F18}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{52D883B1-203F-429A-A117-344B4085FA14}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52D883B1-203F-429A-A117-344B4085FA14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52D883B1-203F-429A-A117-344B4085FA14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFB3DF3F-C81E-4F52-8FEB-3FE529295F18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFB3DF3F-C81E-4F52-8FEB-3FE529295F18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFB3DF3F-C81E-4F52-8FEB-3FE529295F18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFB3DF3F-C81E-4F52-8FEB-3FE529295F18}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

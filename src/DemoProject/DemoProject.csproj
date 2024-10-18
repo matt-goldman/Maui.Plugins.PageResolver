@@ -52,6 +52,7 @@
 		<!--<PackageReference Include="Goldie.MauiPlugins.PageResolver" Version="2.0.0" />-->
 		<!--<PackageReference Include="Goldie.MauiPlugins.PageResolver" Version="2.0.0-preview1" />-->
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0-rc.1.23419.4" />
+		<PackageReference Include="Mopups" Version="1.3.2" />
 	</ItemGroup>
 
 	 <ItemGroup>
