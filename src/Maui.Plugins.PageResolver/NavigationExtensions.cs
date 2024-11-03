@@ -68,7 +68,7 @@ public static class NavigationExtensions
     }
 
 
-    private static Page ResolvePage<T>(params object[] parameters) where T : Page
+    internal static Page ResolvePage<T>(params object[] parameters) where T : Page
     {
         var serviceProvider = Resolver.GetServiceProvider();
 
@@ -85,8 +85,7 @@ public static class NavigationExtensions
 
     private static Page CreatePageWithoutViewModel<T>(IServiceProvider serviceProvider, params object[] parameters) where T : Page
     {
-        var resolvedPage = ActivatorUtilities.CreateInstance<T>(serviceProvider, typeof(T), parameters);
-        return resolvedPage;
+        return ActivatorUtilities.CreateInstance<T>(serviceProvider, parameters);
     }
 
     private static Page CreatePageWithViewModel<T>(IServiceProvider serviceProvider, Type viewModelType, params object[] parameters) where T : Page

@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:DemoProject.ViewModels"
+             x:DataType="vm:MainViewModel"
              x:Class="DemoProject.MainPage">
 
     <ScrollView>
@@ -70,6 +72,22 @@
                 Grid.Row="3"
                 SemanticProperties.Hint="Crashes the app!"
                 Command="{Binding GoToIgnoredPageCommand}"
+                HorizontalOptions="Center" />
+
+            <Button 
+                Text="Click to show popup with resolved dependncy"
+                FontAttributes="Bold"
+                Grid.Row="3"
+                SemanticProperties.Hint="Shows a resolved popup"
+                Command="{Binding ShowEasyPopupCommand}"
+                HorizontalOptions="Center" />
+
+            <Button 
+                Text="Click to show popup with parameter and resolved dependency"
+                FontAttributes="Bold"
+                Grid.Row="3"
+                SemanticProperties.Hint="Shows a resolved popup with a parameter"
+                Command="{Binding ShowParamPopupCommand}"
                 HorizontalOptions="Center" />
 
             <Image Grid.Row="4"

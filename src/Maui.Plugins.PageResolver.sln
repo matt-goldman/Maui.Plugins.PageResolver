@@ -5,11 +5,13 @@ VisualStudioVersion = 17.2.32210.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maui.Plugins.PageResolver", "Maui.Plugins.PageResolver\Maui.Plugins.PageResolver.csproj", "{34BC27F4-EAED-450D-956D-7943B8BD8148}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoProject", "DemoProject\DemoProject.csproj", "{79F5FD46-BB6F-4D66-B502-5E79B5CFB299}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maui.Plugins.PageResolver.SourceGenerators", "Maui.Plugins.PageResolver.SourceGenerators\Maui.Plugins.PageResolver.SourceGenerators.csproj", "{22AFD22E-D7F4-4EB5-A6D4-09F0365D319E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maui.Plugins.PageResolver.Attributes", "Maui.Plugins.PageResolver.Attributes\Maui.Plugins.PageResolver.Attributes.csproj", "{52D883B1-203F-429A-A117-344B4085FA14}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maui.Plugins.PageResolver.MopupsExtensions", "Maui.Plugins.PageResolver.MopupsExtensions\Maui.Plugins.PageResolver.MopupsExtensions.csproj", "{BFB3DF3F-C81E-4F52-8FEB-3FE529295F18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoProject", "DemoProject\DemoProject.csproj", "{2ECC2822-727B-4B66-97E8-284D1B9D1DCB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,14 @@ Global
 		{52D883B1-203F-429A-A117-344B4085FA14}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52D883B1-203F-429A-A117-344B4085FA14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52D883B1-203F-429A-A117-344B4085FA14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFB3DF3F-C81E-4F52-8FEB-3FE529295F18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFB3DF3F-C81E-4F52-8FEB-3FE529295F18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFB3DF3F-C81E-4F52-8FEB-3FE529295F18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFB3DF3F-C81E-4F52-8FEB-3FE529295F18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ECC2822-727B-4B66-97E8-284D1B9D1DCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ECC2822-727B-4B66-97E8-284D1B9D1DCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ECC2822-727B-4B66-97E8-284D1B9D1DCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ECC2822-727B-4B66-97E8-284D1B9D1DCB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

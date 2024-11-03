@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+                  xmlns:vm="clr-namespace:DemoProject.Popups.ViewModels"
+                  x:DataType="vm:ParamPopupViewModel"
+                  x:Class="DemoProject.Popups.Pages.ParamPopup"
+                  BackgroundColor="#80000000"
+                  Title="ParamPopup">
+    <Border
+        HorizontalOptions="Center"
+        VerticalOptions="Center"
+        MinimumHeightRequest="300"
+        MinimumWidthRequest="300"
+        Padding="10"
+        Margin="70,0"
+        Stroke="{StaticResource Magenta}"
+        StrokeShape="RoundRectangle 8"
+        BackgroundColor="{StaticResource Magenta}">
+    <VerticalStackLayout>
+        <Label 
+            Text="{Binding Message}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+    </VerticalStackLayout>
+    </Border>
+</mopups:PopupPage>

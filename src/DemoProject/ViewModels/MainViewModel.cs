@@ -1,4 +1,6 @@
 ﻿using DemoProject.Pages;
+using DemoProject.Popups.Pages;
+using Mopups.Services;
 using System.Windows.Input;
 
 namespace DemoProject.ViewModels;
@@ -18,6 +20,10 @@ public class MainViewModel : BaseViewModel
     public ICommand GoToScopeCheckCommand => new Command(async () => await GoToScopeCheck());
 
     public ICommand GoToIgnoredPageCommand => new Command(async () => await GoToBrokenPage());
+
+    public ICommand ShowEasyPopupCommand => new Command(async () => await ShowEasyPopup());
+
+    public ICommand ShowParamPopupCommand => new Command(async () => await ShowParamPopup());
 
     public string Name { get; set; }
 
@@ -58,5 +64,15 @@ public class MainViewModel : BaseViewModel
     async Task GoToBrokenPage()
     {
         await Navigation.PushAsync<BrokenPage>();
+    }
+
+    Task ShowEasyPopup()
+    {
+        return MopupService.Instance.PushAsync<EasyPopup>();
+    }
+
+    Task ShowParamPopup()
+    {
+        return MopupService.Instance.PushAsync<ParamPopup>("It's alive!");
     }
 }

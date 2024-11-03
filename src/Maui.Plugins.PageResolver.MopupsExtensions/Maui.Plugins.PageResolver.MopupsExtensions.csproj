@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<NetCoreVersion>8.0</NetCoreVersion>
+		<TargetFramework>net$(NetCoreVersion)</TargetFramework>
+		<ImplicitUsings>Enable</ImplicitUsings>
+		<UseMaui>true</UseMaui>
+		<Authors>Matt Goldman</Authors>
+		<Company></Company>
+		<RepositoryUrl>https://github.com/matt-goldman/Maui.Plugins.PageResolver</RepositoryUrl>
+		<Copyright>Matt Goldman 2024</Copyright>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageId>Goldie.MauiPlugins.PageResolver.MopupsExtensions</PackageId>
+		<PackageLicenseExpression></PackageLicenseExpression>
+		<Description>Mopups extensions for PageResolver - push popup pages with resolved dependencies</Description>
+		<PackageIcon>gfg.png</PackageIcon>
+		<PackageIconUrl />
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<Version>2.5.1</Version>
+
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\assets\gfg.png">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	  <None Include="..\..\LICENSE" Link="LICENSE">
+	    <PackagePath></PackagePath>
+	    <Pack>True</Pack>
+	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Goldie.MauiPlugins.PageResolver" Version="2.5.1" />
+		<PackageReference Include="Mopups" Version="1.3.2" />
+	</ItemGroup>
+
+</Project>

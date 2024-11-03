@@ -7,7 +7,7 @@
     <Authors>Matt Goldman</Authors>
     <Company></Company>
     <RepositoryUrl>https://github.com/matt-goldman/Maui.Plugins.PageResolver</RepositoryUrl>
-    <Copyright>Matt Goldman 2023</Copyright>
+    <Copyright>Matt Goldman 2024</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Goldie.MauiPlugins.PageResolver</PackageId>
     <PackageLicenseExpression></PackageLicenseExpression>
@@ -15,7 +15,7 @@
     <PackageIcon>gfg.png</PackageIcon>
     <PackageIconUrl />
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Version>2.0.1</Version>
+    <Version>2.5.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -31,7 +31,11 @@
 
   <ItemGroup>
     <None Include="..\Maui.Plugins.PageResolver.Attributes\bin\$(Configuration)\net$(NetCoreVersion)\Maui.Plugins.PageResolver.Attributes.dll" Pack="true" PackagePath="lib/net$(NetCoreVersion)" Visible="false"/>
-    <None Include="..\Maui.Plugins.PageResolver.SourceGenerators\bin\$(Configuration)\netstandard2.0\Maui.Plugins.PageResolver.SourceGenerators.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+	<None Include="..\Maui.Plugins.PageResolver.SourceGenerators\bin\$(Configuration)\netstandard2.0\Maui.Plugins.PageResolver.SourceGenerators.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<InternalsVisibleTo Include="Maui.Plugins.PageResolver.MopupsExtensions" />
   </ItemGroup>
 
 </Project>
