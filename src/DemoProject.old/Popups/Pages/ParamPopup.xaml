@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+                  xmlns:vm="clr-namespace:DemoProject.Popups.ViewModels"
+                  x:DataType="vm:ParamPopupViewModel"
+                  x:Class="DemoProject.Popups.Pages.ParamPopup"
+                  Title="ParamPopup">
+    <VerticalStackLayout>
+        <Label 
+            Text="{Binding Message}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+    </VerticalStackLayout>
+</mopups:PopupPage>

@@ -4,21 +4,12 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:DemoProject"
-    xmlns:pages="clr-namespace:DemoProject.Pages"
-    Shell.FlyoutBehavior="Disabled">
+    Shell.FlyoutBehavior="Disabled"
+    Title="DemoProject">
 
-    <TabBar>
-        <Tab Title="Home">
-            <ShellContent
-                ContentTemplate="{DataTemplate local:MainPage}"
-                Route="MainPage" />
-        </Tab>
-
-        <!--<Tab Title="Markup">
-            <ShellContent
-                ContentTemplate="{DataTemplate pages:MarkupPage}"
-                Route="MarkupPage" />
-        </Tab>-->
-    </TabBar>
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
 
 </Shell>
