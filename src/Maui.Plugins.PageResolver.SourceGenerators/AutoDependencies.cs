@@ -46,6 +46,15 @@ namespace Maui.Plugins.PageResolver.SourceGenerators
                     throw new Exception("MauiProgram not found.");
                 }
 
+                bool hasNoAutoDependenciesAttribute = mauiProgram.GetAttributes()
+                    .Any(ad => ad.AttributeClass.ToDisplayString() == "Maui.Plugins.PageResolver.Attributes.NoAutoDependenciesAttribute");
+
+                if (hasNoAutoDependenciesAttribute)
+                {
+                    Log.WriteLine("NoAutoDependenciesAttribute found, skipping.");
+                    return;
+                }
+
                 Log.WriteLine($"Found main method: {mauiProgram.Name}");
 
                 StringBuilder sourceBuilder = new StringBuilder();
