@@ -36,6 +36,18 @@ public static class NavigationExtensions
         await navigation.PushModalAsync(resolvedPage);
     }
 
+    /// <summary>
+    /// Resolves a page of type T (must inherit from Page) and inserts it onto the navigation stack before a specific page
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="navigation"></param>
+    /// <param name="before"></param>
+    public static void InsertPageBefore<T>(this INavigation navigation, Page before) where T : Page
+    {
+        var resolvedPage = Resolver.Resolve<T>();
+        navigation.InsertPageBefore(resolvedPage, before);
+    }
+
     #endregion
 
 
@@ -67,6 +79,20 @@ public static class NavigationExtensions
         await navigation.PushModalAsync(page);
     }
 
+    /// <summary>
+    /// Resolves a page of type T (must inherit from Page) and inserts it onto the navigation stack before a specific page
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="navigation"></param>
+    /// <param name="before"></param>
+    /// <param name="parameters">The constructor parameters expected by the page to be resolved</param>
+    public static void InsertPageBefore<T>(this INavigation navigation, Page before, params object[] parameters) where T : Page
+    {
+        var page = ResolvePage<T>(parameters);
+        navigation.InsertPageBefore(page, before);
+    }
+
+    #endregion
 
     internal static Page ResolvePage<T>(params object[] parameters) where T : Page
     {
@@ -186,6 +212,4 @@ public static class NavigationExtensions
             return false;
         }
     }
-
-    #endregion
 }
