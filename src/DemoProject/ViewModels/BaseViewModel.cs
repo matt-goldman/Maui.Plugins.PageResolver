@@ -1,20 +1,6 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿namespace DemoProject.ViewModels;
 
-namespace DemoProject.ViewModels;
-
-public class BaseViewModel : INotifyPropertyChanged
+public class BaseViewModel
 {
-    public INavigation Navigation { get; set; }
-
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    public void OnPropertChanged([CallerMemberName] string propertyName = "")
-    {
-        var changed = PropertyChanged;
-        if (changed == null)
-            return;
-
-        changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
+    public INavigation? Navigation { get; set; }
 }

@@ -1,12 +1,15 @@
-﻿using System.Windows.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.Windows.Input;
 
 namespace DemoProject.ViewModels;
 
-public class MarkupViewModel : BaseViewModel
+[ObservableObject]
+public partial class MarkupViewModel : BaseViewModel
 {
     private readonly INameService _nameService;
 
-    public string Name { get; set; }
+    [ObservableProperty]
+    private string _name = string.Empty;
 
     public ICommand GetNameCommand => new Command(() => GetName());
 
@@ -18,7 +21,5 @@ public class MarkupViewModel : BaseViewModel
     void GetName()
     {
         Name = _nameService.GetName();
-
-        OnPropertChanged(nameof(Name));
     }
 }

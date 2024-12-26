@@ -1,15 +1,19 @@
-﻿using System.Windows.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.Windows.Input;
 
 namespace DemoProject.ViewModels;
 
-public class ScopeCheckViewModel : BaseViewModel
+[ObservableObject]
+public partial class ScopeCheckViewModel : BaseViewModel
 {
     private readonly IDefaultScopedService _defaultScopedService;
     private readonly ICustomScopedService _customScopedService;
 
-    public int DefaultCount { get; set; }
+    [ObservableProperty]
+    private int _defaultCount;
 
-    public int CustomCount { get; set; }
+    [ObservableProperty]
+    private int _customCount;
 
     public ICommand IncreaseCountCommand => new Command(() => IncreaseCount());
 
@@ -29,8 +33,5 @@ public class ScopeCheckViewModel : BaseViewModel
 
         DefaultCount = _defaultScopedService.GetCount();
         CustomCount = _customScopedService.GetCount();
-
-        OnPropertChanged(nameof(DefaultCount));
-        OnPropertChanged(nameof(CustomCount));
     }
 }

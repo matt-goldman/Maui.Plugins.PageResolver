@@ -60,8 +60,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0-rc.1.24431.7" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.21" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
 		<PackageReference Include="Mopups" Version="1.3.2" />
 	</ItemGroup>
 
@@ -77,6 +78,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<MauiXaml Update="Pages\DesktopRootPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Pages\MarkupPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

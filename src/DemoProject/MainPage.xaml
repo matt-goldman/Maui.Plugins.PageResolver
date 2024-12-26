@@ -39,7 +39,7 @@
                 FontAttributes="Bold"
                 Grid.Row="3"
                 SemanticProperties.Hint="Counts the number of times you click"
-                Command="{Binding GoToPageParamCommand}"
+                Command="{Binding GoToPageParamPageCommand}"
                 HorizontalOptions="Center" />
 
             <Button 
@@ -47,7 +47,7 @@
                 FontAttributes="Bold"
                 Grid.Row="3"
                 SemanticProperties.Hint="Counts the number of times you click"
-                Command="{Binding GoToVmParamCommand}"
+                Command="{Binding GoToVmParamPageCommand}"
                 HorizontalOptions="Center" />
 
             <Button 
@@ -71,7 +71,7 @@
                 FontAttributes="Bold"
                 Grid.Row="3"
                 SemanticProperties.Hint="Crashes the app!"
-                Command="{Binding GoToIgnoredPageCommand}"
+                Command="{Binding GoToBrokenPageCommand}"
                 HorizontalOptions="Center" />
 
             <Button 
