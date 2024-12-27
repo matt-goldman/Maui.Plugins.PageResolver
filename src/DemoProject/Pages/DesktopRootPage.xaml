@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:DemoProject.ViewModels"
+             xmlns:converters="clr-namespace:DemoProject.Conversers"
+             x:DataType="vm:DesktopPageViewModel"
+             x:Class="DemoProject.Pages.DesktopRootPage"
+             Title="DesktopRootPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:NullToVisibleConverter x:Key="NullToVisible" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView>
+        <Grid ColumnDefinitions="*,*"
+              RowDefinitions="*,*,*">
+
+            <Button Text="Open MainPage in window"
+                    HeightRequest="100"
+                    WidthRequest="300"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Command="{Binding OpenWindowWithVmCommand}" />
+
+            <Button Text="Close MainPage Window"
+                    HeightRequest="100"
+                    WidthRequest="300"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Command="{Binding CloseWindowWithVmCommand}"
+                    IsEnabled="{Binding IsMainWindowOpen, Converter={StaticResource NullToVisible}}"
+                    Grid.Column="1"/>
+
+            <Button Text="Open PageParamPage in window"
+                    HeightRequest="100"
+                    WidthRequest="300"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Command="{Binding OpenWindowWithWinParamsCommand}"
+                    Grid.Row="1"/>
+
+            <Button Text="Close PageParamPage Window"
+                    HeightRequest="100"
+                    WidthRequest="300"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Command="{Binding CloseWindowWithWinParamsCommand}"
+                    IsEnabled="{Binding IsWinParamsWindowOpen, Converter={StaticResource NullToVisible}}"
+                    Grid.Row="1"
+                    Grid.Column="1"/>
+
+            <Button Text="Open VmParamPage in window"
+                    HeightRequest="100"
+                    WidthRequest="300"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Command="{Binding OpenWindowWithVmParamsCommand}"
+                    Grid.Row="2"/>
+
+            <Button Text="Close VmParamPage Window"
+                    HeightRequest="100"
+                    WidthRequest="300"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Command="{Binding CloseWindowWithVmParamsCommand}"
+                    IsEnabled="{Binding IsVmParamsWindowOpen, Converter={StaticResource NullToVisible}}"
+                    Grid.Row="2"
+                    Grid.Column="1"/>
+        </Grid>
+    </ScrollView>
+</ContentPage>

@@ -48,6 +48,27 @@ public static class NavigationExtensions
         navigation.InsertPageBefore(resolvedPage, before);
     }
 
+    /// <summary>
+    /// Creates a new window with a resolved page of type T (must inherit from Page)
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public static Window CreateWindow<T>() where T : Page
+    {
+        var resolvedPage = Resolver.Resolve<T>();
+        return new Window(resolvedPage);
+    }
+
+    /// <summary>
+    /// Creates a new window with a resolved page of type T (must inherit from Page) and opens it, and returns the window
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public static Window OpenWindow<T>(this Application application) where T : Page
+    {
+        var window = CreateWindow<T>();
+        application.OpenWindow(window);
+        return window;
+    }
+
     #endregion
 
 
@@ -90,6 +111,29 @@ public static class NavigationExtensions
     {
         var page = ResolvePage<T>(parameters);
         navigation.InsertPageBefore(page, before);
+    }
+
+    /// <summary>
+    /// Creates a new window with a resolved page of type T (must inherit from Page)
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="parameters">The constructor parameters expected by the page to be resolved</param>
+    public static Window CreateWindow<T>(params object[] parameters) where T : Page
+    {
+        var page = ResolvePage<T>(parameters);
+        return new Window(page);
+    }
+
+    /// <summary>
+    /// Creates a new window with a resolved page of type T (must inherit from Page) and opens it, and returns the window
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="parameters">The constructor parameters expected by the page to be resolved</param>
+    public static Window OpenWindow<T>(this Application application, params object[] parameters) where T : Page
+    {
+        var window = CreateWindow<T>(parameters);
+        application.OpenWindow(window);
+        return window;
     }
 
     #endregion

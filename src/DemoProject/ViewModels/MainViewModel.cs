@@ -1,77 +1,64 @@
-﻿using DemoProject.Pages;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using DemoProject.Pages;
 using DemoProject.Popups.Pages;
 using Mopups.Services;
-using System.Windows.Input;
 
 namespace DemoProject.ViewModels;
 
-public class MainViewModel : BaseViewModel
+[ObservableObject]
+public partial class MainViewModel(INameService nameService) : BaseViewModel
 {
-    private readonly INameService _nameService;
+    [ObservableProperty]
+    private string _name = string.Empty;
 
-    public ICommand GetNameCommand => new Command(() => GetName());
 
-    public ICommand GoToPageParamCommand => new Command(async () => await GoToPageParamPage());
-
-    public ICommand GoToVmParamCommand => new Command(async () => await GoToVmParamPage());
-
-    public ICommand GoToMarkupCommand => new Command(async () => await GoToMarkup());
-
-    public ICommand GoToScopeCheckCommand => new Command(async () => await GoToScopeCheck());
-
-    public ICommand GoToIgnoredPageCommand => new Command(async () => await GoToBrokenPage());
-
-    public ICommand ShowEasyPopupCommand => new Command(async () => await ShowEasyPopup());
-
-    public ICommand ShowParamPopupCommand => new Command(async () => await ShowParamPopup());
-
-    public string Name { get; set; }
-
-    public MainViewModel(INameService nameService)
+    [RelayCommand]
+    private void GetName()
     {
-        _nameService = nameService;
+        Name = nameService.GetName();
     }
 
-    void GetName()
+    [RelayCommand]
+    private async Task GoToPageParamPage()
     {
-        Name = _nameService.GetName();
-
-        OnPropertChanged(nameof(Name));
-    }
-
-    async Task GoToPageParamPage()
-    {
-        Name = _nameService.GetName();
+        Name = nameService.GetName();
 
         await Navigation.PushAsync<PageParamPage>(Name);
     }
 
-    async Task GoToVmParamPage()
+    [RelayCommand]
+    private async Task GoToVmParamPage()
     {
         await Navigation.PushAsync<VmParamPage>("Name passed as parameter");
     }
 
-    async Task GoToMarkup()
+    [RelayCommand]
+    private async Task GoToMarkup()
     {
         await Navigation.PushAsync(new MarkupPage());
     }
 
-    async Task GoToScopeCheck()
+    [RelayCommand]
+    private async Task GoToScopeCheck()
     {
         await Navigation.PushAsync<ScopeCheckPage>();
     }
 
-    async Task GoToBrokenPage()
+    [RelayCommand]
+    private async Task GoToBrokenPage()
     {
         await Navigation.PushAsync<BrokenPage>();
     }
 
-    Task ShowEasyPopup()
+    [RelayCommand]
+    private Task ShowEasyPopup()
     {
         return MopupService.Instance.PushAsync<EasyPopup>();
     }
 
-    Task ShowParamPopup()
+    [RelayCommand]
+    private Task ShowParamPopup()
     {
         return MopupService.Instance.PushAsync<ParamPopup>("It's alive!");
     }

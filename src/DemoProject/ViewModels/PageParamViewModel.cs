@@ -2,9 +2,6 @@
 
 public class PageParamViewModel
 {
-    public string NameParam { get; set; }
+    public string NameParam { get; set; } = string.Empty;
 
-    public PageParamViewModel()
-    {
-    }
 }
