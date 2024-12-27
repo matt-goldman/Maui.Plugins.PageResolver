@@ -4,21 +4,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              Title="VmParamPage">
     <VerticalStackLayout>
-        <Label HorizontalOptions="CenterAndExpand"
+        <Label HorizontalOptions="Center"
                Text="Welcome to .NET MAUI!"
-               VerticalOptions="CenterAndExpand" />
-        <Label HorizontalOptions="CenterAndExpand"
+               VerticalOptions="Center" />
+        <Label HorizontalOptions="Center"
                Text="Your name is:"
-               VerticalOptions="CenterAndExpand" />
-        <Label HorizontalOptions="CenterAndExpand"
+               VerticalOptions="Center" />
+        <Label HorizontalOptions="Center"
                Text="{Binding NameParam}"
-               VerticalOptions="CenterAndExpand" />
+               VerticalOptions="Center" />
 
-        <Label HorizontalOptions="CenterAndExpand"
-               Text="Name from sercice is:"
-               VerticalOptions="CenterAndExpand" />
-        <Label HorizontalOptions="CenterAndExpand"
+        <Label HorizontalOptions="Center"
+               Text="Name from service is:"
+               VerticalOptions="Center" />
+        <Label HorizontalOptions="Center"
                Text="{Binding NameFromServiceParam}"
-               VerticalOptions="CenterAndExpand" />
+               VerticalOptions="Center" />
     </VerticalStackLayout>
 </ContentPage>

@@ -8,14 +8,16 @@
     Shell.FlyoutBehavior="Disabled"
     Title="DemoProject">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <TabBar>
+        <ShellContent
+            Title="Home"
+            ContentTemplate="{DataTemplate local:MainPage}"
+            Route="MainPage" />
 
-    <ShellContent
-        Title="Windows"
-        ContentTemplate="{DataTemplate pages:DesktopRootPage}"
-        Route="Windows" />
+        <ShellContent
+            Title="Windows"
+            ContentTemplate="{DataTemplate pages:DesktopRootPage}"
+            Route="Windows" />
+    </TabBar>
 
 </Shell>

@@ -16,30 +16,54 @@
               RowDefinitions="*,*,*">
 
             <Button Text="Open MainPage in window"
+                    HeightRequest="100"
+                    WidthRequest="300"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
                     Command="{Binding OpenWindowWithVmCommand}" />
 
             <Button Text="Close MainPage Window"
+                    HeightRequest="100"
+                    WidthRequest="300"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
                     Command="{Binding CloseWindowWithVmCommand}"
                     IsEnabled="{Binding IsMainWindowOpen, Converter={StaticResource NullToVisible}}"
                     Grid.Column="1"/>
 
             <Button Text="Open PageParamPage in window"
-                    Command="{Binding OpenWindowWithPageParamCommand}"
+                    HeightRequest="100"
+                    WidthRequest="300"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Command="{Binding OpenWindowWithWinParamsCommand}"
                     Grid.Row="1"/>
 
             <Button Text="Close PageParamPage Window"
-                    Command="{Binding CloseWindowWithPageParamCommand}"
-                    IsEnabled="{Binding IsPageParamWindowOpen, Converter={StaticResource NullToVisible}}"
+                    HeightRequest="100"
+                    WidthRequest="300"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Command="{Binding CloseWindowWithWinParamsCommand}"
+                    IsEnabled="{Binding IsWinParamsWindowOpen, Converter={StaticResource NullToVisible}}"
                     Grid.Row="1"
                     Grid.Column="1"/>
 
             <Button Text="Open VmParamPage in window"
-                    Command="{Binding OpenWindowWithVmParamCommand}"
+                    HeightRequest="100"
+                    WidthRequest="300"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Command="{Binding OpenWindowWithVmParamsCommand}"
                     Grid.Row="2"/>
 
             <Button Text="Close VmParamPage Window"
-                    Command="{Binding CloseWindowWithVmParamCommand}"
-                    IsEnabled="{Binding IsVmParamWindowOpen, Converter={StaticResource NullToVisible}}"
+                    HeightRequest="100"
+                    WidthRequest="300"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Command="{Binding CloseWindowWithVmParamsCommand}"
+                    IsEnabled="{Binding IsVmParamsWindowOpen, Converter={StaticResource NullToVisible}}"
                     Grid.Row="2"
                     Grid.Column="1"/>
         </Grid>

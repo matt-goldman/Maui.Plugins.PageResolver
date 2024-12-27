@@ -38,6 +38,12 @@ public partial class DesktopPageViewModel
     public void OpenWindowWithVmParams()
     {
         _vmParamsWindow = App.Current?.OpenWindow<VmParamPage>("Name passed as vm parameter");
+
+        _vmParamsWindow!.Width = 400;
+        _vmParamsWindow.Height = 400;
+        _vmParamsWindow.X = 100;
+        _vmParamsWindow.Y = 100;
+
         IsVmParamsWindowOpen = true;
     }
 
