@@ -7,28 +7,22 @@ using Mopups.Services;
 namespace DemoProject.ViewModels;
 
 [ObservableObject]
-public partial class MainViewModel : BaseViewModel
+public partial class MainViewModel(INameService nameService) : BaseViewModel
 {
-    private readonly INameService _nameService;
-
     [ObservableProperty]
     private string _name = string.Empty;
 
-    public MainViewModel(INameService nameService)
-    {
-        _nameService = nameService;
-    }
 
     [RelayCommand]
     private void GetName()
     {
-        Name = _nameService.GetName();
+        Name = nameService.GetName();
     }
 
     [RelayCommand]
     private async Task GoToPageParamPage()
     {
-        Name = _nameService.GetName();
+        Name = nameService.GetName();
 
         await Navigation.PushAsync<PageParamPage>(Name);
     }
