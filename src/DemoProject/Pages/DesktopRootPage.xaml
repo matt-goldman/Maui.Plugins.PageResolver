@@ -1,12 +1,47 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:DemoProject.ViewModels"
+             xmlns:converters="clr-namespace:DemoProject.Conversers"
+             x:DataType="vm:DesktopPageViewModel"
              x:Class="DemoProject.Pages.DesktopRootPage"
              Title="DesktopRootPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:NullToVisibleConverter x:Key="NullToVisible" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView>
+        <Grid ColumnDefinitions="*,*"
+              RowDefinitions="*,*,*">
+
+            <Button Text="Open MainPage in window"
+                    Command="{Binding OpenWindowWithVmCommand}" />
+
+            <Button Text="Close MainPage Window"
+                    Command="{Binding CloseWindowWithVmCommand}"
+                    IsEnabled="{Binding IsMainWindowOpen, Converter={StaticResource NullToVisible}}"
+                    Grid.Column="1"/>
+
+            <Button Text="Open PageParamPage in window"
+                    Command="{Binding OpenWindowWithPageParamCommand}"
+                    Grid.Row="1"/>
+
+            <Button Text="Close PageParamPage Window"
+                    Command="{Binding CloseWindowWithPageParamCommand}"
+                    IsEnabled="{Binding IsPageParamWindowOpen, Converter={StaticResource NullToVisible}}"
+                    Grid.Row="1"
+                    Grid.Column="1"/>
+
+            <Button Text="Open VmParamPage in window"
+                    Command="{Binding OpenWindowWithVmParamCommand}"
+                    Grid.Row="2"/>
+
+            <Button Text="Close VmParamPage Window"
+                    Command="{Binding CloseWindowWithVmParamCommand}"
+                    IsEnabled="{Binding IsVmParamWindowOpen, Converter={StaticResource NullToVisible}}"
+                    Grid.Row="2"
+                    Grid.Column="1"/>
+        </Grid>
+    </ScrollView>
 </ContentPage>
