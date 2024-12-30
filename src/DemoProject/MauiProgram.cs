@@ -1,6 +1,7 @@
 ﻿using DemoProject.Popups.Pages;
 using DemoProject.Popups.ViewModels;
 using Microsoft.Extensions.Logging;
+using Mopups.Hosting;
 
 namespace DemoProject;
 
@@ -16,6 +17,7 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			})
+			.ConfigureMopups()
 			.UseAutodependencies();
 
 			builder.Services.AddTransient<EasyPopup>();
