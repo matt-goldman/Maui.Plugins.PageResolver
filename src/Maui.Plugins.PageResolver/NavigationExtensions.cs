@@ -144,7 +144,7 @@ public static class NavigationExtensions
         var pageType = typeof(T);
         var viewModelType = Resolver.GetViewModelType(pageType);
 
-        if (parameters.Any(x => x.GetType().Equals(viewModelType)))
+        if (viewModelType is not null && parameters.Any(x => x.GetType().Equals(viewModelType)))
         {
             viewModelType = null;
         }
