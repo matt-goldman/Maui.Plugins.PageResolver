@@ -69,8 +69,7 @@ public static class NavigationExtensions
         return window;
     }
 
-    #endregion
-
+    #endregion paramaterless navigation
 
     #region parameterized navigation
 
@@ -136,7 +135,7 @@ public static class NavigationExtensions
         return window;
     }
 
-    #endregion
+    #endregion parameterized navigation
 
     internal static Page ResolvePage<T>(params object[] parameters) where T : Page
     {
@@ -144,6 +143,11 @@ public static class NavigationExtensions
 
         var pageType = typeof(T);
         var viewModelType = Resolver.GetViewModelType(pageType);
+
+        if (viewModelType is not null && parameters.Any(x => x.GetType().Equals(viewModelType)))
+        {
+            viewModelType = null;
+        }
 
         if (viewModelType == null)
         {
