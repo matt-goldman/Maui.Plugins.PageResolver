@@ -144,12 +144,12 @@ public static class NavigationExtensions
         var pageType = typeof(T);
         var viewModelType = Resolver.GetViewModelType(pageType);
 
-        if(parameters.Any(x => x.GetType().Equals(viewModelType)))
+        if (parameters.Any(x => x.GetType().Equals(viewModelType)))
         {
             viewModelType = null;
         }
 
-        if(viewModelType == null)
+        if (viewModelType == null)
         {
             return CreatePageWithoutViewModel<T>(serviceProvider, parameters);
         }
@@ -165,13 +165,13 @@ public static class NavigationExtensions
     private static Page CreatePageWithViewModel<T>(IServiceProvider serviceProvider, Type viewModelType, params object[] parameters) where T : Page
     {
         // Check if parameters fit the ViewModel's constructors
-        if(ParametersMatchConstructors(viewModelType, parameters))
+        if (ParametersMatchConstructors(viewModelType, parameters))
         {
             var viewModel = ActivatorUtilities.CreateInstance(serviceProvider, viewModelType, parameters);
             return CreatePageUsingViewModel<T>(serviceProvider, viewModel);
         }
         // Check if parameters fit the Page's constructors, excluding the ViewModel type
-        else if(ParametersMatchConstructorsExcludingType(typeof(T), viewModelType, parameters))
+        else if (ParametersMatchConstructorsExcludingType(typeof(T), viewModelType, parameters))
         {
             return ActivatorUtilities.CreateInstance<T>(serviceProvider, parameters);
         }
@@ -186,19 +186,19 @@ public static class NavigationExtensions
         var sp = Resolver.GetServiceProvider();
 
         var constructors = type.GetConstructors();
-        foreach(var constructor in constructors)
+        foreach (var constructor in constructors)
         {
             var ctorParams = constructor.GetParameters();
 
             var nonInjectableParams = ctorParams.Where(p => !IsRegisteredDependency(sp, p.ParameterType)).ToArray();
 
-            if(nonInjectableParams.Length == parameters.Length)
+            if (nonInjectableParams.Length == parameters.Length)
             {
-                for(int i = 0; i < nonInjectableParams.Length; i++)
+                for (int i = 0; i < nonInjectableParams.Length; i++)
                 {
-                    if(!nonInjectableParams[i].ParameterType.IsAssignableFrom(parameters[i].GetType()))
+                    if (!nonInjectableParams[i].ParameterType.IsAssignableFrom(parameters[i].GetType()))
                         break;
-                    if(i == nonInjectableParams.Length - 1)
+                    if (i == nonInjectableParams.Length - 1)
                         return true; // all parameters match
                 }
             }
@@ -211,19 +211,19 @@ public static class NavigationExtensions
         var sp = Resolver.GetServiceProvider();
 
         var constructors = type.GetConstructors();
-        foreach(var constructor in constructors)
+        foreach (var constructor in constructors)
         {
             var ctorParams = constructor.GetParameters().Where(p => p.ParameterType != excludeType).ToArray();
 
             var nonInjectableParams = ctorParams.Where(p => !IsRegisteredDependency(sp, p.ParameterType)).ToArray();
 
-            if(nonInjectableParams.Length == parameters.Length)
+            if (nonInjectableParams.Length == parameters.Length)
             {
-                for(int i = 0; i < nonInjectableParams.Length; i++)
+                for (int i = 0; i < nonInjectableParams.Length; i++)
                 {
-                    if(!nonInjectableParams[i].ParameterType.IsAssignableFrom(parameters[i].GetType()))
+                    if (!nonInjectableParams[i].ParameterType.IsAssignableFrom(parameters[i].GetType()))
                         break;
-                    if(i == nonInjectableParams.Length - 1)
+                    if (i == nonInjectableParams.Length - 1)
                         return true; // all parameters match
                 }
             }
@@ -237,7 +237,7 @@ public static class NavigationExtensions
         {
             return ActivatorUtilities.CreateInstance<T>(serviceProvider, viewModel);
         }
-        catch(MissingMemberException)
+        catch (MissingMemberException)
         {
             return ActivatorUtilities.CreateInstance<T>(Resolver.GetServiceProvider());
         }
@@ -245,7 +245,7 @@ public static class NavigationExtensions
 
     private static bool IsRegisteredDependency(IServiceProvider serviceProvider, Type type)
     {
-        if(type.IsPrimitive || type == typeof(string) || type.IsValueType)
+        if (type.IsPrimitive || type == typeof(string) || type.IsValueType)
         {
             return false;
         }
@@ -255,7 +255,7 @@ public static class NavigationExtensions
             var services = serviceProvider.GetServices(type);
             return services.Any();
         }
-        catch(Exception)
+        catch (Exception)
         {
             return false;
         }
