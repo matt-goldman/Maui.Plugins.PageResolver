@@ -239,7 +239,16 @@ public static class NavigationExtensions
         }
         catch (MissingMemberException)
         {
-            return ActivatorUtilities.CreateInstance<T>(Resolver.GetServiceProvider());
+            try
+            {
+                return ActivatorUtilities.CreateInstance<T>(Resolver.GetServiceProvider());
+            }
+            catch (Exception)
+            {
+                // Intentionally left blank
+            }
+
+            throw;
         }
     }
 
