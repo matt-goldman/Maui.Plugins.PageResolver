@@ -237,9 +237,16 @@ public static class NavigationExtensions
         {
             return ActivatorUtilities.CreateInstance<T>(serviceProvider, viewModel);
         }
-        catch (MissingMemberException)
+        catch (MissingMemberException ex)
         {
-            return ActivatorUtilities.CreateInstance<T>(Resolver.GetServiceProvider());
+            try
+            {
+                return ActivatorUtilities.CreateInstance<T>(Resolver.GetServiceProvider());
+            }
+            catch (Exception ex1)
+            {
+                throw new AggregateException("Failed to create page with ViewModel", ex, ex1);
+            }
         }
     }
 

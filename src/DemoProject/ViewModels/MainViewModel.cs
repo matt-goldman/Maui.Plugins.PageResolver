@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using DemoProject.Pages;
 using DemoProject.Popups.Pages;
 using Mopups.Services;
+using System.Diagnostics;
 
 namespace DemoProject.ViewModels;
 
@@ -11,7 +12,6 @@ public partial class MainViewModel(INameService nameService) : BaseViewModel
 {
     [ObservableProperty]
     private string _name = string.Empty;
-
 
     [RelayCommand]
     private void GetName()
@@ -61,5 +61,20 @@ public partial class MainViewModel(INameService nameService) : BaseViewModel
     private Task ShowParamPopup()
     {
         return MopupService.Instance.PushAsync<ParamPopup>("It's alive!");
+    }
+
+    [RelayCommand]
+    private async Task TriggerAggregateException()
+    {
+        try
+        {
+            await Navigation.PushAsync<AggregateExceptionPage>("test");
+        }
+        catch(AggregateException ex)
+        {
+            Debug.WriteLine(ex);
+            Debugger.Break();
+            throw;
+        }
     }
 }
