@@ -78,8 +78,11 @@
 	</PropertyGroup>-->
 
 	<ItemGroup>
+		<MauiXaml Update="Pages\AggregateExceptionPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Pages\DesktopRootPage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Pages\MarkupPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
