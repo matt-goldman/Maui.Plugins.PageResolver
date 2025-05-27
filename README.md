@@ -24,14 +24,14 @@ Additional features supported by PageReolver:
 await Navigation.PushAsync<MyPage>(myPageParam1, "bob", 4);
 ```
 
-* Paramaterised navigation - pass ViewModel parameters (.NET 8 version only)
+* Paramaterised navigation - pass ViewModel parameters
 
 ```csharp
 await Navigation.PushAsync<MyPage>(myViewModelParam1, "bob", 4);
 ```
 
-* Source generator - automatically register dependencies in `IServiceCollection` with generated code (.NET 8 version only)
-
+* Source generator - automatically register dependencies in `IServiceCollection` with generated code
+  
 ```csharp
 using Maui.Plugins.PageResolver;
 using DemoProject;
@@ -78,7 +78,7 @@ public static class PageResolverExtensions
 }
 ```
 
-* Lifetime attributes - override convention-based service lifetimes (singleton for services, transient for pages and ViewModels) in the source generator (.NET 8 version only)
+* Lifetime attributes - override convention-based service lifetimes (singleton for services, transient for pages and ViewModels) in the source generator
 
 ```csharp
 [Transient]
