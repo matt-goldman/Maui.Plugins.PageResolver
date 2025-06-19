@@ -106,11 +106,9 @@ public static class PageResolverExtensions
                 // add Service registrations
                 foreach (var service in _dependencies["Services"])
                 {
-                    var ifName = $"I{service.Name}";
-
                     string lifetime = _dependencies["ExplicitTransients"].Contains(service) ? "Transient" : "Singleton";
 
-                    var abstraction = _dependencies["Abstractions"].Where(a => a.Name == ifName).FirstOrDefault();
+                    var abstraction = _dependencies["Abstractions"].Where(a => a.Name == $"I{service.Name}").FirstOrDefault();
 
                     if (abstraction is null)
                     {
@@ -121,7 +119,7 @@ public static class PageResolverExtensions
                         string serviceInterface = service.ToDisplayString();
                         serviceInterface = serviceInterface.Replace(service.Name, $"I{service.Name}");
 
-                        sourceBuilder.AppendLine($"         builder.Services.Add{lifetime}<global::{serviceInterface}, global::{service.ToDisplayString()}>();");
+                        sourceBuilder.AppendLine($"         builder.Services.Add{lifetime}<global::{abstraction.ToDisplayString()}, global::{service.ToDisplayString()}>();");
                     }
                 }
 
