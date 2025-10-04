@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Maui.Hosting;
 
-namespace Maui.Plugins.PageResolver
+namespace Plugin.Maui.SmartNavigation
 {
     internal class Initializer : IMauiInitializeService
     {

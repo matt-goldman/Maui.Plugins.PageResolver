@@ -3,7 +3,7 @@ using Microsoft.Maui.Controls;
 using Microsoft.Maui.Controls.Xaml;
 using System;
 
-namespace Maui.Plugins.PageResolver;
+namespace Plugin.Maui.SmartNavigation;
 
 public class ResolveViewModel<T> : IMarkupExtension<T>
 {

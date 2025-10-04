@@ -1,7 +1,7 @@
 ﻿using Mopups.Interfaces;
 using Mopups.Pages;
 
-namespace Maui.Plugins.PageResolver;
+namespace Plugin.Maui.SmartNavigation;
 
 public static class MopupExtensions
 {

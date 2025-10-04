@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Maui.Plugins.PageResolver;
+namespace Plugin.Maui.SmartNavigation;
 
 public static class StartupExtensions
 {

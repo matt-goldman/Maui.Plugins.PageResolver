@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Maui.Plugins.PageResolver;
+namespace Plugin.Maui.SmartNavigation;
 
 internal static partial class Resolver
 {

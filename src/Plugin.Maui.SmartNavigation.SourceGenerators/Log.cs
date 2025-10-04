@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace Maui.Plugins.PageResolver.SourceGenerators
+namespace Plugin.Maui.SmartNavigation.SourceGenerators
 {
     public static class Log
     {

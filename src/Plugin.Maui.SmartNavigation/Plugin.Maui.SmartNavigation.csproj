@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	<NetCoreVersion>10.0</NetCoreVersion>
+	<TargetFramework>net$(NetCoreVersion)</TargetFramework>
+    <UseMaui>true</UseMaui>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>Plugin.Maui.SmartNavigation</PackageId>
+    <Description>A simple lightweight page resolver for dotnet MAUI projects. Uses the built in DI container to resolve dependencies and push a resolved page onto the navigation stack.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\Plugin.Maui.SmartNavigation.Attributes\bin\$(Configuration)\net$(NetCoreVersion)\Plugin.Maui.SmartNavigation.Attributes.dll" Pack="true" PackagePath="lib/net$(NetCoreVersion)" Visible="false"/>
+	<None Include="..\Plugin.Maui.SmartNavigation.SourceGenerators\bin\$(Configuration)\netstandard2.0\Plugin.Maui.SmartNavigation.SourceGenerators.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<InternalsVisibleTo Include="Plugin.Maui.SmartNavigation.MopupsExtensions" />
+  </ItemGroup>
+
+</Project>

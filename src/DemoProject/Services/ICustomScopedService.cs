@@ -1,4 +1,4 @@
-﻿using Maui.Plugins.PageResolver.Attributes;
+﻿using Plugin.Maui.SmartNavigation.Attributes;
 
 namespace DemoProject.Services;
 

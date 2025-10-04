@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DemoProject.Pages.MarkupPage"
-             xmlns:resolver="clr-namespace:Maui.Plugins.PageResolver;assembly=Maui.Plugins.PageResolver"
+             xmlns:resolver="clr-namespace:Plugin.Maui.SmartNavigation;assembly=Plugin.Maui.SmartNavigation"
              xmlns:vm="clr-namespace:DemoProject.ViewModels"
              BindingContext="{resolver:ResolveViewModel x:TypeArguments=vm:MarkupViewModel}"
              Title="MarkupPage">

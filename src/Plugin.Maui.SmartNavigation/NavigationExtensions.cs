@@ -4,7 +4,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Maui.Plugins.PageResolver;
+namespace Plugin.Maui.SmartNavigation;
 
 public static class NavigationExtensions
 {
