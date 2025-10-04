@@ -2,9 +2,11 @@
 using DemoProject.Popups.ViewModels;
 using Microsoft.Extensions.Logging;
 using Mopups.Hosting;
+using Plugin.Maui.SmartNavigation.Attributes;
 
 namespace DemoProject;
 
+[UseAutoDependencies]
 public static class MauiProgram
 {
 	public static MauiApp CreateMauiApp()
