@@ -11,8 +11,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Plugin.Maui.SmartNavigation" />
+		<PackageReference Include="Plugin.Maui.SmartNavigation" Condition="'$(Configuration)'=='Release'" />
+		<PackageReference Include="Microsoft.Maui.Controls" />
 		<PackageReference Include="Mopups" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Plugin.Maui.SmartNavigation\Plugin.Maui.SmartNavigation.csproj" Condition="'$(Configuration)'=='Debug'" />
 	</ItemGroup>
 
 </Project>
