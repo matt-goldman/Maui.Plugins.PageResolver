@@ -1,6 +1,8 @@
-﻿namespace DemoProject.ViewModels;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-public class BaseViewModel
+namespace DemoProject.ViewModels;
+
+public partial class BaseViewModel : ObservableObject
 {
     public INavigation? Navigation { get; set; }
 }

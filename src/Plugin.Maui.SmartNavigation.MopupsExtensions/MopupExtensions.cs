@@ -1,5 +1,7 @@
 ﻿using Mopups.Interfaces;
 using Mopups.Pages;
+using Plugin.Maui.SmartNavigation.Extensions;
+using Plugin.Maui.SmartNavigation.Services;
 
 namespace Plugin.Maui.SmartNavigation;
 

@@ -1,10 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Controls;
+using Plugin.Maui.SmartNavigation.Services;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Plugin.Maui.SmartNavigation;
+namespace Plugin.Maui.SmartNavigation.Extensions;
 
 public static class NavigationExtensions
 {

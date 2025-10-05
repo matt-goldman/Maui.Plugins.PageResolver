@@ -3,15 +3,15 @@ using CommunityToolkit.Mvvm.Input;
 using DemoProject.Pages;
 using DemoProject.Popups.Pages;
 using Mopups.Services;
+using Plugin.Maui.SmartNavigation.Extensions;
 using System.Diagnostics;
 
 namespace DemoProject.ViewModels;
 
-[ObservableObject]
 public partial class MainViewModel(INameService nameService) : BaseViewModel
 {
     [ObservableProperty]
-    private string _name = string.Empty;
+    public partial string? Name { get; set; }
 
     [RelayCommand]
     private void GetName()
@@ -36,6 +36,8 @@ public partial class MainViewModel(INameService nameService) : BaseViewModel
     [RelayCommand]
     private async Task GoToMarkup()
     {
+        if (Navigation is null) return;
+
         await Navigation.PushAsync(new MarkupPage());
     }
 
@@ -52,13 +54,13 @@ public partial class MainViewModel(INameService nameService) : BaseViewModel
     }
 
     [RelayCommand]
-    private Task ShowEasyPopup()
+    private static Task ShowEasyPopup()
     {
         return MopupService.Instance.PushAsync<EasyPopup>();
     }
 
     [RelayCommand]
-    private Task ShowParamPopup()
+    private static Task ShowParamPopup()
     {
         return MopupService.Instance.PushAsync<ParamPopup>("It's alive!");
     }

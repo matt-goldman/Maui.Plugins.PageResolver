@@ -1,25 +1,16 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
 
 namespace DemoProject.ViewModels;
 
-[ObservableObject]
-public partial class MarkupViewModel : BaseViewModel
+public partial class MarkupViewModel(INameService nameService) : BaseViewModel
 {
-    private readonly INameService _nameService;
-
     [ObservableProperty]
-    private string _name = string.Empty;
+    private partial string? Name { get; set; }
 
-    public ICommand GetNameCommand => new Command(() => GetName());
-
-    public MarkupViewModel(INameService nameService)
-	{
-        _nameService = nameService;
-    }
-
+    [RelayCommand]
     void GetName()
     {
-        Name = _nameService.GetName();
+        Name = nameService.GetName();
     }
 }

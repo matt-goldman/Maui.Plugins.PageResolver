@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Plugin.Maui.SmartNavigation;
+namespace Plugin.Maui.SmartNavigation.Services;
 
 internal static partial class Resolver
 {
-    private static IServiceScope scope;
+    private static IServiceScope _scope;
 
-    internal static readonly Dictionary<Type, Type> ViewModelLookup = new();
+    internal static readonly Dictionary<Type, Type> _viewModelLookup = [];
 
     internal static void InitialiseViewModelLookup(Assembly assembly)
     {
@@ -24,24 +24,24 @@ internal static partial class Resolver
                            vm.Name == $"{page.Name}ViewModel" || vm.Name == page.Name.Substring(0, page.Name.Length - 4) + "ViewModel").ToList();
 
             if (matches.Count == 1)
-                ViewModelLookup.Add(page, matches[0]);
+                _viewModelLookup.Add(page, matches[0]);
         }
     }
 
     internal static void InitialiseViewModelLookup(Dictionary<Type, Type> ViewModelMappings)
     {
-        ViewModelLookup.Clear();
+        _viewModelLookup.Clear();
 
         foreach (var mapping in ViewModelMappings)
         {
-            ViewModelLookup.Add(mapping.Key, mapping.Value);
+            _viewModelLookup.Add(mapping.Key, mapping.Value);
         }
     }
 
     internal static Type GetViewModelType(Type pageType)
     {
-        if (ViewModelLookup.ContainsKey(pageType))
-            return ViewModelLookup[pageType];
+        if (_viewModelLookup.TryGetValue(pageType, out Type value))
+            return value;
 
         return null;
     }
@@ -52,7 +52,7 @@ internal static partial class Resolver
     /// <param name="sp"></param>
     internal static void RegisterServiceProvider(IServiceProvider sp)
     {
-        scope ??= sp.CreateScope();
+        _scope ??= sp.CreateScope();
     }
 
     /// <summary>
@@ -62,21 +62,21 @@ internal static partial class Resolver
     /// <returns></returns>
     internal static T Resolve<T>() where T : class
     {
-        var result = scope.ServiceProvider.GetRequiredService<T>();
+        var result = _scope.ServiceProvider.GetRequiredService<T>();
 
         return result;
     }
 
     internal static IServiceProvider GetServiceProvider()
     {
-        return scope.ServiceProvider;
+        return _scope.ServiceProvider;
     }
 
     internal static void AddMappingRange(Dictionary<Type, Type> mappings)
     {
         foreach (var mapping in mappings)
         {
-            ViewModelLookup[mapping.Key] = mapping.Value;
+            _viewModelLookup[mapping.Key] = mapping.Value;
         }
     }
 }

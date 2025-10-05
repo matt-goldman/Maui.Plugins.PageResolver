@@ -1,9 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Controls.Xaml;
+using Plugin.Maui.SmartNavigation.Services;
 using System;
 
-namespace Plugin.Maui.SmartNavigation;
+namespace Plugin.Maui.SmartNavigation.Extensions;
 
 public class ResolveViewModel<T> : IMarkupExtension<T>
 {

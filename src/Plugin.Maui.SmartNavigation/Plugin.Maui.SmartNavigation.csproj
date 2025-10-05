@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\Plugin.Maui.SmartNavigation.Attributes\bin\$(Configuration)\net$(NetCoreVersion)\Plugin.Maui.SmartNavigation.Attributes.dll" Pack="true" PackagePath="lib/net$(NetCoreVersion)" Visible="false"/>
+    <None Include="..\Plugin.Maui.SmartNavigation.Attributes\bin\$(Configuration)\net$(NetCoreVersion)\Plugin.Maui.SmartNavigation.Attributes.dll" Pack="true" PackagePath="lib/net$(NetCoreVersion)" Visible="false" />
 	<None Include="..\Plugin.Maui.SmartNavigation.SourceGenerators\bin\$(Configuration)\netstandard2.0\Plugin.Maui.SmartNavigation.SourceGenerators.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
   </ItemGroup>
 

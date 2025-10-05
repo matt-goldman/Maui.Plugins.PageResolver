@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Maui.Hosting;
+using Plugin.Maui.SmartNavigation.Services;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -82,7 +83,7 @@ public static class StartupExtensions
     /// <typeparam name="T2"></typeparam>
     public static void UpsertViewModelMapping<T1, T2>()
     {
-        Resolver.ViewModelLookup[typeof(T1)] = typeof(T2);
+        Resolver._viewModelLookup[typeof(T1)] = typeof(T2);
     }
 
 

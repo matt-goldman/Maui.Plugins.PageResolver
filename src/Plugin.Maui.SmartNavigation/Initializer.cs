@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Maui.Hosting;
+using Plugin.Maui.SmartNavigation.Services;
 
 namespace Plugin.Maui.SmartNavigation
 {
