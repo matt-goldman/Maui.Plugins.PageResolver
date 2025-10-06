@@ -7,6 +7,6 @@ public class InitContentPage : ContentPage
 {
     public InitContentPage()
     {
-        Behaviors.Add(new ViewModelInitBehavior());
+        Behaviors.Add(new NavigatedInitBehavior());
     }
 }

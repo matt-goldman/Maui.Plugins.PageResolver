@@ -3,7 +3,7 @@ using Microsoft.Maui.Controls;
 
 namespace Plugin.Maui.SmartNavigation.Behaviours;
 
-public class ViewModelInitBehavior : Behavior<Page>
+public class NavigatedInitBehavior : Behavior<Page>
 {
     private bool _ran;
     
@@ -25,9 +25,9 @@ public class ViewModelInitBehavior : Behavior<Page>
 
         _ran = true;
 
-        if (sender is Page { BindingContext: IViewModelInit viewModel })
+        if (sender is Page { BindingContext: IViewModelLifecycle viewModel })
         {
-            await viewModel.InitializeAsync();
+            await viewModel.OnInitAsync();
         }
     }
 }
