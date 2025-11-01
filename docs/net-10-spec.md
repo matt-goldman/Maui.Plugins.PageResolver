@@ -169,7 +169,7 @@ public sealed class SmartRouteAttribute : Attribute
 
 ### 7.4 Opt‑out per type
 
-* `[IgnoreAutoDependency]` attribute to skip registration for a specific type.
+* `[IgnoreAutoDependency]` attribute to skip registration for a specific type (renamed from previous `[Ignore]` attribute).
 
 ## 8. Param binding rules
 
@@ -186,9 +186,11 @@ public sealed class SmartRouteAttribute : Attribute
 
 ## 10. Backwards compatibility
 
-* PageResolver 2.x ships as a shim package that depends on SmartNavigation and uses type‑forwarders where possible.
-* Obsolete legacy APIs with messages pointing to SmartNavigation equivalents.
-* Behaviour names are new, no replacement in PageResolver.
+* ~~PageResolver 2.x ships as a shim package that depends on SmartNavigation and uses type‑forwarders where possible.~~
+* ~~Obsolete legacy APIs with messages pointing to SmartNavigation equivalents.~~
+* ~~Behaviour names are new, no replacement in PageResolver.~~
+
+Backward compatibility will not be maintained
 
 ## 11. Usage examples
 
@@ -234,7 +236,7 @@ await nav.PushModalAsync<LoginPage>();
 
 ## 14. Versioning and compat
 
-* SmartNavigation v2 targets .NET 10.
+* SmartNavigation targets .NET 10.
 * PageResolver 2.x references SmartNavigation and is marked for deprecation in README.
 
 ## 15. Docs and comms
