@@ -19,7 +19,7 @@ public partial interface INavigationManager
     /// <remarks>
     /// This method can only be called when the current page is a Shell.
     /// </remarks>
-    Task GoToAsync(Route route, object? query = null);
+    Task GoToAsync(Route route, string? query = null);
 
     /// <summary>
     /// Navigates asynchronously to the previous page, attempting modal, Shell, and navigation stack in priority order.

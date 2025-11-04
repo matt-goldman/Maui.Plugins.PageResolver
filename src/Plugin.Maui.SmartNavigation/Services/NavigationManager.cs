@@ -30,7 +30,7 @@ internal partial class NavigationManager(INavigation navigation) : INavigationMa
         await navigation.PopAsync();
     }
 
-    public async Task GoToAsync(Route route, object query = null)
+    public async Task GoToAsync(Route route, string? query = null)
     {
         var current = Application.Current?.Windows[0].Page;
 

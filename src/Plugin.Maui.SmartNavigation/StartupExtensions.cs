@@ -15,9 +15,10 @@ public static class StartupExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <param name="UseParamaterisedViewModels">If true, the ViewModelResolver will be initialised with the calling assembly (required for passing ViewModel parameters in navigation). Disabled by default as it uses reflection and will have startup time impact.</param>
-    public static void UsePageResolver(this IServiceCollection services, bool? UseParamaterisedViewModels = false)
+    public static void UseSmartNavigation(this IServiceCollection services, bool? UseParamaterisedViewModels = false)
     {
-        services.TryAddEnumerable( ServiceDescriptor.Transient<IMauiInitializeService, Initializer>() );
+        services.AddSingleton<INavigationManager, NavigationManager>();
+        services.TryAddEnumerable(ServiceDescriptor.Transient<IMauiInitializeService, Initializer>());
 
         if (UseParamaterisedViewModels ?? false)
         {
@@ -30,8 +31,9 @@ public static class StartupExtensions
     /// </summary>
     /// <param name="builder"></param>
     /// <param name="UseParamaterisedViewModels">If true, the ViewModelResolver will be initialised with the calling assembly (required for passing ViewModel parameters in navigation). Disabled by default as it uses reflection and will have startup time impact.</param>
-    public static MauiAppBuilder UsePageResolver(this MauiAppBuilder builder, bool? UseParamaterisedViewModels = false)
+    public static MauiAppBuilder UseSmartNavigation(this MauiAppBuilder builder, bool? UseParamaterisedViewModels = false)
     {
+        builder.Services.AddSingleton<INavigationManager, NavigationManager>();
         builder.Services.TryAddEnumerable(
             ServiceDescriptor.Transient<IMauiInitializeService, Initializer>() );
 
@@ -48,8 +50,9 @@ public static class StartupExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <param name="ViewModelMappings">A dictionary that provides Page to ViewModel mappings..</param>
-    public static void UsePageResolver(this IServiceCollection services, Dictionary<Type, Type> ViewModelMappings)
+    public static void UseSmartNavigation(this IServiceCollection services, Dictionary<Type, Type> ViewModelMappings)
     {
+        services.AddSingleton<INavigationManager, NavigationManager>();
         services.TryAddEnumerable(ServiceDescriptor.Transient<IMauiInitializeService, Initializer>());
 
         Resolver.InitialiseViewModelLookup(ViewModelMappings);
@@ -85,6 +88,4 @@ public static class StartupExtensions
     {
         Resolver._viewModelLookup[typeof(T1)] = typeof(T2);
     }
-
-
 }
