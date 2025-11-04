@@ -351,3 +351,4 @@ MigrationBackup/
 .meteor/
 
 .idea/
+/.vscode/settings.json

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.Maui.Controls;
 using Plugin.Maui.SmartNavigation.Extensions;
 using Plugin.Maui.SmartNavigation.Routing;
@@ -11,12 +12,21 @@ internal partial class NavigationManager(INavigation navigation) : INavigationMa
     {
         var current = Application.Current?.Windows[0].Page;
 
+        // Priority 1: Pop modal if present
+        if (navigation.ModalStack?.Count > 0)
+        {
+            await navigation.PopModalAsync();
+            return;
+        }
+
+        // Priority 2: Shell navigation
         if (current is Shell shell)
         {
             await shell.GoToAsync("..");
             return;
         }
 
+        // Priority 3: Regular navigation stack
         await navigation.PopAsync();
     }
 
@@ -27,9 +37,12 @@ internal partial class NavigationManager(INavigation navigation) : INavigationMa
         if (current is Shell shell)
         {
             await shell.GoToAsync(route.Build(query));
+            return;
         }
 
-        // No implementation for non-Shell
+        throw new InvalidOperationException(
+            $"Cannot navigate to route '{route.Path}'. Shell navigation is not available. " +
+            "Use PushAsync<TPage>() for hierarchical navigation instead.");
     }
 
     public Task PopAsync() => navigation.PopAsync();
@@ -38,12 +51,5 @@ internal partial class NavigationManager(INavigation navigation) : INavigationMa
 
     public Task PushAsync<TPage>(object args = null) where TPage : Page => navigation.PushAsync<TPage>(args);
 
-    // TODO: What is the wrapInNav arg for?
-    public Task PushModalAsync<TPage>(object args = null, bool wrapInNav = true) where TPage : Page => navigation.PushModalAsync<TPage>(args);
-
-    public Task SmartBackAsync()
-    {
-        // TODO: What is this for?
-        throw new System.NotImplementedException();
-    }
+    public Task PushModalAsync<TPage>(object args = null) where TPage : Page => navigation.PushModalAsync<TPage>(args);
 }
