@@ -93,12 +93,12 @@ Replace legacy `UsePageResolver` with new `UseSmartNavigation` extension method 
 
 **Acceptance Criteria:**
 
-- [ ] Create `UseSmartNavigation(this MauiAppBuilder, SmartNavOptions?)` extension
-- [ ] Create `SmartNavOptions` record with `PreferShell` property
-- [ ] Register `INavigationManager` implementation
+- [x] Create `UseSmartNavigation(this MauiAppBuilder, SmartNavOptions?)` extension
+- ~~[ ] Create `SmartNavOptions` record with `PreferShell` property~~
+- [x] Register `INavigationManager` implementation
 - [ ] Optionally add convenience extension methods for route registration (wrapping Community Toolkit)
-- [ ] Configure based on options
-- [ ] Keep `UsePageResolver` as obsolete with migration message
+- [x] Configure based on options
+- ~~[ ] Keep `UsePageResolver` as obsolete with migration message~~
 - [ ] Update README and wiki with new API
 - [ ] Add integration tests
 
