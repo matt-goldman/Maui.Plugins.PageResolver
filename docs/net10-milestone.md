@@ -6,54 +6,50 @@ This document tracks the remaining work to complete the .NET 10 specification fo
 
 ## Phase 1: Core Navigation & Routing (Critical Path)
 
-### Issue #1: Implement Route.Build() with Query String Serialization
+### ~~Issue #1: Implement Route.Build() with Query String Serialization~~ ✅ NO ACTION NEEDED
 
-**Priority:** High  
-**Estimate:** 3 points
+**Priority:** ~~High~~ N/A  
+**Estimate:** ~~3 points~~ 0 points
 
-**Description:**
-The `Route.Build()` method currently ignores the `query` parameter. It should serialize object properties to a query string format.
+**Status:** Closed - Already implemented correctly
 
-**Acceptance Criteria:**
+**Reason for closure:**
+`Route.Build()` already exists and works correctly. It constructs the full route path from `Path` and `Name` properties, which is exactly what's needed for Shell navigation. Shell handles query parameters natively (primitives via query string without reflection, complex objects via navigation state dictionary with reflection), so the Route just needs to provide the path. Keep the existing implementation as-is.
 
-- [ ] Serialize anonymous objects to query strings (e.g., `new { id = 5, name = "test" }` → `?id=5&name=test`)
-- [ ] Handle primitive types, strings, and common value types
-- [ ] URL-encode values properly
-- [ ] Handle null values (skip or include as empty)
-- [ ] Add unit tests for various query object shapes
+**Current approach (correct):**
 
-**Technical Notes:**
-
-- Consider using `System.Reflection` to enumerate properties
-- Use `Uri.EscapeDataString()` for encoding
-- Reference spec section 6.1
+- Route has `Build()` method that constructs full path from `Path` + `Name`
+- `INavigationManager.GoToAsync(Route, object?)` calls `Shell.GoToAsync(route.Build(), query)`
+- Shell handles query serialization based on object type (primitives = query string, complex = state dictionary)
 
 ---
 
-### Issue #2: Create IRouteRegistry Implementation
+### ~~Issue #2: Create IRouteRegistry Implementation~~ ❌ WONTFIX
 
-**Priority:** High  
-**Estimate:** 5 points
+**Priority:** ~~High~~ N/A  
+**Estimate:** ~~5 points~~ 0 points
 
-**Description:**
-The `IRouteRegistry` interface exists but has no concrete implementation. Need to create `RouteRegistry` class that manages route-to-page-type mappings.
+**Status:** Closed - WONTFIX
 
-**Acceptance Criteria:**
+**Reason for closure:**
+Creating a custom `IRouteRegistry` is unnecessary when the Community Toolkit already provides `IServiceCollection.AddTransientWithShellRoute<TPage>(string route)` extension methods. Shell already has built-in route registration that works perfectly. Instead of building a custom registry, we can:
 
-- [ ] Create `RouteRegistry` class implementing `IRouteRegistry`
-- [ ] Implement `Register(Route, Type)` with route path validation
-- [ ] Implement `Register(Route, Func<Page>)` for factory-based registration
-- [ ] Implement `Resolve(Route)` with efficient lookup
-- [ ] Thread-safe dictionary for registrations
-- [ ] Register as singleton in DI container
-- [ ] Add unit tests for registration and resolution
-- [ ] Handle duplicate route registration (throw or overwrite?)
+1. Use Community Toolkit's existing extension methods directly
+2. Optionally add convenience wrappers that accept our `Route` type:
 
-**Technical Notes:**
+   ```csharp
+   public static IServiceCollection AddTransientWithShellRoute<TPage>(
+       this IServiceCollection services, 
+       Route route) where TPage : Page
+       => services.AddTransientWithShellRoute<TPage>(route.Build());
+   ```
 
-- Use `ConcurrentDictionary<string, object>` to store registrations (string key = route path)
-- Store either `Type` or `Func<Page>` as value
-- Reference spec sections 6.3 and 9
+**Updated approach:**
+
+- Remove `IRouteRegistry` interface (over-engineering)
+- Use Community Toolkit's battle-tested route registration
+- Optionally add thin wrapper extensions for convenience
+- Shell handles route resolution natively
 
 ---
 
@@ -67,14 +63,14 @@ The `NavigationManager` has several incomplete implementations and missing featu
 
 **Acceptance Criteria:**
 
-- [ ] Implement non-Shell fallback for `GoToAsync()` using `IRouteRegistry`
+- [ ] Remove `IRouteRegistry` references (no longer needed)
 - [ ] Implement `SmartBackAsync()` logic:
   - Check if modal stack has items → pop modal
   - Else if Shell is available → `GoToAsync("..")`
   - Else → `PopAsync()`
 - [ ] Implement `wrapInNav` parameter for `PushModalAsync`
-- [ ] Integrate with `IRouteRegistry` for route resolution
-- [ ] Add error handling for unregistered routes (throw `InvalidOperationException`)
+- [ ] Update `GoToAsync()` to call `Shell.GoToAsync(route.Build(), query)` directly
+- [ ] Add error handling (Shell unavailable, etc.)
 - [ ] Add unit tests with mocked navigation and Shell
 - [ ] Test modal stack detection
 
@@ -99,7 +95,7 @@ Replace legacy `UsePageResolver` with new `UseSmartNavigation` extension method 
 - [ ] Create `UseSmartNavigation(this MauiAppBuilder, SmartNavOptions?)` extension
 - [ ] Create `SmartNavOptions` record with `PreferShell` property
 - [ ] Register `INavigationManager` implementation
-- [ ] Register `IRouteRegistry` as singleton
+- [ ] Optionally add convenience extension methods for route registration (wrapping Community Toolkit)
 - [ ] Configure based on options
 - [ ] Keep `UsePageResolver` as obsolete with migration message
 - [ ] Update README and wiki with new API
@@ -340,8 +336,8 @@ Add proper error handling throughout the navigation system per spec requirements
 
 **Acceptance Criteria:**
 
-- [ ] Unregistered route → `InvalidOperationException` with clear message including route path
-- [ ] Shell unavailable for `GoToAsync` → automatically fallback to `IRouteRegistry` + `PushAsync`
+- [ ] Unregistered route → error message (if applicable to non-Shell scenarios)
+- [ ] Shell unavailable for `GoToAsync` → throw clear exception explaining Shell is required for route-based navigation
 - [ ] Null factory result → `InvalidOperationException` with type information
 - [ ] Mismatched page type from factory → `InvalidOperationException` with both types
 - [ ] Ambiguous parameter binding → `InvalidOperationException` listing conflicting properties
@@ -615,18 +611,19 @@ Final review of public API surface before stable release.
 
 ## Summary
 
-**Total Issues:** 23  
-**Estimated Points:** 110
+**Total Issues:** 23 (20 active, 3 closed)  
+**Estimated Points:** 102 (110 - 3 from Issue #1 - 5 from Issue #2)
 
 ### By Priority
 
-- **High Priority:** 10 issues (56 points) - Critical path items
+- **High Priority:** 7 issues (48 points) - Critical path items
 - **Medium Priority:** 8 issues (38 points) - Important but not blocking
 - **Low Priority:** 5 issues (16 points) - Nice to have
+- **Closed:** 3 issues (0 points) - 2 WONTFIX, 1 already implemented
 
 ### By Phase
 
-1. **Core Navigation & Routing:** 4 issues (21 points)
+1. **Core Navigation & Routing:** 2 issues (13 points) + 2 closed
 2. **Lifecycle & Behaviors:** 4 issues (10 points)
 3. **Source Generator Updates:** 3 issues (18 points)
 4. **Parameter Binding & Error Handling:** 2 issues (13 points)
@@ -636,7 +633,7 @@ Final review of public API surface before stable release.
 
 ### Recommended Sprint Plan
 
-**Sprint 1 (Weeks 1-2):** Issues #1, #2, #3, #4 - Core Navigation  
+**Sprint 1 (Weeks 1-2):** Issues ~~#1~~, ~~#2~~, #3, #4 - Core Navigation  
 **Sprint 2 (Week 3):** Issues #5, #6, #7, #8, #12 - Behaviors & Parameters  
 **Sprint 3 (Week 4):** Issues #9, #10, #11, #13 - Generator & Error Handling  
 **Sprint 4 (Week 5):** Issues #18, #19, #23 - Testing & API Lock  
