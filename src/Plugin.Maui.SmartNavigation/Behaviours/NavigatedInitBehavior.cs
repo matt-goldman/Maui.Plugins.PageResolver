@@ -1,11 +1,12 @@
 #nullable enable
 using Microsoft.Maui.Controls;
+using System;
 
 namespace Plugin.Maui.SmartNavigation.Behaviours;
 
 public class NavigatedInitBehavior : Behavior<Page>
 {
-    private bool _ran;
+    private bool _ran = false;
     
     protected override void OnAttachedTo(Page page)
     {
@@ -15,19 +16,19 @@ public class NavigatedInitBehavior : Behavior<Page>
 
     protected override void OnDetachingFrom(Page page)
     {
+        page.NavigatedTo -= OnNavigatedTo;
         base.OnDetachingFrom(page);
     }
     
     private async void OnNavigatedTo(object? sender, NavigatedToEventArgs e)
     {
-        // TODO: Implement async fire and forget
-        if (_ran) return;
-
-        _ran = true;
-
         if (sender is Page { BindingContext: IViewModelLifecycle viewModel })
         {
-            await viewModel.OnInitAsync();
+            var isFirstNavigation = !_ran;
+
+            await viewModel.OnInitAsync(isFirstNavigation);
+
+            _ran = true;
         }
     }
 }
