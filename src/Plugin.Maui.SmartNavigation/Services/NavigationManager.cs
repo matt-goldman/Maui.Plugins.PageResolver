@@ -6,6 +6,7 @@ using Plugin.Maui.SmartNavigation.Routing;
 
 namespace Plugin.Maui.SmartNavigation.Services;
 
+#nullable enable
 internal partial class NavigationManager(INavigation navigation) : INavigationManager
 {
     public async Task GoBackAsync()
@@ -49,7 +50,7 @@ internal partial class NavigationManager(INavigation navigation) : INavigationMa
 
     public Task PopModalAsync() => navigation.PopModalAsync();
 
-    public Task PushAsync<TPage>(object args = null) where TPage : Page => navigation.PushAsync<TPage>(args);
+    public Task PushAsync<TPage>(object? args = null) where TPage : Page => navigation.PushAsync<TPage>(args);
 
-    public Task PushModalAsync<TPage>(object args = null) where TPage : Page => navigation.PushModalAsync<TPage>(args);
+    public Task PushModalAsync<TPage>(object? args = null) where TPage : Page => navigation.PushModalAsync<TPage>(args);
 }

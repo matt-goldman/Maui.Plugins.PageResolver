@@ -113,6 +113,7 @@ public class ErrorHandlingTests : IntegrationTestBase
         async Task act() => await navigationMock.Object.PopAsync();
 
         // Assert
+        var ex = await Should.ThrowAsync<InvalidOperationException>(act);
     }
 
     [Fact]
