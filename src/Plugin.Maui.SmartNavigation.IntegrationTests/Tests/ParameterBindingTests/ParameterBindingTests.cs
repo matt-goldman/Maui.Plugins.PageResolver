@@ -1,4 +1,4 @@
-using FluentAssertions;
+using Shouldly;
 using Plugin.Maui.SmartNavigation.IntegrationTests.Infrastructure;
 using Plugin.Maui.SmartNavigation.IntegrationTests.Mocks;
 
@@ -24,8 +24,8 @@ public class ParameterBindingTests : IntegrationTestBase
         var page = new MockPageWithParameters(stringParam, intParam);
 
         // Assert
-        page.StringParam.Should().Be(stringParam);
-        page.IntParam.Should().Be(intParam);
+        page.StringParam.ShouldBe(stringParam);
+        page.IntParam.ShouldBe(intParam);
     }
 
     [Fact]
@@ -39,8 +39,8 @@ public class ParameterBindingTests : IntegrationTestBase
         var viewModel = new MockViewModelWithParameters(name, age);
 
         // Assert
-        viewModel.Name.Should().Be(name);
-        viewModel.Age.Should().Be(age);
+        viewModel.Name.ShouldBe(name);
+        viewModel.Age.ShouldBe(age);
     }
 
     [Fact]
@@ -57,8 +57,8 @@ public class ParameterBindingTests : IntegrationTestBase
         var page = new MockPageWithViewModel(viewModel);
 
         // Assert
-        page.ViewModel.Should().Be(viewModel);
-        page.BindingContext.Should().Be(viewModel);
+        page.ViewModel.ShouldBe(viewModel);
+        page.BindingContext.ShouldBe(viewModel);
     }
 
     [Fact]
@@ -69,11 +69,11 @@ public class ParameterBindingTests : IntegrationTestBase
         var viewModel = new MockViewModel();
 
         // Assert
-        page.Should().NotBeNull();
-        page.NavigationParameters.Should().BeNull();
-        viewModel.Should().NotBeNull();
-        viewModel.StringProperty.Should().BeNull();
-        viewModel.IntProperty.Should().Be(0);
+        page.ShouldNotBeNull();
+        page.NavigationParameters.ShouldBeNull();
+        viewModel.ShouldNotBeNull();
+        viewModel.StringProperty.ShouldBeNull();
+        viewModel.IntProperty.ShouldBe(0);
     }
 
     [Fact]
@@ -93,9 +93,9 @@ public class ParameterBindingTests : IntegrationTestBase
         };
 
         // Assert
-        page.StringParam.Should().Be(stringParam);
-        page.IntParam.Should().Be(intParam);
-        page.ObjectParam.Should().Be(objectParam);
+        page.StringParam.ShouldBe(stringParam);
+        page.IntParam.ShouldBe(intParam);
+        page.ObjectParam.ShouldBe(objectParam);
     }
 
     [Fact]
@@ -110,9 +110,9 @@ public class ParameterBindingTests : IntegrationTestBase
         };
 
         // Act & Assert
-        viewModel.Name.Should().Be("Complex Test");
-        viewModel.Age.Should().Be(25);
-        viewModel.IsActive.Should().BeTrue();
+        viewModel.Name.ShouldBe("Complex Test");
+        viewModel.Age.ShouldBe(25);
+        viewModel.IsActive.ShouldBeTrue();
     }
 
     [Fact]
@@ -125,7 +125,7 @@ public class ParameterBindingTests : IntegrationTestBase
         var page = new MockPage(parameter);
 
         // Assert
-        page.NavigationParameters.Should().Be(parameter);
+        page.NavigationParameters.ShouldBe(parameter);
     }
 
     [Theory]
@@ -141,7 +141,7 @@ public class ParameterBindingTests : IntegrationTestBase
         };
 
         // Assert
-        page.StringParam.Should().Be(value);
+        page.StringParam.ShouldBe(value);
     }
 
     [Fact]
@@ -155,9 +155,9 @@ public class ParameterBindingTests : IntegrationTestBase
         var viewModel = new MockViewModelWithParameters(name, age);
 
         // Assert
-        viewModel.Name.Should().Be(name);
-        viewModel.Age.Should().Be(age);
-        viewModel.IsActive.Should().BeFalse(); // Default value
+        viewModel.Name.ShouldBe(name);
+        viewModel.Age.ShouldBe(age);
+        viewModel.IsActive.ShouldBeFalse(); // Default value
     }
 
     [Fact]
@@ -176,8 +176,8 @@ public class ParameterBindingTests : IntegrationTestBase
         viewModel.IntProperty = 200;
 
         // Assert
-        page.ViewModel!.StringProperty.Should().Be("Updated");
-        page.ViewModel.IntProperty.Should().Be(200);
+        page.ViewModel!.StringProperty.ShouldBe("Updated");
+        page.ViewModel.IntProperty.ShouldBe(200);
     }
 
     [Fact]
@@ -187,7 +187,7 @@ public class ParameterBindingTests : IntegrationTestBase
         var page = new MockPage(null!);
 
         // Assert
-        page.NavigationParameters.Should().BeNull();
+        page.NavigationParameters.ShouldBeNull();
     }
 
     [Fact]
@@ -201,10 +201,10 @@ public class ParameterBindingTests : IntegrationTestBase
         var intPage = new MockPageWithParameters { IntParam = intValue };
 
         // Assert
-        stringPage.StringParam.Should().BeAssignableTo<string>();
-        stringPage.StringParam.Should().Be("123");
-        intPage.IntParam.Should().Be(123);
-        typeof(int).IsAssignableFrom(intPage.IntParam.GetType()).Should().BeTrue();
+        stringPage.StringParam.ShouldBeAssignableTo<string>();
+        stringPage.StringParam.ShouldBe("123");
+        intPage.IntParam.ShouldBe(123);
+        typeof(int).IsAssignableFrom(intPage.IntParam.GetType()).ShouldBeTrue();
     }
 
     [Fact]
@@ -219,8 +219,8 @@ public class ParameterBindingTests : IntegrationTestBase
         var viewModelWithParams = new MockViewModelWithParameters { Name = "ViewModel" };
 
         // Assert - They should be independent when not in conflict
-        pageWithParams.StringParam.Should().Be("Page");
-        viewModelWithParams.Name.Should().Be("ViewModel");
+        pageWithParams.StringParam.ShouldBe("Page");
+        viewModelWithParams.Name.ShouldBe("ViewModel");
         
         // Note: The actual ambiguity detection would be in the navigation extension methods
         // which would need to be tested when those are available

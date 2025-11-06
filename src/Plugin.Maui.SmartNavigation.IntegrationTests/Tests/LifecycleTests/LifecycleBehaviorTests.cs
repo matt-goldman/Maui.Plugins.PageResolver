@@ -1,4 +1,4 @@
-using FluentAssertions;
+using Shouldly;
 using Plugin.Maui.SmartNavigation.Behaviours;
 using Plugin.Maui.SmartNavigation.IntegrationTests.Infrastructure;
 using Plugin.Maui.SmartNavigation.IntegrationTests.Mocks;
@@ -20,8 +20,8 @@ public class LifecycleBehaviorTests : IntegrationTestBase
         await viewModel.OnInitAsync(isFirstNavigation: true);
 
         // Assert
-        viewModel.OnInitAsyncCallCount.Should().Be(1);
-        viewModel.LastIsFirstNavigation.Should().BeTrue();
+        viewModel.OnInitAsyncCallCount.ShouldBe(1);
+        viewModel.LastIsFirstNavigation.ShouldBe(true);
     }
 
     [Fact]
@@ -35,8 +35,8 @@ public class LifecycleBehaviorTests : IntegrationTestBase
         await viewModel.OnInitAsync(isFirstNavigation: false);
 
         // Assert
-        viewModel.OnInitAsyncCallCount.Should().Be(2);
-        viewModel.LastIsFirstNavigation.Should().BeFalse();
+        viewModel.OnInitAsyncCallCount.ShouldBe(2);
+        viewModel.LastIsFirstNavigation.ShouldBe(false);
     }
 
     [Fact]
@@ -51,10 +51,10 @@ public class LifecycleBehaviorTests : IntegrationTestBase
         await viewModel.OnInitAsync(isFirstNavigation: false);
 
         // Assert
-        viewModel.NavigationHistory.Should().HaveCount(3);
-        viewModel.NavigationHistory[0].Should().BeTrue();
-        viewModel.NavigationHistory[1].Should().BeFalse();
-        viewModel.NavigationHistory[2].Should().BeFalse();
+        viewModel.NavigationHistory.Count.ShouldBe(3);
+        viewModel.NavigationHistory[0].ShouldBeTrue();
+        viewModel.NavigationHistory[1].ShouldBeFalse();
+        viewModel.NavigationHistory[2].ShouldBeFalse();
     }
 
     [Fact]
@@ -70,7 +70,7 @@ public class LifecycleBehaviorTests : IntegrationTestBase
         await viewModel.OnInitAsync(false);
 
         // Assert
-        viewModel.OnInitAsyncCallCount.Should().Be(4);
+        viewModel.OnInitAsyncCallCount.ShouldBe(4);
     }
 
     [Fact]
@@ -84,8 +84,8 @@ public class LifecycleBehaviorTests : IntegrationTestBase
         await task;
 
         // Assert
-        task.IsCompleted.Should().BeTrue();
-        task.Should().BeAssignableTo<Task>();
+        task.IsCompleted.ShouldBeTrue();
+        task.ShouldBeAssignableTo<Task>();
     }
 
     [Fact]
@@ -98,8 +98,8 @@ public class LifecycleBehaviorTests : IntegrationTestBase
         Func<Task> act = async () => await viewModel.OnInitAsync(true);
 
         // Assert
-        await act.Should().ThrowAsync<InvalidOperationException>()
-            .WithMessage("Test exception");
+        var ex = await Should.ThrowAsync<InvalidOperationException>(act);
+        ex.Message.ShouldContain("Test exception");
     }
 
     [Fact]
@@ -114,8 +114,8 @@ public class LifecycleBehaviorTests : IntegrationTestBase
         stopwatch.Stop();
 
         // Assert
-        viewModel.InitializationCompleted.Should().BeTrue();
-        stopwatch.ElapsedMilliseconds.Should().BeGreaterThanOrEqualTo(50);
+        viewModel.InitializationCompleted.ShouldBeTrue();
+        stopwatch.ElapsedMilliseconds.ShouldBeGreaterThanOrEqualTo(50);
     }
 
     [Fact]
@@ -131,8 +131,8 @@ public class LifecycleBehaviorTests : IntegrationTestBase
         await viewModel1.OnInitAsync(false);
 
         // Assert
-        viewModel1.OnInitAsyncCallCount.Should().Be(2);
-        viewModel2.OnInitAsyncCallCount.Should().Be(1);
+        viewModel1.OnInitAsyncCallCount.ShouldBe(2);
+        viewModel2.OnInitAsyncCallCount.ShouldBe(1);
     }
 
     [Fact]
@@ -152,8 +152,8 @@ public class LifecycleBehaviorTests : IntegrationTestBase
         await viewModel.OnInitAsync(isFirstNavigation: false);
 
         // Assert
-        viewModel.NavigationHistory.Should().ContainInOrder(true, false, false);
-        viewModel.OnInitAsyncCallCount.Should().Be(3);
+        viewModel.NavigationHistory.ShouldBe(new List<bool> { true, false, false });
+        viewModel.OnInitAsyncCallCount.ShouldBe(3);
     }
 
     // Helper classes for specific test scenarios

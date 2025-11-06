@@ -173,7 +173,7 @@ Location: `Tests/ErrorHandlingTests/ErrorHandlingTests.cs`
 
 ## Dependencies
 - xUnit 2.9.0
-- FluentAssertions 6.12.0
+- Shouldly 6.12.0
 - Moq 4.20.70
 - Microsoft.Extensions.DependencyInjection 9.0.0
 

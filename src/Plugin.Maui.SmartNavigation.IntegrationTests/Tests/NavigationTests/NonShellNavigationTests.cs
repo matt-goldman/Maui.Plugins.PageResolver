@@ -1,4 +1,4 @@
-using FluentAssertions;
+using Shouldly;
 using Microsoft.Maui.Controls;
 using Moq;
 using Plugin.Maui.SmartNavigation.IntegrationTests.Infrastructure;
@@ -27,8 +27,8 @@ public class NonShellNavigationTests : IntegrationTestBase
         await navigationMock.Object.PushAsync(page);
 
         // Assert
-        navigationStack.Should().Contain(page);
-        navigationStack.Count.Should().Be(1);
+        navigationStack.ShouldContain(page);
+        navigationStack.Count.ShouldBe(1);
     }
 
     [Fact]
@@ -48,7 +48,7 @@ public class NonShellNavigationTests : IntegrationTestBase
         await navigationMock.Object.PopAsync();
 
         // Assert
-        navigationStack.Count.Should().Be(initialCount - 1);
+        navigationStack.Count.ShouldBe(initialCount - 1);
     }
 
     [Fact]
@@ -72,10 +72,10 @@ public class NonShellNavigationTests : IntegrationTestBase
         await navigationMock.Object.PushAsync(page3);
 
         // Assert
-        navigationStack.Should().HaveCount(3);
-        navigationStack[0].Title.Should().Be("Page1");
-        navigationStack[1].Title.Should().Be("Page2");
-        navigationStack[2].Title.Should().Be("Page3");
+        navigationStack.Count.ShouldBe(3);
+        navigationStack[0].Title.ShouldBe("Page1");
+        navigationStack[1].Title.ShouldBe("Page2");
+        navigationStack[2].Title.ShouldBe("Page3");
     }
 
     [Fact]
@@ -105,10 +105,10 @@ public class NonShellNavigationTests : IntegrationTestBase
         navigationMock.Object.InsertPageBefore(pageToInsert, page2);
 
         // Assert
-        navigationStack.Should().HaveCount(3);
-        navigationStack[0].Title.Should().Be("Page1");
-        navigationStack[1].Title.Should().Be("InsertedPage");
-        navigationStack[2].Title.Should().Be("Page2");
+        navigationStack.Count.ShouldBe(3);
+        navigationStack[0].Title.ShouldBe("Page1");
+        navigationStack[1].Title.ShouldBe("InsertedPage");
+        navigationStack[2].Title.ShouldBe("Page2");
     }
 
     [Fact]
@@ -130,9 +130,9 @@ public class NonShellNavigationTests : IntegrationTestBase
         navigationMock.Object.RemovePage(page2);
 
         // Assert
-        navigationStack.Should().HaveCount(2);
-        navigationStack.Should().Contain(page1);
-        navigationStack.Should().NotContain(page2);
-        navigationStack.Should().Contain(page3);
+        navigationStack.Count.ShouldBe(2);
+        navigationStack.ShouldContain(page1);
+        navigationStack.ShouldNotContain(page2);
+        navigationStack.ShouldContain(page3);
     }
 }

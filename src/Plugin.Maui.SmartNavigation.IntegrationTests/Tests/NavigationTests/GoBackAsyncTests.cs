@@ -1,4 +1,4 @@
-using FluentAssertions;
+using Shouldly;
 using Microsoft.Maui.Controls;
 using Moq;
 using Plugin.Maui.SmartNavigation.IntegrationTests.Infrastructure;
@@ -38,9 +38,9 @@ public class GoBackAsyncTests : IntegrationTestBase
         }
 
         // Assert
-        modalPopped.Should().BeTrue();
-        modalStack.Should().BeEmpty();
-        navigationStack.Should().HaveCount(1); // Navigation stack should be untouched
+        modalPopped.ShouldBeTrue();
+        modalStack.ShouldBeEmpty();
+        navigationStack.Count.ShouldBe(1); // Navigation stack should be untouched
     }
 
     [Fact]
@@ -71,7 +71,7 @@ public class GoBackAsyncTests : IntegrationTestBase
         }
 
         // Assert
-        shellNavigatedBack.Should().BeTrue();
+        shellNavigatedBack.ShouldBeTrue();
     }
 
     [Fact]
@@ -107,8 +107,8 @@ public class GoBackAsyncTests : IntegrationTestBase
         }
 
         // Assert
-        regularPopped.Should().BeTrue();
-        navigationStack.Should().HaveCount(1);
+        regularPopped.ShouldBeTrue();
+        navigationStack.Count.ShouldBe(1);
     }
 
     [Fact]
@@ -143,8 +143,8 @@ public class GoBackAsyncTests : IntegrationTestBase
         }
 
         // Assert
-        modalPopped.Should().BeTrue();
-        shellNavigated.Should().BeFalse(); // Shell should NOT be used when modal exists
+        modalPopped.ShouldBeTrue();
+        shellNavigated.ShouldBeFalse(); // Shell should NOT be used when modal exists
     }
 
     [Fact]
@@ -187,8 +187,8 @@ public class GoBackAsyncTests : IntegrationTestBase
         }
 
         // Assert
-        shellNavigated.Should().BeTrue();
-        regularPopped.Should().BeFalse(); // Regular stack should NOT be used when Shell exists
+        shellNavigated.ShouldBeTrue();
+        regularPopped.ShouldBeFalse(); // Regular stack should NOT be used when Shell exists
     }
 
     [Fact]
@@ -215,7 +215,7 @@ public class GoBackAsyncTests : IntegrationTestBase
         }
 
         // Assert
-        modalStack.Should().BeEmpty();
+        modalStack.ShouldBeEmpty();
         navigationMock.Verify(n => n.PopModalAsync(), Times.Exactly(initialCount));
     }
 
@@ -247,6 +247,6 @@ public class GoBackAsyncTests : IntegrationTestBase
         };
 
         // Assert
-        await act.Should().ThrowAsync<InvalidOperationException>();
+        await Should.ThrowAsync<InvalidOperationException>(act);
     }
 }

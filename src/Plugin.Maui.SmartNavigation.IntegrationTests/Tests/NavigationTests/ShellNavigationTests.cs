@@ -1,4 +1,4 @@
-using FluentAssertions;
+using Shouldly;
 using Microsoft.Maui.Controls;
 using Moq;
 using Plugin.Maui.SmartNavigation.Routing;
@@ -28,7 +28,7 @@ public class ShellNavigationTests : IntegrationTestBase
         await shellMock.Object.GoToAsync(route);
 
         // Assert
-        navigatedRoute.Should().Be(route);
+        navigatedRoute.ShouldBe(route);
     }
 
     [Fact]
@@ -48,10 +48,10 @@ public class ShellNavigationTests : IntegrationTestBase
         await shellMock.Object.GoToAsync(route);
 
         // Assert
-        navigatedRoute.Should().Be(route);
-        navigatedRoute.Should().Contain("?");
-        navigatedRoute.Should().Contain("id=123");
-        navigatedRoute.Should().Contain("category=books");
+        navigatedRoute.ShouldBe(route);
+        navigatedRoute.ShouldContain("?");
+        navigatedRoute.ShouldContain("id=123");
+        navigatedRoute.ShouldContain("category=books");
     }
 
     [Fact]
@@ -69,7 +69,7 @@ public class ShellNavigationTests : IntegrationTestBase
         await shellMock.Object.GoToAsync("..");
 
         // Assert
-        navigatedRoute.Should().Be("..");
+        navigatedRoute.ShouldBe("..");
     }
 
     [Fact]
@@ -87,8 +87,8 @@ public class ShellNavigationTests : IntegrationTestBase
         await shellMock.Object.GoToAsync("//main/home");
 
         // Assert
-        navigatedRoute.Should().Be("//main/home");
-        navigatedRoute.Should().StartWith("//");
+        navigatedRoute.ShouldBe("//main/home");
+        navigatedRoute.ShouldStartWith("//");
     }
 
     [Fact]
@@ -101,7 +101,7 @@ public class ShellNavigationTests : IntegrationTestBase
         var builtRoute = route.Build();
 
         // Assert
-        builtRoute.Should().Be("products/details");
+        builtRoute.ShouldBe("products/details");
     }
 
     [Fact]
@@ -119,10 +119,10 @@ public class ShellNavigationTests : IntegrationTestBase
         var builtRoute = route.Build(parameters);
 
         // Assert
-        builtRoute.Should().Contain("products/details");
-        builtRoute.Should().Contain("?");
-        builtRoute.Should().Contain("id=123");
-        builtRoute.Should().Contain("name=product");
+        builtRoute.ShouldContain("products/details");
+        builtRoute.ShouldContain("?");
+        builtRoute.ShouldContain("id=123");
+        builtRoute.ShouldContain("name=product");
     }
 
     [Fact]
@@ -142,10 +142,10 @@ public class ShellNavigationTests : IntegrationTestBase
         await shellMock.Object.GoToAsync("page3");
 
         // Assert
-        navigationHistory.Should().HaveCount(3);
-        navigationHistory[0].Should().Be("page1");
-        navigationHistory[1].Should().Be("page2");
-        navigationHistory[2].Should().Be("page3");
+        navigationHistory.Count.ShouldBe(3);
+        navigationHistory[0].ShouldBe("page1");
+        navigationHistory[1].ShouldBe("page2");
+        navigationHistory[2].ShouldBe("page3");
     }
 
     // Test route implementation

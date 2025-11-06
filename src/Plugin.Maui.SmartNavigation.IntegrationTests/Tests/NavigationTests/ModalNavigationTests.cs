@@ -1,4 +1,4 @@
-using FluentAssertions;
+using Shouldly;
 using Microsoft.Maui.Controls;
 using Moq;
 using Plugin.Maui.SmartNavigation.IntegrationTests.Infrastructure;
@@ -27,8 +27,8 @@ public class ModalNavigationTests : IntegrationTestBase
         await navigationMock.Object.PushModalAsync(modalPage);
 
         // Assert
-        modalStack.Should().Contain(modalPage);
-        modalStack.Count.Should().Be(1);
+        modalStack.ShouldContain(modalPage);
+        modalStack.Count.ShouldBe(1);
     }
 
     [Fact]
@@ -48,7 +48,7 @@ public class ModalNavigationTests : IntegrationTestBase
         await navigationMock.Object.PopModalAsync();
 
         // Assert
-        modalStack.Count.Should().Be(initialCount - 1);
+        modalStack.Count.ShouldBe(initialCount - 1);
     }
 
     [Fact]
@@ -72,10 +72,10 @@ public class ModalNavigationTests : IntegrationTestBase
         await navigationMock.Object.PushModalAsync(modal3);
 
         // Assert
-        modalStack.Should().HaveCount(3);
-        modalStack[0].Title.Should().Be("Modal1");
-        modalStack[1].Title.Should().Be("Modal2");
-        modalStack[2].Title.Should().Be("Modal3");
+        modalStack.Count.ShouldBe(3);
+        modalStack[0].Title.ShouldBe("Modal1");
+        modalStack[1].Title.ShouldBe("Modal2");
+        modalStack[2].Title.ShouldBe("Modal3");
     }
 
     [Fact]
@@ -105,10 +105,10 @@ public class ModalNavigationTests : IntegrationTestBase
         await navigationMock.Object.PushModalAsync(modalPage);
 
         // Assert
-        navigationStack.Should().ContainSingle();
-        navigationStack.Should().Contain(regularPage);
-        modalStack.Should().ContainSingle();
-        modalStack.Should().Contain(modalPage);
+        navigationStack.Count.ShouldBe(1);
+        navigationStack.ShouldContain(regularPage);
+        modalStack.Count.ShouldBe(1);
+        modalStack.ShouldContain(modalPage);
     }
 
     [Fact]
@@ -125,7 +125,7 @@ public class ModalNavigationTests : IntegrationTestBase
         Func<Task> act = async () => await navigationMock.Object.PopModalAsync();
 
         // Assert
-        await act.Should().ThrowAsync<InvalidOperationException>()
-            .WithMessage("Modal stack is empty");
+        var ex = await Should.ThrowAsync<InvalidOperationException>(act);
+        ex.Message.ShouldContain("Modal stack is empty");
     }
 }

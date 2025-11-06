@@ -1,4 +1,4 @@
-using FluentAssertions;
+using Shouldly;
 using Plugin.Maui.SmartNavigation.Behaviours;
 using Plugin.Maui.SmartNavigation.IntegrationTests.Infrastructure;
 using Plugin.Maui.SmartNavigation.IntegrationTests.Mocks;
@@ -25,8 +25,8 @@ public class PlatformSpecificLifecycleTests : IntegrationTestBase
         await viewModel.OnInitAsync(isFirstNavigation: true);
 
         // Assert
-        viewModel.OnInitAsyncCallCount.Should().Be(1);
-        viewModel.LastIsFirstNavigation.Should().BeTrue();
+        viewModel.OnInitAsyncCallCount.ShouldBe(1);
+        viewModel.LastIsFirstNavigation.ShouldBe(true);
     }
 
     [Fact]
@@ -43,8 +43,8 @@ public class PlatformSpecificLifecycleTests : IntegrationTestBase
         await viewModel.OnInitAsync(isFirstNavigation: false); // App foregrounded
 
         // Assert
-        viewModel.NavigationHistory.Should().ContainInOrder(true, false);
-        viewModel.OnInitAsyncCallCount.Should().Be(2);
+        viewModel.NavigationHistory.ShouldBe(new List<bool> { true, false });
+        viewModel.OnInitAsyncCallCount.ShouldBe(2);
     }
 
     [Fact]
@@ -60,8 +60,8 @@ public class PlatformSpecificLifecycleTests : IntegrationTestBase
         await viewModel.OnInitAsync(isFirstNavigation: true);
 
         // Assert
-        viewModel.OnInitAsyncCallCount.Should().Be(1);
-        viewModel.LastIsFirstNavigation.Should().BeTrue();
+        viewModel.OnInitAsyncCallCount.ShouldBe(1);
+        viewModel.LastIsFirstNavigation.ShouldBe(true);
     }
 
     [Fact]
@@ -78,7 +78,7 @@ public class PlatformSpecificLifecycleTests : IntegrationTestBase
         await viewModel.OnInitAsync(isFirstNavigation: false);
 
         // Assert
-        viewModel.NavigationHistory.Should().ContainInOrder(true, false);
+        viewModel.NavigationHistory.ShouldBe(new List<bool> { true, false });
     }
 
     [Fact]
@@ -95,8 +95,8 @@ public class PlatformSpecificLifecycleTests : IntegrationTestBase
         await viewModel.OnInitAsync(isFirstNavigation: false); // Back button pressed
 
         // Assert
-        viewModel.OnInitAsyncCallCount.Should().Be(2);
-        viewModel.NavigationHistory.Last().Should().BeFalse();
+        viewModel.OnInitAsyncCallCount.ShouldBe(2);
+        viewModel.NavigationHistory.Last().ShouldBeFalse();
     }
 
     [Fact]
@@ -112,8 +112,8 @@ public class PlatformSpecificLifecycleTests : IntegrationTestBase
         await viewModel.OnInitAsync(isFirstNavigation: true);
 
         // Assert
-        viewModel.OnInitAsyncCallCount.Should().Be(1);
-        viewModel.LastIsFirstNavigation.Should().BeTrue();
+        viewModel.OnInitAsyncCallCount.ShouldBe(1);
+        viewModel.LastIsFirstNavigation.ShouldBe(true);
     }
 
     [Fact]
@@ -130,7 +130,7 @@ public class PlatformSpecificLifecycleTests : IntegrationTestBase
         await viewModel.OnInitAsync(isFirstNavigation: false); // Window reactivated
 
         // Assert
-        viewModel.NavigationHistory.Should().ContainInOrder(true, false);
+        viewModel.NavigationHistory.ShouldBe(new List<bool> { true, false });
     }
 
     [Fact]
@@ -154,12 +154,12 @@ public class PlatformSpecificLifecycleTests : IntegrationTestBase
         await viewModelWindows.OnInitAsync(false);
 
         // Assert - All platforms should behave the same
-        viewModelIOS.NavigationHistory.Should().Equal(viewModelAndroid.NavigationHistory);
-        viewModelAndroid.NavigationHistory.Should().Equal(viewModelWindows.NavigationHistory);
+        viewModelIOS.NavigationHistory.ShouldBe(viewModelAndroid.NavigationHistory);
+        viewModelAndroid.NavigationHistory.ShouldBe(viewModelWindows.NavigationHistory);
         
-        viewModelIOS.OnInitAsyncCallCount.Should().Be(2);
-        viewModelAndroid.OnInitAsyncCallCount.Should().Be(2);
-        viewModelWindows.OnInitAsyncCallCount.Should().Be(2);
+        viewModelIOS.OnInitAsyncCallCount.ShouldBe(2);
+        viewModelAndroid.OnInitAsyncCallCount.ShouldBe(2);
+        viewModelWindows.OnInitAsyncCallCount.ShouldBe(2);
     }
 
     [Fact]
@@ -177,7 +177,7 @@ public class PlatformSpecificLifecycleTests : IntegrationTestBase
         await viewModel.OnInitAsync(false);
 
         // Assert
-        viewModel.NavigationHistory.Should().ContainInOrder(true, false);
+        viewModel.NavigationHistory.ShouldBe(new List<bool> { true, false });
     }
 
     [Fact]
@@ -196,9 +196,9 @@ public class PlatformSpecificLifecycleTests : IntegrationTestBase
         await viewModel2.OnInitAsync(true); // New instance, first navigation
 
         // Assert
-        viewModel1.OnInitAsyncCallCount.Should().Be(1);
-        viewModel2.OnInitAsyncCallCount.Should().Be(1);
-        viewModel2.LastIsFirstNavigation.Should().BeTrue();
+        viewModel1.OnInitAsyncCallCount.ShouldBe(1);
+        viewModel2.OnInitAsyncCallCount.ShouldBe(1);
+        viewModel2.LastIsFirstNavigation.ShouldBe(true);
     }
 
     [Fact]
@@ -216,9 +216,9 @@ public class PlatformSpecificLifecycleTests : IntegrationTestBase
         await viewModelWindow1.OnInitAsync(false);
 
         // Assert
-        viewModelWindow1.OnInitAsyncCallCount.Should().Be(2);
-        viewModelWindow2.OnInitAsyncCallCount.Should().Be(1);
-        viewModelWindow1.NavigationHistory.Should().NotEqual(viewModelWindow2.NavigationHistory);
+        viewModelWindow1.OnInitAsyncCallCount.ShouldBe(2);
+        viewModelWindow2.OnInitAsyncCallCount.ShouldBe(1);
+        viewModelWindow1.NavigationHistory.ShouldNotBe(viewModelWindow2.NavigationHistory);
     }
 
     [Fact]
@@ -239,10 +239,10 @@ public class PlatformSpecificLifecycleTests : IntegrationTestBase
         await viewModel.OnInitAsync(false);
 
         // Assert
-        viewModel.OnInitAsyncCallCount.Should().Be(4);
-        viewModel.NavigationHistory.Should().HaveCount(4);
-        viewModel.NavigationHistory.First().Should().BeTrue();
-        viewModel.NavigationHistory.Skip(1).Should().AllBeEquivalentTo(false);
+        viewModel.OnInitAsyncCallCount.ShouldBe(4);
+        viewModel.NavigationHistory.Count.ShouldBe(4);
+        viewModel.NavigationHistory.First().ShouldBeTrue();
+        viewModel.NavigationHistory.Skip(1).All(x => x == false).ShouldBeTrue();
     }
 
     [Fact]

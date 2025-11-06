@@ -1,4 +1,4 @@
-using FluentAssertions;
+using Shouldly;
 using Plugin.Maui.SmartNavigation.Routing;
 using Plugin.Maui.SmartNavigation.IntegrationTests.Infrastructure;
 
@@ -19,7 +19,7 @@ public class RouteResolutionTests : IntegrationTestBase
         var result = route.Build();
 
         // Assert
-        result.Should().Be("products/list");
+        result.ShouldBe("products/list");
     }
 
     [Fact]
@@ -32,7 +32,7 @@ public class RouteResolutionTests : IntegrationTestBase
         var result = route.Build();
 
         // Assert
-        result.Should().Be("products/details");
+        result.ShouldBe("products/details");
     }
 
     [Fact]
@@ -45,7 +45,7 @@ public class RouteResolutionTests : IntegrationTestBase
         var result = route.Build("id=123&category=books");
 
         // Assert
-        result.Should().Be("products/details?id=123&category=books");
+        result.ShouldBe("products/details?id=123&category=books");
     }
 
     [Fact]
@@ -63,9 +63,9 @@ public class RouteResolutionTests : IntegrationTestBase
         var result = route.Build(parameters);
 
         // Assert
-        result.Should().Contain("products/details?");
-        result.Should().Contain("id=123");
-        result.Should().Contain("category=books");
+        result.ShouldContain("products/details?");
+        result.ShouldContain("id=123");
+        result.ShouldContain("category=books");
     }
 
     [Fact]
@@ -80,9 +80,9 @@ public class RouteResolutionTests : IntegrationTestBase
         var resultWhitespace = route.Build("   ");
 
         // Assert
-        resultNull.Should().Be("products/list");
-        resultEmpty.Should().Be("products/list");
-        resultWhitespace.Should().Be("products/list");
+        resultNull.ShouldBe("products/list");
+        resultEmpty.ShouldBe("products/list");
+        resultWhitespace.ShouldBe("products/list");
     }
 
     [Fact]
@@ -96,7 +96,7 @@ public class RouteResolutionTests : IntegrationTestBase
         var result = route.Build(emptyParams);
 
         // Assert
-        result.Should().Be("products/list");
+        result.ShouldBe("products/list");
     }
 
     [Theory]
@@ -110,7 +110,7 @@ public class RouteResolutionTests : IntegrationTestBase
         var route = new TestRoute("test", Kind: kind);
 
         // Assert
-        route.Kind.Should().Be(kind);
+        route.Kind.ShouldBe(kind);
     }
 
     [Fact]
@@ -120,7 +120,7 @@ public class RouteResolutionTests : IntegrationTestBase
         var route = new TestRoute("test");
 
         // Assert
-        route.Kind.Should().Be(RouteKind.Page);
+        route.Kind.ShouldBe(RouteKind.Page);
     }
 
     // Test route implementation for testing
