@@ -1,7 +1,6 @@
-using Shouldly;
-using Microsoft.Maui.Controls;
 using Moq;
 using Plugin.Maui.SmartNavigation.IntegrationTests.Infrastructure;
+using Shouldly;
 
 namespace Plugin.Maui.SmartNavigation.IntegrationTests.Tests.NavigationTests;
 
@@ -16,8 +15,8 @@ public class GoBackAsyncTests : IntegrationTestBase
     {
         // Arrange
         var navigationMock = new Mock<INavigation>();
-        var modalStack = new List<Page> { new Page() };
-        var navigationStack = new List<Page> { new Page() };
+        var modalStack = new List<Page> { new() };
+        var navigationStack = new List<Page> { new() };
         
         navigationMock.Setup(n => n.ModalStack).Returns(modalStack.AsReadOnly());
         navigationMock.Setup(n => n.NavigationStack).Returns(navigationStack.AsReadOnly());
@@ -59,10 +58,9 @@ public class GoBackAsyncTests : IntegrationTestBase
             .Returns(Task.CompletedTask);
 
         // Set up application with Shell
-        var app = new Application();
         var window = new Window { Page = shellMock.Object };
-        app.Windows.Add(window);
-        Application.Current = app;
+        Application.Current = new Application();
+        Application.Current.OpenWindow(window);
 
         // Simulate GoBackAsync behavior (Priority 2: Shell)
         if (modalStack.Count == 0 && Application.Current?.Windows[0].Page is Shell shell)
@@ -80,7 +78,7 @@ public class GoBackAsyncTests : IntegrationTestBase
         // Arrange
         var navigationMock = new Mock<INavigation>();
         var modalStack = new List<Page>();
-        var navigationStack = new List<Page> { new Page(), new Page() };
+        var navigationStack = new List<Page> { new(), new() };
         
         navigationMock.Setup(n => n.ModalStack).Returns(modalStack.AsReadOnly());
         navigationMock.Setup(n => n.NavigationStack).Returns(navigationStack.AsReadOnly());
@@ -95,10 +93,9 @@ public class GoBackAsyncTests : IntegrationTestBase
             .ReturnsAsync(navigationStack.Last());
 
         // Set up application without Shell
-        var app = new Application();
         var window = new Window { Page = new Page() };
-        app.Windows.Add(window);
-        Application.Current = app;
+        Application.Current = new Application();
+        Application.Current.OpenWindow(window);
 
         // Simulate GoBackAsync behavior (Priority 3: Navigation Stack)
         if (modalStack.Count == 0 && !(Application.Current?.Windows[0].Page is Shell))
@@ -117,7 +114,7 @@ public class GoBackAsyncTests : IntegrationTestBase
         // Arrange
         var navigationMock = new Mock<INavigation>();
         var shellMock = new Mock<Shell>();
-        var modalStack = new List<Page> { new Page() };
+        var modalStack = new List<Page> { new() };
         
         navigationMock.Setup(n => n.ModalStack).Returns(modalStack.AsReadOnly());
         
@@ -154,7 +151,7 @@ public class GoBackAsyncTests : IntegrationTestBase
         var navigationMock = new Mock<INavigation>();
         var shellMock = new Mock<Shell>();
         var modalStack = new List<Page>();
-        var navigationStack = new List<Page> { new Page() };
+        var navigationStack = new List<Page> { new() };
         
         navigationMock.Setup(n => n.ModalStack).Returns(modalStack.AsReadOnly());
         navigationMock.Setup(n => n.NavigationStack).Returns(navigationStack.AsReadOnly());
@@ -171,10 +168,9 @@ public class GoBackAsyncTests : IntegrationTestBase
             .ReturnsAsync(navigationStack[0]);
 
         // Set up application with Shell
-        var app = new Application();
+        Application.Current = new Application();
         var window = new Window { Page = shellMock.Object };
-        app.Windows.Add(window);
-        Application.Current = app;
+        Application.Current.OpenWindow(window);
 
         // Simulate GoBackAsync with shell (no modal)
         if (modalStack.Count == 0 && Application.Current?.Windows[0].Page is Shell shell)
@@ -196,7 +192,7 @@ public class GoBackAsyncTests : IntegrationTestBase
     {
         // Arrange
         var navigationMock = new Mock<INavigation>();
-        var modalStack = new List<Page> { new Page(), new Page(), new Page() };
+        var modalStack = new List<Page> { new(), new(), new() };
         
         navigationMock.Setup(n => n.ModalStack).Returns(modalStack.AsReadOnly());
         navigationMock.Setup(n => n.PopModalAsync())
@@ -232,19 +228,19 @@ public class GoBackAsyncTests : IntegrationTestBase
         navigationMock.Setup(n => n.PopAsync())
             .ThrowsAsync(new InvalidOperationException("Navigation stack is empty"));
 
-        var app = new Application();
+        //var app = new Application();
+        Application.Current = new Application();
         var window = new Window { Page = new Page() };
-        app.Windows.Add(window);
-        Application.Current = app;
+        Application.Current.OpenWindow(window);
 
         // Act
-        Func<Task> act = async () =>
+        async Task act()
         {
             if (modalStack.Count == 0 && !(Application.Current?.Windows[0].Page is Shell))
             {
                 await navigationMock.Object.PopAsync();
             }
-        };
+        }
 
         // Assert
         await Should.ThrowAsync<InvalidOperationException>(act);

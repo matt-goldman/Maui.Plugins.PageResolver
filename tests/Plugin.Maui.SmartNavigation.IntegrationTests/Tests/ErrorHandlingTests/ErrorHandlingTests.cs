@@ -1,8 +1,7 @@
-using Shouldly;
-using Microsoft.Maui.Controls;
 using Moq;
-using Plugin.Maui.SmartNavigation.Routing;
 using Plugin.Maui.SmartNavigation.IntegrationTests.Infrastructure;
+using Plugin.Maui.SmartNavigation.Routing;
+using Shouldly;
 
 namespace Plugin.Maui.SmartNavigation.IntegrationTests.Tests.ErrorHandlingTests;
 
@@ -22,12 +21,12 @@ public class ErrorHandlingTests : IntegrationTestBase
         var routeRegistry = new Dictionary<string, Type>();
 
         // Act
-        Func<Type?> act = () => routeRegistry.TryGetValue(unregisteredRoute.Build(), out var type) 
-            ? type 
+        Type? act() => routeRegistry.TryGetValue(unregisteredRoute.Build(), out var type)
+            ? type
             : throw new InvalidOperationException($"Route not registered: {unregisteredRoute.Build()}");
 
         // Assert
-        var ex = Should.Throw<InvalidOperationException>(act);
+        var ex = Should.Throw<InvalidOperationException>((Func<Type?>)act);
         ex.Message.ShouldContain("Route not registered: nonexistent/route");
     }
 
@@ -35,15 +34,14 @@ public class ErrorHandlingTests : IntegrationTestBase
     public async Task ShellNotAvailable_ForGoToAsync_ShouldThrowInvalidOperationException()
     {
         // Arrange
-        var app = new Application();
+        Application.Current = new Application();
         var window = new Window { Page = new Page() }; // Regular page, not Shell
-        app.Windows.Add(window);
-        Application.Current = app;
+        Application.Current.OpenWindow(window);
 
         var route = new TestRoute("products/list");
 
         // Act
-        Func<Task> act = async () =>
+        async Task act()
         {
             var current = Application.Current?.Windows[0].Page;
             if (current is Shell shell)
@@ -56,7 +54,7 @@ public class ErrorHandlingTests : IntegrationTestBase
                     $"Cannot navigate to route '{route.Path}'. Shell navigation is not available. " +
                     "Use PushAsync<TPage>() for hierarchical navigation instead.");
             }
-        };
+        }
 
         // Assert
         var ex = await Should.ThrowAsync<InvalidOperationException>(act);
@@ -70,11 +68,11 @@ public class ErrorHandlingTests : IntegrationTestBase
         Func<Page>? factory = null;
 
         // Act
-        Func<Page> act = () => factory?.Invoke() 
+        Page act() => factory?.Invoke()
             ?? throw new InvalidOperationException("Factory is null for route");
 
         // Assert
-        var ex = Should.Throw<InvalidOperationException>(act);
+        var ex = Should.Throw<InvalidOperationException>((Func<Page>)act);
         ex.Message.ShouldContain("null");
     }
 
@@ -86,14 +84,14 @@ public class ErrorHandlingTests : IntegrationTestBase
         var actualType = typeof(Shell);
 
         // Act
-        Action act = () =>
+        void act()
         {
             if (expectedType != actualType)
             {
                 throw new InvalidOperationException(
                     $"Type mismatch: Expected {expectedType.Name} but got {actualType.Name}");
             }
-        };
+        }
 
         // Assert
         var ex = Should.Throw<InvalidOperationException>(act);
@@ -112,7 +110,7 @@ public class ErrorHandlingTests : IntegrationTestBase
             .ThrowsAsync(new InvalidOperationException("Cannot pop from an empty navigation stack"));
 
         // Act
-        Func<Task> act = async () => await navigationMock.Object.PopAsync();
+        async Task act() => await navigationMock.Object.PopAsync();
 
         // Assert
     }
@@ -121,14 +119,14 @@ public class ErrorHandlingTests : IntegrationTestBase
     public void Route_InvalidPath_EmptyString_ShouldHandleOrThrow()
     {
         // Arrange & Act
-        Action act = () =>
+        static void act()
         {
             var route = new TestRoute("");
             if (string.IsNullOrWhiteSpace(route.Path))
             {
                 throw new ArgumentException("Route path cannot be empty", nameof(route.Path));
             }
-        };
+        }
 
         // Assert
         var ex = Should.Throw<ArgumentException>(act);
@@ -146,14 +144,14 @@ public class ErrorHandlingTests : IntegrationTestBase
         var constructorMatches = false;
 
         // Act
-        Action act = () =>
+        void act()
         {
             if (!constructorMatches)
             {
                 throw new ArgumentException(
                     $"Provided parameters do not match the constructors of {pageType.Name}.");
             }
-        };
+        }
 
         // Assert
         var ex = Should.Throw<ArgumentException>(act);
@@ -171,12 +169,14 @@ public class ErrorHandlingTests : IntegrationTestBase
             .Callback<string>(r =>
             {
                 if (r == null)
+                {
                     throw new ArgumentNullException(nameof(r));
+                }
             })
             .Returns(Task.CompletedTask);
 
         // Act
-        Func<Task> act = async () => await shellMock.Object.GoToAsync(nullRoute!);
+        async Task act() => await shellMock.Object.GoToAsync(nullRoute!);
 
         // Assert
         await Should.ThrowAsync<ArgumentNullException>(act);
@@ -189,15 +189,11 @@ public class ErrorHandlingTests : IntegrationTestBase
         var serviceType = typeof(object);
 
         // Act
-        Action act = () =>
+        void act()
         {
-            var service = ServiceProvider.GetService(serviceType);
-            if (service == null)
-            {
-                throw new InvalidOperationException(
+            var service = ServiceProvider.GetService(serviceType) ?? throw new InvalidOperationException(
                     $"No service for type '{serviceType.Name}' has been registered.");
-            }
-        };
+        }
 
         // Assert
         var ex = Should.Throw<InvalidOperationException>(act);
@@ -217,7 +213,7 @@ public class ErrorHandlingTests : IntegrationTestBase
         dependencyChain.Push(typeA); // Circular reference
 
         // Act
-        Action act = () =>
+        void act()
         {
             var visited = new HashSet<string>();
             foreach (var item in dependencyChain)
@@ -228,7 +224,7 @@ public class ErrorHandlingTests : IntegrationTestBase
                         $"Circular dependency detected involving {item}");
                 }
             }
-        };
+        }
 
         // Assert
         var ex = Should.Throw<InvalidOperationException>(act);

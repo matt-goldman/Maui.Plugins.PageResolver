@@ -1,5 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
-
 namespace Plugin.Maui.SmartNavigation.IntegrationTests.Infrastructure;
 
 /// <summary>

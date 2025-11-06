@@ -17,8 +17,8 @@ public class MockViewModel
 
     public MockViewModel(string stringProperty, int intProperty)
     {
-        StringProperty = stringProperty;
-        IntProperty = intProperty;
+        StringProperty  = stringProperty;
+        IntProperty     = intProperty;
     }
 }
 
@@ -55,7 +55,7 @@ public class MockViewModelWithParameters
 
     public MockViewModelWithParameters(string name, int age)
     {
-        Name = name;
-        Age = age;
+        Name    = name;
+        Age     = age;
     }
 }

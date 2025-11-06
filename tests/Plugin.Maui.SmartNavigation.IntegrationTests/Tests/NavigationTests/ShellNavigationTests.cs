@@ -1,8 +1,7 @@
-using Shouldly;
-using Microsoft.Maui.Controls;
 using Moq;
-using Plugin.Maui.SmartNavigation.Routing;
 using Plugin.Maui.SmartNavigation.IntegrationTests.Infrastructure;
+using Plugin.Maui.SmartNavigation.Routing;
+using Shouldly;
 
 namespace Plugin.Maui.SmartNavigation.IntegrationTests.Tests.NavigationTests;
 

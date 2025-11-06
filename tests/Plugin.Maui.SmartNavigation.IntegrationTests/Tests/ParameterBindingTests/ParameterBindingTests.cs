@@ -49,8 +49,8 @@ public class ParameterBindingTests : IntegrationTestBase
         // Arrange
         var viewModel = new MockViewModel
         {
-            StringProperty = "test",
-            IntProperty = 123
+            StringProperty  = "test",
+            IntProperty     = 123
         };
 
         // Act
@@ -88,7 +88,7 @@ public class ParameterBindingTests : IntegrationTestBase
         var page = new MockPageWithParameters
         {
             StringParam = stringParam,
-            IntParam = intParam,
+            IntParam    = intParam,
             ObjectParam = objectParam
         };
 
@@ -104,9 +104,9 @@ public class ParameterBindingTests : IntegrationTestBase
         // Arrange
         var viewModel = new MockViewModelWithParameters
         {
-            Name = "Complex Test",
-            Age = 25,
-            IsActive = true
+            Name        = "Complex Test",
+            Age         = 25,
+            IsActive    = true
         };
 
         // Act & Assert
@@ -166,8 +166,8 @@ public class ParameterBindingTests : IntegrationTestBase
         // Arrange
         var viewModel = new MockViewModel
         {
-            StringProperty = "Initial",
-            IntProperty = 100
+            StringProperty  = "Initial",
+            IntProperty     = 100
         };
         var page = new MockPageWithViewModel(viewModel);
 

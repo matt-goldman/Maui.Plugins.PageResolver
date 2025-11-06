@@ -85,7 +85,7 @@ public class LifecycleBehaviorTests : IntegrationTestBase
 
         // Assert
         task.IsCompleted.ShouldBeTrue();
-        task.ShouldBeAssignableTo<Task>();
+        await task.ShouldBeAssignableTo<Task>();
     }
 
     [Fact]
@@ -95,7 +95,7 @@ public class LifecycleBehaviorTests : IntegrationTestBase
         var viewModel = new ExceptionThrowingViewModel();
 
         // Act
-        Func<Task> act = async () => await viewModel.OnInitAsync(true);
+        async Task act() => await viewModel.OnInitAsync(true);
 
         // Assert
         var ex = await Should.ThrowAsync<InvalidOperationException>(act);

@@ -1,5 +1,3 @@
-using Microsoft.Maui.Controls;
-
 namespace Plugin.Maui.SmartNavigation.IntegrationTests.Mocks;
 
 /// <summary>
@@ -32,8 +30,8 @@ public class MockPageWithViewModel : Page
 
     public MockPageWithViewModel(MockViewModel viewModel)
     {
-        ViewModel = viewModel;
-        BindingContext = viewModel;
+        ViewModel       = viewModel;
+        BindingContext  = viewModel;
     }
 }
 
@@ -53,7 +51,7 @@ public class MockPageWithParameters : Page
     public MockPageWithParameters(string stringParam, int intParam)
     {
         StringParam = stringParam;
-        IntParam = intParam;
+        IntParam    = intParam;
     }
 }
 

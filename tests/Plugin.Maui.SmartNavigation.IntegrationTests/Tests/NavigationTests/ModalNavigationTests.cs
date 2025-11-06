@@ -1,7 +1,6 @@
-using Shouldly;
-using Microsoft.Maui.Controls;
 using Moq;
 using Plugin.Maui.SmartNavigation.IntegrationTests.Infrastructure;
+using Shouldly;
 
 namespace Plugin.Maui.SmartNavigation.IntegrationTests.Tests.NavigationTests;
 
@@ -36,7 +35,7 @@ public class ModalNavigationTests : IntegrationTestBase
     {
         // Arrange
         var navigationMock = new Mock<INavigation>();
-        var modalStack = new List<Page> { new Page(), new Page() };
+        var modalStack = new List<Page> { new(), new() };
         navigationMock.Setup(n => n.ModalStack).Returns(modalStack.AsReadOnly());
         navigationMock.Setup(n => n.PopModalAsync())
             .Callback(() => modalStack.RemoveAt(modalStack.Count - 1))
@@ -122,7 +121,7 @@ public class ModalNavigationTests : IntegrationTestBase
             .ThrowsAsync(new InvalidOperationException("Modal stack is empty"));
 
         // Act
-        Func<Task> act = async () => await navigationMock.Object.PopModalAsync();
+        async Task act() => await navigationMock.Object.PopModalAsync();
 
         // Assert
         var ex = await Should.ThrowAsync<InvalidOperationException>(act);

@@ -1,7 +1,6 @@
-using Shouldly;
-using Microsoft.Maui.Controls;
 using Moq;
 using Plugin.Maui.SmartNavigation.IntegrationTests.Infrastructure;
+using Shouldly;
 
 namespace Plugin.Maui.SmartNavigation.IntegrationTests.Tests.NavigationTests;
 
@@ -36,7 +35,7 @@ public class NonShellNavigationTests : IntegrationTestBase
     {
         // Arrange
         var navigationMock = new Mock<INavigation>();
-        var navigationStack = new List<Page> { new Page(), new Page() };
+        var navigationStack = new List<Page> { new(), new() };
         navigationMock.Setup(n => n.NavigationStack).Returns(navigationStack.AsReadOnly());
         navigationMock.Setup(n => n.PopAsync())
             .Callback(() => navigationStack.RemoveAt(navigationStack.Count - 1))
@@ -121,7 +120,7 @@ public class NonShellNavigationTests : IntegrationTestBase
         var page2 = new Page { Title = "Page2" };
         var page3 = new Page { Title = "Page3" };
         
-        navigationStack.AddRange(new[] { page1, page2, page3 });
+        navigationStack.AddRange([page1, page2, page3]);
 
         navigationMock.Setup(n => n.RemovePage(It.IsAny<Page>()))
             .Callback<Page>(p => navigationStack.Remove(p));
