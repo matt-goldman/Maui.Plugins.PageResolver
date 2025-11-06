@@ -40,8 +40,16 @@ jobs:
     - name: Build
       run: dotnet build $env:SOLUTION --configuration $env:BUILD_CONFIG -p:Version=${{ github.event.inputs.version }}
 
-    # - name: Run tests
-    #   run: dotnet test /p:Configuration=$env:BUILD_CONFIG --no-restore --no-build --verbosity normal
+    - name: Run Integration Tests
+      run: dotnet test src\Plugin.Maui.SmartNavigation.IntegrationTests\Plugin.Maui.SmartNavigation.IntegrationTests.csproj --configuration $env:BUILD_CONFIG --verbosity normal --logger "trx;LogFileName=test-results.trx"
+      continue-on-error: false
+
+    - name: Publish Test Results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: test-results
+        path: '**/test-results.trx'
 
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v1.0.5
