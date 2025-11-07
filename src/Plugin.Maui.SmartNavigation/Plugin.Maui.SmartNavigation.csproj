@@ -16,6 +16,7 @@
 
   <ItemGroup>
 	<InternalsVisibleTo Include="Plugin.Maui.SmartNavigation.MopupsExtensions" />
+	<InternalsVisibleTo Include="Plugin.Maui.SmartNavigation.IntegrationTests" />
   </ItemGroup>
 
 	<ItemGroup>

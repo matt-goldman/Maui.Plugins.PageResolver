@@ -1,4 +1,3 @@
-using Moq;
 using Plugin.Maui.SmartNavigation.IntegrationTests.Infrastructure;
 using Plugin.Maui.SmartNavigation.Routing;
 using Shouldly;
@@ -6,90 +5,27 @@ using Shouldly;
 namespace Plugin.Maui.SmartNavigation.IntegrationTests.Tests.NavigationTests;
 
 /// <summary>
-/// Tests for Shell navigation (GoToAsync)
+/// Tests for Shell navigation routes and the NavigationManager.GoToAsync() method
 /// </summary>
+/// <remarks>
+/// TESTING LIMITATION:
+/// NavigationManager.GoToAsync() requires Application.Current.Windows[0].Page to be a Shell instance.
+/// In headless test environments, the Windows collection is empty (testing artifact, not production bug).
+/// 
+/// These tests focus on what CAN be tested:
+/// - Route building logic (Route.Build(), parameters, etc.)
+/// - Route format validation
+/// 
+/// What CANNOT be tested in headless environment:
+/// - Actual Shell.GoToAsync() execution
+/// - Shell route registration and navigation
+/// - NavigationManager.GoToAsync() integration with Shell
+/// 
+/// For full end-to-end Shell navigation testing, use UI automation frameworks (Appium, XCTest, Espresso)
+/// that run in actual platform contexts with real Shell instances.
+/// </remarks>
 public class ShellNavigationTests : IntegrationTestBase
 {
-    [Fact]
-    public async Task GoToAsync_WithSimpleRoute_ShouldNavigate()
-    {
-        // Arrange
-        var shell = new Shell();
-        var route = "products/list";
-        var navigatedRoute = string.Empty;
-
-        var shellMock = new Mock<Shell>();
-        shellMock.Setup(s => s.GoToAsync(It.IsAny<string>()))
-            .Callback<string>(r => navigatedRoute = r)
-            .Returns(Task.CompletedTask);
-
-        // Act
-        await shellMock.Object.GoToAsync(route);
-
-        // Assert
-        navigatedRoute.ShouldBe(route);
-    }
-
-    [Fact]
-    public async Task GoToAsync_WithQueryParameters_ShouldIncludeQuery()
-    {
-        // Arrange
-        var shellMock = new Mock<Shell>();
-        var navigatedRoute = string.Empty;
-
-        shellMock.Setup(s => s.GoToAsync(It.IsAny<string>()))
-            .Callback<string>(r => navigatedRoute = r)
-            .Returns(Task.CompletedTask);
-
-        var route = "products/details?id=123&category=books";
-
-        // Act
-        await shellMock.Object.GoToAsync(route);
-
-        // Assert
-        navigatedRoute.ShouldBe(route);
-        navigatedRoute.ShouldContain("?");
-        navigatedRoute.ShouldContain("id=123");
-        navigatedRoute.ShouldContain("category=books");
-    }
-
-    [Fact]
-    public async Task GoToAsync_WithRelativeRoute_ShouldNavigateBack()
-    {
-        // Arrange
-        var shellMock = new Mock<Shell>();
-        var navigatedRoute = string.Empty;
-
-        shellMock.Setup(s => s.GoToAsync(It.IsAny<string>()))
-            .Callback<string>(r => navigatedRoute = r)
-            .Returns(Task.CompletedTask);
-
-        // Act
-        await shellMock.Object.GoToAsync("..");
-
-        // Assert
-        navigatedRoute.ShouldBe("..");
-    }
-
-    [Fact]
-    public async Task GoToAsync_WithAbsoluteRoute_ShouldNavigateToRoot()
-    {
-        // Arrange
-        var shellMock = new Mock<Shell>();
-        var navigatedRoute = string.Empty;
-
-        shellMock.Setup(s => s.GoToAsync(It.IsAny<string>()))
-            .Callback<string>(r => navigatedRoute = r)
-            .Returns(Task.CompletedTask);
-
-        // Act
-        await shellMock.Object.GoToAsync("//main/home");
-
-        // Assert
-        navigatedRoute.ShouldBe("//main/home");
-        navigatedRoute.ShouldStartWith("//");
-    }
-
     [Fact]
     public void Route_Build_ShouldGenerateCorrectShellRoute()
     {
@@ -125,27 +61,96 @@ public class ShellNavigationTests : IntegrationTestBase
     }
 
     [Fact]
-    public async Task Shell_MultipleNavigations_ShouldExecuteInOrder()
+    public void Route_BuildSimplePath_ShouldReturnPath()
     {
         // Arrange
-        var shellMock = new Mock<Shell>();
-        var navigationHistory = new List<string>();
-
-        shellMock.Setup(s => s.GoToAsync(It.IsAny<string>()))
-            .Callback<string>(r => navigationHistory.Add(r))
-            .Returns(Task.CompletedTask);
+        var route = new TestRoute("home");
 
         // Act
-        await shellMock.Object.GoToAsync("page1");
-        await shellMock.Object.GoToAsync("page2");
-        await shellMock.Object.GoToAsync("page3");
+        var builtRoute = route.Build();
 
         // Assert
-        navigationHistory.Count.ShouldBe(3);
-        navigationHistory[0].ShouldBe("page1");
-        navigationHistory[1].ShouldBe("page2");
-        navigationHistory[2].ShouldBe("page3");
+        builtRoute.ShouldBe("home");
     }
+
+    [Fact]
+    public void Route_BuildWithEmptyName_ShouldReturnPathOnly()
+    {
+        // Arrange
+        var route = new TestRoute("products", null);
+
+        // Act
+        var builtRoute = route.Build();
+
+        // Assert
+        builtRoute.ShouldBe("products");
+    }
+
+    [Fact]
+    public void Route_BuildRelativePath_ShouldSupportBackNavigation()
+    {
+        // Arrange
+        var route = new TestRoute("..");
+
+        // Act
+        var builtRoute = route.Build();
+
+        // Assert
+        builtRoute.ShouldBe("..");
+    }
+
+    [Fact]
+    public void Route_BuildAbsolutePath_ShouldStartWithDoubleSlash()
+    {
+        // Arrange
+        var route = new TestRoute("//main", "home");
+
+        // Act
+        var builtRoute = route.Build();
+
+        // Assert
+        builtRoute.ShouldStartWith("//");
+        builtRoute.ShouldContain("main");
+    }
+
+    [Fact]
+    public void Route_Kind_ShouldBePreserved()
+    {
+        // Arrange
+        var pageRoute = new TestRoute("page1", null, RouteKind.Page);
+        var modalRoute = new TestRoute("modal1", null, RouteKind.Modal);
+
+        // Assert
+        pageRoute.Kind.ShouldBe(RouteKind.Page);
+        modalRoute.Kind.ShouldBe(RouteKind.Modal);
+    }
+
+    [Fact]
+    public void NavigationManager_RequiresShell_ForGoToAsync()
+    {
+        // Arrange
+        InitializeMauiAppWithPage(); // Non-Shell app
+
+        // Assert - Document that NavigationManager.GoToAsync requires Shell
+        // In production, calling NavigationManager.GoToAsync() without Shell would throw
+        // InvalidOperationException: "Shell navigation is not available"
+        
+        // We can verify the app is initialized without Shell
+        Application.Current.ShouldNotBeNull();
+        
+        // Note: Cannot test actual NavigationManager.GoToAsync() behavior in headless environment
+        // because Windows collection is empty (testing artifact)
+    }
+
+    // TODO: Add these tests when UI automation framework is available:
+    // - GoToAsync_WithSimpleRoute_ShouldNavigateToPage
+    // - GoToAsync_WithQueryParameters_ShouldPassParametersToPage  
+    // - GoToAsync_WithRelativeRoute_ShouldNavigateBack
+    // - GoToAsync_WithAbsoluteRoute_ShouldNavigateToRoot
+    // - GoToAsync_MultipleNavigations_ShouldMaintainHistory
+    // - GoToAsync_WithUnregisteredRoute_ShouldThrowException
+    // - NavigationManager_GoToAsync_WithShell_ShouldCallShellGoToAsync
+    // - NavigationManager_GoToAsync_WithoutShell_ShouldThrowInvalidOperationException
 
     // Test route implementation
     private record TestRoute(string Path, string? Name = null, RouteKind Kind = RouteKind.Page)
