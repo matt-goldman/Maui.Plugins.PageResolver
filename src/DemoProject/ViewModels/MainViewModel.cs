@@ -79,4 +79,10 @@ public partial class MainViewModel(INameService nameService) : BaseViewModel
             throw;
         }
     }
+
+    [RelayCommand]
+    private async Task GoToNavigationManagerDemo()
+    {
+        await Navigation.PushAsync<NavigationManagerDemoPage>();
+    }
 }
