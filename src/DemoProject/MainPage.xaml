@@ -76,6 +76,14 @@
                     SemanticProperties.Hint="Throws an aggreagate exception"
                     Text="Click to trigger aggreagate exception" />
 
+            <Button Command="{Binding GoToNavigationManagerDemoCommand}"
+                    BackgroundColor="{StaticResource Primary}"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    SemanticProperties.Hint="Shows INavigationManager and IViewModelLifecycle features"
+                    Text="🆕 INavigationManager &amp; Lifecycle Demo"
+                    TextColor="White" />
+
             <Image HeightRequest="310"
                    HorizontalOptions="Center"
                    SemanticProperties.Description="Cute dot net bot waving hi to you!"
