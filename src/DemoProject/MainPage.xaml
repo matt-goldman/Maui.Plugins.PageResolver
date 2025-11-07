@@ -73,8 +73,8 @@
                     Command="{Binding TriggerAggregateExceptionCommand}"
                     FontAttributes="Bold"
                     HorizontalOptions="Center"
-                    SemanticProperties.Hint="Throws an aggreagate exception"
-                    Text="Click to trigger aggreagate exception" />
+                    SemanticProperties.Hint="Throws an aggregate exception"
+                    Text="Click to trigger aggregate exception" />
 
             <Button Command="{Binding GoToNavigationManagerDemoCommand}"
                     BackgroundColor="{StaticResource Primary}"
