@@ -77,11 +77,10 @@
                     Text="Click to trigger aggregate exception" />
 
             <Button Command="{Binding GoToNavigationManagerDemoCommand}"
-                    BackgroundColor="{StaticResource Primary}"
                     FontAttributes="Bold"
                     HorizontalOptions="Center"
                     SemanticProperties.Hint="Shows INavigationManager and IViewModelLifecycle features"
-                    Text="🆕 INavigationManager &amp; Lifecycle Demo"
+                    Text="INavigationManager &amp; Lifecycle Demo"
                     TextColor="White" />
 
             <Image HeightRequest="310"

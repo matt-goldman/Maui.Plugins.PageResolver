@@ -5,6 +5,7 @@
              xmlns:resolver="clr-namespace:Plugin.Maui.SmartNavigation;assembly=Plugin.Maui.SmartNavigation"
              xmlns:vm="clr-namespace:DemoProject.ViewModels"
              BindingContext="{resolver:ResolveViewModel x:TypeArguments=vm:MarkupViewModel}"
+             x:DataType="vm:MarkupViewModel"
              Title="MarkupPage">
     <!--<ContentPage.BindingContext>
         <resolver:ResolveViewModel x:TypeArguments="vm:MarkupViewModel" />

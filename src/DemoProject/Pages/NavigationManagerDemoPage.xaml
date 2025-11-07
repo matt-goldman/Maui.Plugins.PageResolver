@@ -48,10 +48,14 @@
                     HorizontalOptions="Center"
                     Text="Navigate to Markup Page" />
 
-            <Button Command="{Binding ShowModalPageCommand}"
-                    FontAttributes="Bold"
-                    HorizontalOptions="Center"
-                    Text="Show Modal Page" />
+            <VerticalStackLayout>
+                <Button Command="{Binding ShowModalPageCommand}"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"
+                        Text="Show Modal Page" />
+
+                <Label TextColor="Red">Warning: You can only navigate back from this page on Android</Label>
+            </VerticalStackLayout>
 
             <Button Command="{Binding GoBackCommand}"
                     FontAttributes="Bold"

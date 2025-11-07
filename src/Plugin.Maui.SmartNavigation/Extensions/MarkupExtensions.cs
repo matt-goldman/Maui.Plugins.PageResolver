@@ -4,7 +4,9 @@ using Microsoft.Maui.Controls.Xaml;
 using Plugin.Maui.SmartNavigation.Services;
 using System;
 
-namespace Plugin.Maui.SmartNavigation.Extensions;
+#pragma warning disable IDE0130 // Namespace does not match folder structure - intended for public API
+namespace Plugin.Maui.SmartNavigation;
+#pragma warning restore IDE0130 // Namespace does not match folder structure
 
 public class ResolveViewModel<T> : IMarkupExtension<T>
 {

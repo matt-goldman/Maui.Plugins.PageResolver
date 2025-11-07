@@ -6,7 +6,7 @@ namespace DemoProject.ViewModels;
 public partial class MarkupViewModel(INameService nameService) : BaseViewModel
 {
     [ObservableProperty]
-    private partial string? Name { get; set; }
+    public partial string? Name { get; set; }
 
     [RelayCommand]
     void GetName()

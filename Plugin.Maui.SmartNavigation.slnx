@@ -9,4 +9,5 @@
   <Folder Name="/tests/">
     <Project Path="tests/Plugin.Maui.SmartNavigation.IntegrationTests/Plugin.Maui.SmartNavigation.IntegrationTests.csproj" />
   </Folder>
+  <Project Path="src/DemoProject/DemoProject.csproj" />
 </Solution>

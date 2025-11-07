@@ -143,7 +143,7 @@ public static class PageResolverExtensions
          // Initialisation
 ");
 
-                    sourceBuilder.AppendLine($"         builder.Services.UsePageResolver(ViewModelMappings);");
+                    sourceBuilder.AppendLine($"         builder.Services.UseSmartNavigation(ViewModelMappings);");
 
                     sourceBuilder.AppendLine($"         return builder;");
 
