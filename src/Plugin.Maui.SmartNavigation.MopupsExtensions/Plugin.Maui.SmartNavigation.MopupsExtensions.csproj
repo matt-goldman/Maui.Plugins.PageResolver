@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<NetCoreVersion>10.0</NetCoreVersion>
+		<TargetFramework>net$(NetCoreVersion)</TargetFramework>
+		<ImplicitUsings>Enable</ImplicitUsings>
+		<UseMaui>true</UseMaui>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageId>Plugin.Maui.SmartNavigation.MopupsExtensions</PackageId>
+		<Description>Mopups extensions for Plugin.Maui.SmartNavigation - push popup pages with resolved dependencies</Description>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Plugin.Maui.SmartNavigation" Condition="'$(Configuration)'=='Release'" />
+		<PackageReference Include="Microsoft.Maui.Controls" />
+		<PackageReference Include="Mopups" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Plugin.Maui.SmartNavigation\Plugin.Maui.SmartNavigation.csproj" Condition="'$(Configuration)'=='Debug'" />
+	</ItemGroup>
+
+</Project>

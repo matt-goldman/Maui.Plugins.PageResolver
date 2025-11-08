@@ -1,3 +1,3 @@
 ﻿global using DemoProject.Services;
 global using DemoProject.ViewModels;
-global using Maui.Plugins.PageResolver;
+global using Plugin.Maui.SmartNavigation;

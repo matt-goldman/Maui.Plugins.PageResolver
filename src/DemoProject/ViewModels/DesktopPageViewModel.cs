@@ -1,24 +1,25 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DemoProject.Pages;
+using Plugin.Maui.SmartNavigation.Extensions;
 
 namespace DemoProject.ViewModels;
 
 public partial class DesktopPageViewModel
-    : ObservableObject
+    : BaseViewModel
 {
     Window? _vmWindow;
     Window? _winParamsWindow;
     Window? _vmParamsWindow;
 
     [ObservableProperty]
-    bool _isMainWindowOpen;
+    public partial bool? IsMainWindowOpen { get; set; }
 
     [ObservableProperty]
-    bool _isWinParamsWindowOpen;
+    public partial bool? IsWinParamsWindowOpen { get; set; }
 
     [ObservableProperty]
-    bool _isVmParamsWindowOpen;
+    public partial bool? IsVmParamsWindowOpen { get; set; }
 
     [RelayCommand]
     public void OpenWindowWithVm()

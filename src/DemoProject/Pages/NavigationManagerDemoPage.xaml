@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="DemoProject.Pages.NavigationManagerDemoPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:DemoProject.ViewModels"
+             xmlns:behaviors="clr-namespace:Plugin.Maui.SmartNavigation.Behaviours;assembly=Plugin.Maui.SmartNavigation"
+             x:DataType="vm:NavigationManagerDemoViewModel"
+             Title="NavigationManager Demo">
+    
+    <ContentPage.Behaviors>
+        <behaviors:NavigatedInitBehavior />
+    </ContentPage.Behaviors>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30,0"
+                             Spacing="25"
+                             VerticalOptions="Center">
+
+            <Label FontSize="24"
+                   HorizontalOptions="Center"
+                   SemanticProperties.HeadingLevel="Level1"
+                   Text="INavigationManager Demo" />
+
+            <Label FontSize="14"
+                   HorizontalOptions="Center"
+                   Text="This page demonstrates INavigationManager service and IViewModelLifecycle" />
+
+            <Border Padding="15"
+                    BackgroundColor="{StaticResource Primary}"
+                    StrokeShape="RoundRectangle 8">
+                <Label FontSize="16"
+                       HorizontalOptions="Center"
+                       Text="{Binding InitMessage}"
+                       TextColor="White" />
+            </Border>
+
+            <Label FontSize="14"
+                   HorizontalOptions="Center"
+                   Text="{Binding Message}" />
+
+            <Button Command="{Binding NavigateToScopeCheckCommand}"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    Text="Push Page (INavigationManager)" />
+
+            <Button Command="{Binding NavigateToMarkupCommand}"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    Text="Navigate to Markup Page" />
+
+            <VerticalStackLayout>
+                <Button Command="{Binding ShowModalPageCommand}"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"
+                        Text="Show Modal Page" />
+
+                <Label TextColor="Red">Warning: You can only navigate back from this page on Android</Label>
+            </VerticalStackLayout>
+
+            <Button Command="{Binding GoBackCommand}"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    Text="Go Back (Smart Detection)" />
+
+            <Label FontSize="12"
+                   HorizontalOptions="Center"
+                   Margin="0,20,0,0"
+                   Text="Note: This ViewModel uses INavigationManager (injected via DI) instead of INavigation" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

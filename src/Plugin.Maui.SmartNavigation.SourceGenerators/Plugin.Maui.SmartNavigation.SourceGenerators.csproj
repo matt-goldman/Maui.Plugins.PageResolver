@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+	  <Authors>Matt Goldman</Authors>
+	  <Company />
+	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	  <PackageId>Plugin.Maui.SmartNavigation.SourceGenerator</PackageId>
+	  <Description>Source generators used by Plugin.Maui.SmartNavigation</Description>
+	  <EnforceExtendedAnalyzerRules>false</EnforceExtendedAnalyzerRules>
+  </PropertyGroup>
+	
+	<ItemGroup>
+	  <None Remove="bin\Debug\netstandard2.0\\Plugin.Maui.SmartNavigation.SourceGenerators.dll" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" />
+	</ItemGroup>
+</Project>

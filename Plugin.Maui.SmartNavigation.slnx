@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/Solution Items/" />
+  <Folder Name="/src/">
+    <Project Path="src/Plugin.Maui.SmartNavigation.Attributes/Plugin.Maui.SmartNavigation.Attributes.csproj" />
+    <Project Path="src/Plugin.Maui.SmartNavigation.MopupsExtensions/Plugin.Maui.SmartNavigation.MopupsExtensions.csproj" />
+    <Project Path="src/Plugin.Maui.SmartNavigation.SourceGenerators/Plugin.Maui.SmartNavigation.SourceGenerators.csproj" />
+    <Project Path="src/Plugin.Maui.SmartNavigation/Plugin.Maui.SmartNavigation.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Plugin.Maui.SmartNavigation.IntegrationTests/Plugin.Maui.SmartNavigation.IntegrationTests.csproj" />
+  </Folder>
+  <Project Path="src/DemoProject/DemoProject.csproj" />
+</Solution>
