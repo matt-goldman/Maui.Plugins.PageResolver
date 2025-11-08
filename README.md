@@ -1,80 +1,103 @@
-[![NuGet Status](https://img.shields.io/nuget/v/Plugin.Maui.SmartNavigation.svg?style=flat)](https://www.nuget.org/packages/Plugin.Maui.SmartNavigation/) [![Nuget](https://img.shields.io/nuget/dt/Plugin.Maui.SmartNavigation)](https://www.nuget.org/packages/Plugin.Maui.SmartNavigation)
+# Plugin.Maui.SmartNavigation
 
-## Watch the video:
+[![NuGet Status](https://img.shields.io/nuget/v/Plugin.Maui.SmartNavigation.svg?style=flat)](https://www.nuget.org/packages/Plugin.Maui.SmartNavigation/)
+[![Nuget](https://img.shields.io/nuget/dt/Plugin.Maui.SmartNavigation)](https://www.nuget.org/packages/Plugin.Maui.SmartNavigation)
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=qx8A4zIe9dU" target="_blank">
- <img src="http://img.youtube.com/vi/qx8A4zIe9dU/hqdefault.jpg" alt="Watch the video" />
-</a>
+A simple, predictable navigation library for .NET MAUI.
+It resolves pages and view models through DI, supports both Shell and non-Shell apps, and gives you a single, type-safe API for every navigation scenario.
 
-# MAUI Smart Navigation (formerly PageResolver)
+> **Note:** This library was renamed from `Maui.Plugins.PageResolver` to `Plugin.Maui.SmartNavigation` in v3.0 for .NET 10. See the migration guide below.
 
-> **📢 Important:** This library was renamed from `Plugin.Maui.PageResolver` to `Plugin.Maui.SmartNavigation` in v3.0 for .NET 10. See the [migration guide](#migrating-from-pageresolver-2x) below.
+## Quick Start
 
-A simple and lightweight navigation solution for .NET MAUI projects with dependency injection support.
-
-If you want a simple navigation solution with DI without using a full MVVM framework (or if you want to use MVU), this package will let you navigate to fully resolved pages, with view models and dependencies.
-
-## Quick Start Examples
-
-### Basic Navigation
+### Register the plugin
 
 ```csharp
-// Using INavigationManager (recommended)
-public class MyViewModel
+public static class MauiProgram
 {
-    private readonly INavigationManager _navigationManager;
-    
-    public MyViewModel(INavigationManager navigationManager)
+    public static MauiApp CreateMauiApp()
     {
-        _navigationManager = navigationManager;
-    }
-    
-    public async Task NavigateToDetails()
-    {
-        await _navigationManager.PushAsync<DetailsPage>();
+        var builder = MauiApp.CreateBuilder();
+        builder
+            .UseMauiApp<App>()
+            .ConfigureFonts(fonts =>
+            {
+                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+            })
+            .UseSmartNavigation(); // add this
+
+        return builder.Build();
     }
 }
+```
 
-// Or using extension methods on INavigation
+### Navigate to a page
+
+```csharp
+public class MyViewModel
+{
+    private readonly INavigationManager _navigation;
+
+    public MyViewModel(INavigationManager navigation)
+    {
+        _navigation = navigation;
+    }
+
+    public Task ShowDetails()
+        => _navigation.PushAsync<DetailsPage>();
+}
+```
+
+Or via extension methods on `INavigation`:
+
+```csharp
 await Navigation.PushAsync<MyPage>();
 ```
 
-### Navigation with Parameters
-
-Pass parameters to pages or ViewModels:
+### Passing parameters
 
 ```csharp
-// Page parameters
-await Navigation.PushAsync<MyPage>(myPageParam1, "bob", 4);
-
-// ViewModel parameters
-await Navigation.PushAsync<MyPage>(myViewModelParam1, "bob", 4);
+await _navigation.PushAsync<MyPage>(myParam1, "bob", 4);
 ```
 
-### Modal Navigation
+### Modal navigation
 
 ```csharp
-await _navigationManager.PushModalAsync<SettingsPage>();
-await _navigationManager.PopModalAsync();
+await _navigation.PushModalAsync<SettingsPage>();
+await _navigation.PopModalAsync();
 ```
 
-### Shell Navigation (Type-Safe Routing)
+### Shell routing (type-safe)
 
 ```csharp
-await _navigationManager.GoToAsync(new Route("details", typeof(DetailsPage)));
+await _navigation.GoToAsync(new Route("details"));
 ```
 
-### Go Back
+**Note:** Ths is for illustration and not the recommended usage of the `Route` record type - see wiki page "Best Practices" (coming soon).
+
+### Going back
 
 ```csharp
-// Automatically determines whether to pop modal, Shell, or navigation stack
-await _navigationManager.GoBackAsync();
+await _navigation.GoBackAsync();
 ```
 
-## Key Features
+`GoBackAsync` automatically chooses the correct navigation context (Shell, modal, or the stack).
 
-### INavigationManager Service
-A DI-friendly navigation service that works with Shell and non-Shell navigation:
+## Why SmartNavigation?
+
+* Works with **Shell and non-Shell** navigation using the same API
+* Fully **DI-resolved pages and view models**
+* No framework, no magic – just **type-safe navigation**
+* Optional **async initialisation lifecycle** for ViewModels
+* Plays nicely with MVVM, MVU, or no pattern at all
+* Minimal setup, no ceremony
+
+## INavigationManager
+
+Designed to take the guesswork out of picking the right lifecycle method for initialising ViewModels. It gives you something close to `OnInitializedAsync` in Blazor.
+
+SmartNavigation abstracts MAUI’s three navigation systems (Shell, navigation stack, and modal stack) into one unified service:
 
 ```csharp
 public interface INavigationManager
@@ -88,176 +111,146 @@ public interface INavigationManager
 }
 ```
 
-### ViewModel Lifecycle with NavigatedInitBehavior
+## ViewModel Lifecycle (NavigatedInitBehaviour)
 
-Implement `IViewModelLifecycle` in your ViewModels for async initialization:
+Implement `IViewModelLifecycle` on your ViewModel and SmartNavigation will run async initialisation automatically when the page is navigated to:
 
 ```csharp
 public class MyViewModel : IViewModelLifecycle
 {
-    public async Task OnInitAsync(bool isFirstNavigation)
+    public Task OnInitAsync(bool isFirstNavigation)
     {
-        // Perform async initialization
         if (isFirstNavigation)
-        {
-            // First-time setup
-            await LoadDataAsync();
-        }
+            return LoadDataAsync();
+
+        return Task.CompletedTask;
     }
 }
 ```
 
-Attach the behavior in XAML:
+Attach via XAML:
 
 ```xml
-<ContentPage xmlns:behaviors="clr-namespace:Plugin.Maui.SmartNavigation.Behaviours;assembly=Plugin.Maui.SmartNavigation">
-    <ContentPage.Behaviors>
-        <behaviors:NavigatedInitBehavior />
-    </ContentPage.Behaviors>
+<ContentPage xmlns:behaviours="clr-namespace:Plugin.Maui.SmartNavigation.Behaviours;assembly=Plugin.Maui.SmartNavigation">
+    <ContentPage.Behaviours>
+        <behaviours:NavigatedInitBehaviour />
+    </ContentPage.Behaviours>
 </ContentPage>
 ```
 
-### Source Generator (Opt-In)
+## Source Generator (Opt-In)
 
-Automatically register dependencies in `IServiceCollection` with generated code. **Note:** The source generator is now **opt-in** in v3.0 (previously opt-out).
-
-To enable, add the `[GenerateAutoDependencies]` attribute to your startup class or MauiProgram:
+The optional source generator can register pages, view models, and services automatically.
+Enable it:
 
 ```csharp
-[assembly: GenerateAutoDependencies]
-
-namespace DemoProject;
-
+[UseAutoDependencies]
 public static class MauiProgram
 {
     public static MauiApp CreateMauiApp()
     {
-        var builder = MauiApp.CreateBuilder();
-        builder.UseAutodependencies(); // Generated extension method
-        return builder.Build();
+        return MauiApp.CreateBuilder();
+        builder
+            .UseMauiApp<App>()
+            .UseAutodependencies() // Generated extension method
+            .Build();
     }
 }
 ```
 
-Generated code example:
+## Lifetime Attributes
 
-```csharp
-using Plugin.Maui.SmartNavigation;
-using DemoProject;
-using DemoProject.Pages;
-using DemoProject.ViewModels;
-using DemoProject.Services;
-// ---------------
-// <auto-generated>
-//   Generated by the SmartNavigation Auto-registration module.
-//   https://github.com/matt-goldman/Plugin.Maui.SmartNavigation
-// </auto-generated>
-// ---------------
+Defaults:
 
-namespace DemoProject;
+* Pages – transient
+* ViewModels – transient
+* Services – singleton
 
-public static class PageResolverExtensions
-{
-    public static MauiAppBuilder UseAutodependencies(this MauiAppBuilder builder)
-    {
-         var ViewModelMappings = new Dictionary<Type, Type>();
+(Must follow naming conventions - see wiki (coming soon))
 
-         // pages
-         builder.Services.AddTransient<MainPage>();
-
-         // ViewModels
-         builder.Services.AddTransient<MainViewModel>();
-
-         // Services
-         builder.Services.AddSingleton<IDefaultScopedService, DefaultScopedService>();
-         builder.Services.AddTransient<ICustomScopedService, CustomScopedService>();
-
-         // ViewModel to Page mappings
-         ViewModelMappings.Add(typeof(MainPage), typeof(MainViewModel));
-
-         // Initialisation
-         builder.Services.UsePageResolver(ViewModelMappings);
-         return builder;
-    }
-}
-```
-
-### Lifetime Attributes
-
-Override convention-based service lifetimes (singleton for services, transient for pages and ViewModels) using attributes:
+Override default lifetimes using attributes:
 
 ```csharp
 [Transient]
-public class CustomScopedService : ICustomScopedService
-{
-    // Will be registered as transient instead of singleton
-}
+public class CustomScopedService : ICustomScopedService { }
 ```
 
 ## Shell vs Non-Shell Navigation
 
-SmartNavigation works with both Shell and traditional navigation:
+SmartNavigation works seamlessly with both:
 
-- **Shell Navigation**: Use `INavigationManager.GoToAsync()` with type-safe `Route` objects
-- **Traditional Navigation**: Use `INavigationManager.PushAsync()` and `PopAsync()`
-- **Automatic Detection**: `GoBackAsync()` automatically determines the navigation context
+* **Shell** – `GoToAsync(Route)` with type-safe routes
+* **Navigation stack** – `PushAsync<TPage>()`
+* **Modal** – `PushModalAsync<TPage>()`
+* **Automatic back logic** – `GoBackAsync()` picks the correct behaviour
 
-The `INavigationManager` intelligently handles both scenarios, so you can use the same API regardless of your navigation architecture.
+No special configuration is required.
 
-## Migrating from PageResolver 2.x
+## Migration from PageResolver 2.x
 
-### Breaking Changes
+### Breaking changes
 
-1. **Package Rename**: Update your NuGet package reference
-   ```xml
-   <!-- Old -->
-   <PackageReference Include="Plugin.Maui.PageResolver" Version="2.x" />
-   
-   <!-- New -->
-   <PackageReference Include="Plugin.Maui.SmartNavigation" Version="3.0" />
-   ```
+1. **Package rename**
 
-2. **Namespace Changes**: Update all namespace imports
-   ```csharp
-   // Old
-   using Plugin.Maui.PageResolver;
-   
-   // New
-   using Plugin.Maui.SmartNavigation;
-   ```
+```xml
+<!-- Old -->
+<PackageReference Include="Goldie.MauiPlugins.PageResolver" Version="2.x" />
 
-3. **Source Generator Now Opt-In**: If you were using the source generator, add the attribute:
-   ```csharp
-   [assembly: GenerateAutoDependencies]
-   ```
+<!-- New -->
+<PackageReference Include="Plugin.Maui.SmartNavigation" Version="3.0" />
+```
 
-### Migration Checklist
+2. **Namespaces changed**
 
-- [ ] Update NuGet package from `Plugin.Maui.PageResolver` to `Plugin.Maui.SmartNavigation`
-- [ ] Update all `using Plugin.Maui.PageResolver` statements to `using Plugin.Maui.SmartNavigation`
-- [ ] If using source generator, add `[assembly: GenerateAutoDependencies]` attribute
-- [ ] (Optional) Migrate to `INavigationManager` for better DI support
-- [ ] (Optional) Implement `IViewModelLifecycle` for async ViewModel initialization
-- [ ] (Optional) Add `NavigatedInitBehavior` to pages that need initialization
-- [ ] Update any custom analyzers or code that referenced the old package name
-- [ ] Test all navigation flows to ensure they work correctly
+```csharp
+// Old
+using Maui.Plugins.PageResolver;
 
-### New Features to Consider
+// New
+using Plugin.Maui.SmartNavigation;
+```
 
-- **INavigationManager**: Consider injecting this service instead of using extension methods
-- **NavigatedInitBehavior**: Enables async initialization in ViewModels
-- **Type-Safe Routing**: Use `Route` records for Shell navigation
-- **Improved GoBackAsync**: Automatically handles modal, Shell, and traditional navigation
+3. **Source generator is now opt-in**
 
-## Getting Started
+```csharp
+[UseAutoDependencies]
+```
 
-Check out the [wiki](https://github.com/matt-goldman/Plugin.Maui.SmartNavigation/wiki) for detailed guides and documentation.
+4. **Remove old bootstrapping**
+   `UsePageResolver()` is no longer required or present.
 
-For full examples, see the [Demo Project](src/DemoProject) which showcases:
-- Basic navigation with DI
-- Parameterized navigation
-- Modal navigation  
-- Shell routing
-- ViewModel lifecycle behaviors
-- Popup support (with Mopups)
-- Service scope management
+### Migration checklist
+
+* [ ] Update NuGet package
+* [ ] Update namespaces
+* [ ] Add `[UseAutoDependencies]` if using the generator
+* [ ] Update any custom mappings or extensions
+* [ ] Remove any calls to `UsePageResolver()`
+* [ ] Test navigation flows (API surface unchanged where not noted)
+
+## Demo Project & Examples
+
+The demo project shows:
+
+* Basic navigation
+* Parameter passing
+* Modal navigation
+* Shell routing
+* ViewModel lifecycle
+* Popup support (Mopups)
+* Service scopes
+* Navigation patterns for modular apps
+
+See: `src/DemoProject`
+
+## Video Walkthrough
+
+**Note:** This is for the legacy version. New video coming soon.
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=qx8A4zIe9dU" target="_blank">
+  <img src="http://img.youtube.com/vi/qx8A4zIe9dU/hqdefault.jpg" alt="Watch the video" />
+</a>
+
+## Documentation
+
+See the wiki (coming soon) for guides, examples, and best practices.
